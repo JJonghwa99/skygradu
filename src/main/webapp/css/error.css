@@ -1,0 +1,55 @@
+@font-face {
+    font-family: 'Pretendard';
+    src: url('/static/Pretendard-Regular.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+
+          body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #000;
+            color: #fff;
+            font-family: 'Pretendard', sans-serif;
+            text-align: center;
+        }
+         .container {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                }
+                .oops {
+                    font-size: 10vw;
+                    font-weight: bold;
+                    margin: 0;
+                }
+                .message {
+                    font-size: 1.5vw;
+                }
+                .button {
+                    margin-top: 20px;
+                    padding: 10px 20px;
+                    background-color: red;
+                    color: white;
+                    text-decoration: none;
+                    font-size: 1.5vw;
+                    border-radius: 5px;
+                }
+                @media (max-width: 767px) {
+                    .oops {
+                        font-size: 20vw;
+                    }
+                    .message {
+                        font-size: 3vw;
+                    }
+                    .button {
+                        font-size: 3vw;
+                    }
+
+                }
