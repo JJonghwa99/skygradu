@@ -1,34 +1,35 @@
 package com.SkyGradU.SkyGradU.controller;
 
 
+import com.SkyGradU.SkyGradU.service.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import java.util.Map;
+
 @Controller
 public class RegisterController {
 
-
+    @Autowired
+    private AuthService authService;
 
     @GetMapping("/auth")
-    public String authForm(Model model) {
-        model.addAttribute("content", "auth-form"); // Thymeleaf에서 사용할 변수 설정
+    public String authPage() {
         return "auth";
     }
 
-    @GetMapping("/register")
-    public String register(@RequestParam("token") String token) {
-        // Validate token and return the registration page
-        if (validateToken(token)) {
-            return "register";
-        } else {
-            return "redirect:/auth?error=invalid_token";
-        }
+    @PostMapping("/api/auth")
+    @ResponseBody
+    public Map<String, Object> authenticate(@RequestParam String userId, @RequestParam String password) {
+        System.out.println("입력된 아이디 :"+userId+" 비번 : "+password);
+        return authService.authenticate(userId, password);
     }
 
-    private boolean validateToken(String token) {
-        // Add your token validation logic here
-        return token.endsWith("_token");
+    @PostMapping("/register")
+    public String registerUser(@RequestParam Map<String, String> userDetails, Model model) {
+        model.addAttribute("userDetails", userDetails);
+        return "register";
     }
+
 }

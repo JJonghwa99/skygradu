@@ -14,119 +14,8 @@
     <link rel="icon" href="/webapp/images/icon.ico">
     <meta name="theme-color" content="#712cf9">
 
-    <style>
-        /* 동일한 CSS 스타일 추가 */
-        html, body {
-            height: 100%;
-            font-family: 'Nunito Sans', sans-serif;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-            text-rendering: optimizeLegibility;
-            background-color: #ffffff;
-            color: #000000;
-            padding: 0;
-            margin: 0;
-            display: flex;
-            flex-direction: column;
-        }
+    <link href="/webapp/css/basic.css" rel="stylesheet">
 
-        .cover-container {
-            max-width: 42em;
-        }
-
-        .nav-masthead .nav-link {
-            padding: 0.25rem 0.75rem;
-            font-weight: 700;
-            color: #000000;
-            background-color: transparent;
-            border-bottom: 0.25rem solid transparent;
-            display: flex;
-            align-items: center;
-        }
-
-        .nav-masthead .active {
-            color: #0064E4;
-            border-bottom-color: #0064E4;
-        }
-
-        .mastfoot {
-            color: #FFFFFF;
-            text-align: left;
-            padding: 5px 10px;
-            background-color: #000000;
-            width: 100%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center.
-        }
-
-        .mastfoot p,
-        .mastfoot a {
-            font-size: 14px;
-            margin: 0;
-        }
-
-        .mastfoot a {
-            color: #ffffff;
-            text-decoration: none;
-            margin-left: 20px;
-        }
-
-        @media (max-width: 768px) {
-            .mastfoot p,
-            .mastfoot a {
-                font-size: 12px;
-            }
-        }
-
-        .lead {
-            color: #000000;
-            text-align: center.
-        }
-
-        .btn-primary:hover,
-        .btn-primary:focus,
-        .btn-primary:active {
-            background-color: #0056b3;
-            border-color: #0056b3.
-        }
-
-        .link-body-emphasis {
-            pointer-events: none;
-            cursor: default.
-        }
-
-        .flex-fill {
-            flex: 1 0 auto.
-        }
-
-        .modal-content {
-            background-color: transparent.
-            border: none.
-            box-shadow: none.
-        }
-
-        .modal-dialog {
-            margin-top: 20%.
-        }
-
-        .modal-sheet {
-            background-color: rgba(0, 0, 0, 0.5).
-        }
-
-        .modal-content.rounded-4 {
-            border-radius: 0.5rem.
-        }
-
-        .modal-body.py-0 {
-            padding-top: 0.
-            padding-bottom: 0.
-        }
-
-        .modal-header.border-bottom-0 {
-            border-bottom: none.
-        }
-    </style>
     <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
 </head>
 <body class="d-flex flex-column h-100 text-center">
@@ -149,7 +38,6 @@
 <div class="flex-fill">
     <main class="flex-fill">
         <div class="navbar-img">
-            <img class="navbar-img-image" src="/webapp/images/home.jpg"/>
             <div class="navbar-img__text">
                 <span class="navbar-img__text--title">회원가입</span>
                 <span class="navbar-img__text--subtitle">스카이 그래듀의 고유 비밀번호를 설정해주세요.</span>
@@ -158,7 +46,6 @@
         <div class="white_sec">
             <div class="container white-box">
                 <form id="register-form" method="post" th:action="@{/register}" onsubmit="return check_up();">
-                    <input type="hidden" name="_csrf" th:value="${_csrf.token}"> <!-- CSRF 토큰 추가 -->
                     <div class="box-margin3">
                         <label>이름</label>
                         <input class="form-control form-readonly" type="text" name="name" th:value="${name}" readonly>
