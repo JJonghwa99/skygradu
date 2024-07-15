@@ -1,8 +1,14 @@
 @font-face {
-    font-family: 'Pretendard';
-    src: url('/static/Pretendard-Regular.otf') format('opentype');
-    font-weight: normal;
-    font-style: normal;
+  font-family: 'Pretendard';
+  src: url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.woff2') format('woff2'),
+       url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.woff') format('woff');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
 }
 
 html, body {
@@ -223,3 +229,18 @@ nav.container {
 .header-text span:nth-child(7) {animation-delay: 0.28s;}
 .header-text span:nth-child(8) {animation-delay: 0.31s;}
 .header-text span:nth-child(9) {animation-delay: 0.34s;}
+
+/*비밀번호 표시 이모지 드래그 방지*/
+ .show-password {
+            user-select: none; /* 텍스트 선택 방지 */
+            -webkit-user-drag: none; /* 아이콘 드래그 방지 (웹킷 기반 브라우저) */
+            -webkit-user-select: none; /* 텍스트 선택 방지 (웹킷 기반 브라우저) */
+            -moz-user-select: none; /* 텍스트 선택 방지 (파이어폭스) */
+            -ms-user-select: none; /* 텍스트 선택 방지 (IE) */
+ }
+ /*로그인 박스에서 텍스트 위치조정*/
+ .cutstom_login_title{
+     font-size : 1.8rem;
+     font-weight: bold;
+     text-align: center;
+ }
