@@ -22,7 +22,6 @@ public class RegisterController {
     @PostMapping("/api/auth")
     @ResponseBody
     public Map<String, Object> authenticate(@RequestParam String userId, @RequestParam String password) {
-        System.out.println("입력된 아이디 :"+userId+" 비번 : "+password);
         return authService.authenticate(userId, password);
     }
 

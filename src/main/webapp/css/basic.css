@@ -238,6 +238,20 @@ nav.container {
             -moz-user-select: none; /* 텍스트 선택 방지 (파이어폭스) */
             -ms-user-select: none; /* 텍스트 선택 방지 (IE) */
  }
+  .show-password1 {
+             user-select: none; /* 텍스트 선택 방지 */
+             -webkit-user-drag: none; /* 아이콘 드래그 방지 (웹킷 기반 브라우저) */
+             -webkit-user-select: none; /* 텍스트 선택 방지 (웹킷 기반 브라우저) */
+             -moz-user-select: none; /* 텍스트 선택 방지 (파이어폭스) */
+             -ms-user-select: none; /* 텍스트 선택 방지 (IE) */
+  }
+   .show-password2 {
+              user-select: none; /* 텍스트 선택 방지 */
+              -webkit-user-drag: none; /* 아이콘 드래그 방지 (웹킷 기반 브라우저) */
+              -webkit-user-select: none; /* 텍스트 선택 방지 (웹킷 기반 브라우저) */
+              -moz-user-select: none; /* 텍스트 선택 방지 (파이어폭스) */
+              -ms-user-select: none; /* 텍스트 선택 방지 (IE) */
+   }
  /*로그인 박스에서 텍스트 위치조정*/
  .cutstom_login_title{
      font-size : 1.8rem;

@@ -14,7 +14,53 @@
     <link rel="icon" href="/webapp/images/icon.ico">
     <meta name="theme-color" content="#712cf9">
 
+    <style>
+        .info_content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .background {
+            background: url('/webapp/images/background.png') no-repeat center top;
+            background-size: cover;
+        }
+        .show-password1{
+            cursor: pointer;
+        }
+         .show-password2 {
+            cursor: pointer;
+        }
+        .login-form .action2 button{
+            width: 100%;
+            border: none;
+            padding: 18px;
+            font-family: 'Pretendard', sans-serif;
+            cursor: pointer;
+            text-transform: uppercase;
+            background-color: #87CEEB;
+            border-color: #87CEEB;
+            color: #FFFFFF;
+            border-bottom-left-radius: 4px;
+            border-bottom-right-radius: 4px;
+            letter-spacing: 0.2px;
+            outline: 0;
+            -webkit-transition: all .3s;
+            transition: all .3s;
+        }
+        .login-form .action2 button:hover {
+            background-color: #20B2AA;
+            border-color: #20B2AA;
+            color: #000000;
+        }
+        .content .label{
+
+        text-style:bold;
+}
+    </style>
+
     <link href="/webapp/css/basic.css" rel="stylesheet">
+    <link href="/webapp/css/auth.css" rel="stylesheet">
 
     <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
 </head>
@@ -35,52 +81,56 @@
     </header>
 </nav>
 
-<div class="flex-fill">
-    <main class="flex-fill">
-        <div class="navbar-img">
-            <div class="navbar-img__text">
-                <span class="navbar-img__text--title">회원가입</span>
-                <span class="navbar-img__text--subtitle">스카이 그래듀의 고유 비밀번호를 설정해주세요.</span>
+<div class="background">
+    <div class="info_content" style="text-align: center; margin-top: 10px;">
+        <div class="login-form">
+            <div class="login_logo">
+                <lottie-player id="home_logo" src="/webapp/json/homelogo.json" background="transparent" speed="1" style="width: 100px; height: 80px" loop autoplay></lottie-player>
             </div>
-        </div>
-        <div class="white_sec">
-            <div class="container white-box">
-                <form id="register-form" method="post" th:action="@{/register}" onsubmit="return check_up();">
-                    <div class="box-margin3">
+            <div class="cutstom_login_title"><b>회원가입</b></div>
+            <form id="register-form" method="post" th:action="@{/register}" onsubmit="return check_up();">
+                <div class="content">
+                    <div class="box-margin1">
                         <label>이름</label>
-                        <input class="form-control form-readonly" type="text" name="name" th:value="${name}" readonly>
+                        <input class="form-control form-readonly" type="text" name="userName" th:value="${userName}" readonly>
                     </div>
                     <div class="box-margin1">
                         <label>학번</label>
-                        <input class="form-control form-readonly" type="text" name="username" th:value="${id}" readonly>
+                        <input class="form-control form-readonly" type="text" name="studentID" th:value="${studentID}" readonly>
                     </div>
                     <div class="box-margin1">
                         <label>학과</label>
-                        <input class="form-control form-readonly" type="text" name="department" th:value="${department}" readonly>
+                        <input class="form-control form-readonly" type="text" name="major" th:value="${major}" readonly>
                     </div>
                     <div class="box-margin1">
                         <label>이메일</label>
-                        <input class="form-control form-readonly" type="text" name="email" th:value="${email}" readonly>
+                        <input class="form-control" type="text" name="userEmail" th:value="${userEmail}">
                     </div>
                     <div class="box-margin1">
                         <label>비밀번호</label>
-                        <input class="form-control" id="pw1" type="password" name="password1" th:value="${password1}">
+                        <div class="input-group flex-nowrap">
+                            <input class="form-control" id="pw1" type="password" name="password1" th:value="${password1}">
+                            <span class="input-group-text show-password1" onclick="togglePassword1()">🙈</span>
+                        </div>
                         <div class='regi_guide' style="color: rgb(1, 42, 127);">
-                            - 스카이 그래듀의 고유 비밀번호를 설정해주세요.
+                            The SkyGradU의 <b>고유 비밀번호</b>를 설정 해주세요.
                         </div>
                     </div>
-                    <div class="box-margin1">
+                    <div class="box-margin1" >
                         <label>비밀번호 재확인</label>
-                        <input class="form-control" id="pw2" type="password" name="password2" th:value="${password2}">
-                    </div>
-                    <div style="text-align: center;">
-                        <input type='submit' class='btn btn-primary button-sm' style="margin-top:2.5rem; margin-bottom: 3rem;" value='가입하기'>
+                        <div class="input-group flex-nowrap">
+                            <input class="form-control" id="pw2" type="password" name="password2" th:value="${password2}">
+                            <span class="input-group-text show-password2" onclick="togglePassword2()">🙈</span>
+                        </div>
                     </div>
                     <div id="error-message" style="color:red;"></div>
-                </form>
-            </div>
+                </div>
+                <div class="action2">
+                    <button class="button-text" id="register_button" type="submit">가입하기</button>
+                </div>
+            </form>
         </div>
-    </main>
+    </div>
 </div>
 
 <footer class="text-white-100 mastfoot mt-auto">
@@ -112,8 +162,12 @@
                 url: '/register',
                 type: 'POST',
                 data: {
-                    username: $('input[name="username"]').val(),
-                    password: $('#pw1').val()
+                    userName: $('input[name="userName"]').val(),
+                    studentID: $('input[name="studentID"]').val(),
+                    major: $('input[name="major"]').val(),
+                    userEmail: $('input[name="userEmail"]').val(),
+                    password1: $('#pw1').val(),
+                    password2: $('#pw2').val()
                 },
                 success: function() {
                     window.location.href = '/login';
@@ -124,6 +178,32 @@
             });
         });
     });
+
+    function togglePassword1() {
+        const passwordField = document.getElementById("pw1");
+        const passwordFieldType = passwordField.getAttribute("type");
+        const toggleIcon = document.querySelector(".show-password1");
+        if (passwordFieldType === "password") {
+            passwordField.setAttribute("type", "text");
+            toggleIcon.textContent = "🐵";
+        } else {
+            passwordField.setAttribute("type", "password");
+            toggleIcon.textContent = "🙈";
+        }
+    }
+
+    function togglePassword2() {
+        const passwordField = document.getElementById("pw2");
+        const passwordFieldType = passwordField.getAttribute("type");
+        const toggleIcon = document.querySelector(".show-password2");
+        if (passwordFieldType === "password") {
+            passwordField.setAttribute("type", "text");
+            toggleIcon.textContent = "🐵";
+        } else {
+            passwordField.setAttribute("type", "password");
+            toggleIcon.textContent = "🙈";
+        }
+    }
 </script>
 </body>
 </html>
