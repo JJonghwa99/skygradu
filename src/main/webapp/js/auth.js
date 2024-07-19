@@ -10,7 +10,7 @@ function submitAuthForm() {
         }
 
         if (errorMessage) {
-            $('#error-message').text(errorMessage);
+            $('#error-message1').text(errorMessage);
             return false;
         }
 

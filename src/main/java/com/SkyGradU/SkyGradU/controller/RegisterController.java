@@ -29,6 +29,7 @@ public class RegisterController {
     @PostMapping("/register")
     public String registerUser(@RequestParam Map<String, String> userDetails, Model model) {
         model.addAttribute("userDetails", userDetails);
+        System.out.println(userDetails);
         return "register";
     }
 
