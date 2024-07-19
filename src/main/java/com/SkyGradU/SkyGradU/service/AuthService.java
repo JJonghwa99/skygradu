@@ -96,16 +96,16 @@ public class AuthService {
                 WebElement majorElement = userNameElement.findElement(By.xpath("following-sibling::div[1]"));
                 String major = majorElement.getText();
 
-                System.out.println("Email: " + userEmail);
-                System.out.println("Student ID: " + studentID);
                 System.out.println("User Name: " + userName);
+                System.out.println("Student ID: " + studentID);
                 System.out.println("Major: " + major);
+                System.out.println("Email: " + userEmail);
 
                 response.put("is_auth", true);
-                response.put("userEmail", userEmail);
-                response.put("studentID", studentID);
                 response.put("userName", userName);
+                response.put("studentID", studentID);
                 response.put("major", major);
+                response.put("userEmail", userEmail);
             } else {
                 response.put("is_auth", false);
             }
