@@ -28,7 +28,7 @@
         .show-password1{
             cursor: pointer;
         }
-         .show-password2 {
+        .show-password2 {
             cursor: pointer;
         }
         .login-form .action2 button{
@@ -87,7 +87,7 @@
                 <lottie-player id="home_logo" src="/webapp/json/homelogo.json" background="transparent" speed="1" style="width: 100px; height: 80px" loop autoplay></lottie-player>
             </div>
             <div class="cutstom_login_title"><b>회원가입</b></div>
-            <form id="register-form" method="post" th:action="@{/register}">
+            <form id="register-form" method="post">
                 <div class="content">
                     <div class="box-margin1">
                         <label>이름</label>
@@ -108,7 +108,7 @@
                     <div class="box-margin1">
                         <label>비밀번호</label>
                         <div class="input-group flex-nowrap">
-                            <input class="form-control" id="pw1" type="password" name="password1" th:value="${password1}">
+                            <input class="form-control" id="pw1" type="password" name="password1" th:value="${password1}" placeholder="8자 이상으로 입력해주세요.">
                             <span class="input-group-text show-password1" onclick="togglePassword1()">🙈</span>
                         </div>
                         <div class='regi_guide' style="color: rgb(1, 42, 127);">
@@ -164,7 +164,7 @@
             event.preventDefault(); // 폼 기본 제출을 막음
             if (check_up()) { // 비밀번호 검증 통과 시에만 AJAX 요청 실행
                 $.ajax({
-                    url: '/register',
+                    url: '/member',
                     type: 'POST',
                     data: {
                         userName: $('input[name="userName"]').val(),
@@ -172,13 +172,20 @@
                         major: $('input[name="major"]').val(),
                         userEmail: $('input[name="userEmail"]').val(),
                         password1: $('#pw1').val(),
-                        password2: $('#pw2').val()
                     },
-                    success: function() {
-                        window.location.href = '/login';
+                    success: function(response) {
+                        if(response === "success"){
+                            window.location.href = '/login';
+                        } else if (response === "error1") {
+                            $('#error-message').text('😰이미 가입된 학번입니다!❌');
+                        } else if (response === "error2") {
+                            $('#error-message').text('😰비밀번호가 너무 짧아요.');
+                        } else {
+                            $('#error-message').text('😰회원가입에 실패했어요.');
+                        }
                     },
                     error: function() {
-                        $('#error-message').text('회원가입 중 오류가 발생했습니다.');
+                        $('#error-message').text('😰회원가입에 실패했어요. \n 잠시후에 다시 시도해주세요.');
                     }
                 });
             }
