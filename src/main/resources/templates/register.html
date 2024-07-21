@@ -54,9 +54,8 @@
             color: #000000;
         }
         .content .label{
-
         text-style:bold;
-}
+        }
     </style>
 
     <link href="/webapp/css/basic.css" rel="stylesheet">
@@ -88,23 +87,23 @@
                 <lottie-player id="home_logo" src="/webapp/json/homelogo.json" background="transparent" speed="1" style="width: 100px; height: 80px" loop autoplay></lottie-player>
             </div>
             <div class="cutstom_login_title"><b>회원가입</b></div>
-            <form id="register-form" method="post" th:action="@{/register}" onsubmit="return check_up();">
+            <form id="register-form" method="post" th:action="@{/register}">
                 <div class="content">
                     <div class="box-margin1">
                         <label>이름</label>
-                        <input class="form-control form-readonly" type="text" name="userName" th:value="${userName}" readonly>
+                        <input class="form-control form-readonly" type="text" name="userName" th:value="${userDetails.userName}" readonly>
                     </div>
                     <div class="box-margin1">
                         <label>학번</label>
-                        <input class="form-control form-readonly" type="text" name="studentID" th:value="${studentID}" readonly>
+                        <input class="form-control form-readonly" type="text" name="studentID" th:value="${userDetails.studentID}" readonly>
                     </div>
                     <div class="box-margin1">
                         <label>학과</label>
-                        <input class="form-control form-readonly" type="text" name="major" th:value="${major}" readonly>
+                        <input class="form-control form-readonly" type="text" name="major" th:value="${userDetails.major}" readonly>
                     </div>
                     <div class="box-margin1">
                         <label>이메일</label>
-                        <input class="form-control" type="text" name="userEmail" th:value="${userEmail}">
+                        <input class="form-control form-readonly" type="email" name="userEmail" th:value="${userDetails.userEmail}" readonly>
                     </div>
                     <div class="box-margin1">
                         <label>비밀번호</label>
@@ -142,14 +141,19 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     function check_up() {
-        if (!document.getElementById('pw1').value) {
+        const pw1 = document.getElementById('pw1');
+        const pw2 = document.getElementById('pw2');
+        const pw1Value = pw1.value;
+        const pw2Value = pw2.value;
+
+        if (!pw1Value) {
             alert('😢 비밀번호를 입력해주세요.');
-            document.getElementById('pw1').focus();
+            pw1.focus();
             return false;
         }
-        if (document.getElementById('pw1').value !== document.getElementById('pw2').value) {
+        if (pw1Value !== pw2Value) {
             alert('😢 비밀번호가 일치하지 않습니다.');
-            document.getElementById('pw1').focus();
+            pw1.focus();
             return false;
         }
         return true;
@@ -157,25 +161,27 @@
 
     $(document).ready(function() {
         $('#register-form').submit(function(event) {
-            event.preventDefault();
-            $.ajax({
-                url: '/register',
-                type: 'POST',
-                data: {
-                    userName: $('input[name="userName"]').val(),
-                    studentID: $('input[name="studentID"]').val(),
-                    major: $('input[name="major"]').val(),
-                    userEmail: $('input[name="userEmail"]').val(),
-                    password1: $('#pw1').val(),
-                    password2: $('#pw2').val()
-                },
-                success: function() {
-                    window.location.href = '/login';
-                },
-                error: function() {
-                    $('#error-message').text('회원가입 중 오류가 발생했습니다.');
-                }
-            });
+            event.preventDefault(); // 폼 기본 제출을 막음
+            if (check_up()) { // 비밀번호 검증 통과 시에만 AJAX 요청 실행
+                $.ajax({
+                    url: '/register',
+                    type: 'POST',
+                    data: {
+                        userName: $('input[name="userName"]').val(),
+                        studentID: $('input[name="studentID"]').val(),
+                        major: $('input[name="major"]').val(),
+                        userEmail: $('input[name="userEmail"]').val(),
+                        password1: $('#pw1').val(),
+                        password2: $('#pw2').val()
+                    },
+                    success: function() {
+                        window.location.href = '/login';
+                    },
+                    error: function() {
+                        $('#error-message').text('회원가입 중 오류가 발생했습니다.');
+                    }
+                });
+            }
         });
     });
 
