@@ -1,4 +1,4 @@
-package com.SkyGradU.SkyGradU.controller;
+package com.SkyGradU.SkyGradU.User;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
