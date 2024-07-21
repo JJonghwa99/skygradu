@@ -56,7 +56,12 @@
             <source srcset="/webapp/images/mobilehome.png" media="(max-width: 768px)">
             <img src="/webapp/images/home.png" alt="Home Image">
         </picture>
-        <button class="btn btn-primary" onclick="window.location.href='/login'">시작하기</button>
+        <!-- 로그인 상태일 때 -->
+        <button class="button--moema" sec:authorize="isAuthenticated()" onclick="window.location.href='/mypage'">시작하기</button>
+
+        <!-- 비로그인 상태일 때 -->
+        <button class="button--moema" sec:authorize="isAnonymous()" onclick="window.location.href='/login'">시작하기</button>
+
     </div>
 
     <footer class="text-white-100 mastfoot mt-auto">
