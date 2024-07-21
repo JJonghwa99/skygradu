@@ -211,7 +211,7 @@ nav.container {
 .header-text span {
     font-weight:1000;
     animation: wave 1.5s ease-in-out;
-    animation-iteration-count: 5;
+    animation-iteration-count: 15;
 }
 
 @keyframes wave {
