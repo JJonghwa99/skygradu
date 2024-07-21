@@ -58,7 +58,7 @@ public class AuthService {
                     loginCookies.put(cookie.getName(), cookie.getValue());
                 }
 
-                // 로그인 후 정보변경 모달에서 이메일 부분의 값을 userEmail에 저장 후 다시 이전 페이지로 돌아감
+                // 로그인 후 정보변경 페이지에서 이메일 부분의 값을 userEmail에 저장 후 다시 이전 페이지로 돌아감
                 driver.get("https://www.sungkyul.ac.kr/portalLogin/skukr/portalModifyForm.do");
 
                 // 이메일 값 추출
@@ -95,11 +95,6 @@ public class AuthService {
                 // userName 아래의 요소 (major) 찾기
                 WebElement majorElement = userNameElement.findElement(By.xpath("following-sibling::div[1]"));
                 String major = majorElement.getText();
-
-                System.out.println("User Name: " + userName);
-                System.out.println("Student ID: " + studentID);
-                System.out.println("Major: " + major);
-                System.out.println("Email: " + userEmail);
 
                 response.put("is_auth", true);
                 response.put("userName", userName);
