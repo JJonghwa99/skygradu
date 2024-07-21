@@ -50,7 +50,7 @@ function submitAuthForm() {
         var chk = document.getElementById('agree');
         var tag;
         if (chk.checked) {
-            tag = "<input type='submit' class='btn btn-primary button-sm' value='인증하기' style='margin-top: 1rem;'>";
+            tag = "<input type='submit' class='button--moema2' value='인증하기' style='margin-top: 1rem;'>";
         } else {
             tag = "<div class='login_btn_default'>이용약관에 동의해주세요.</div>";
         }

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:sec="http://www.w3.org/1999/xhtml">
+<html lang="ko" xmlns:sec="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
 
     <meta charset="UTF-8">
@@ -86,14 +86,17 @@
             <lottie-player id="home_logo" src="/webapp/json/homelogo.json" background="transparent" speed="1" style="width: 100px; height: 80px" loop autoplay></lottie-player>
         </div>
         <div class="cutstom_login_title">The SkyGradU</div>
-        <form onsubmit="return check_up1();" method="post" action="">
+        <form onsubmit="return check_up1();" method="post" action="/login">
             <div class="content">
                 <div class="input-group flex-nowrap">
-                    <input type="text" class="form-control" name="username" id="id" placeholder="학번">
+                    <input type="text" class="form-control" name="username" id="studentID" placeholder="학번">
                 </div>
                 <div class="input-group flex-nowrap" style="margin-top: 1rem;">
-                    <input type="password" class="form-control" name="password" id="pw" placeholder="비밀번호" onkeyup="checkCapsLock(event)">
+                    <input type="password" class="form-control" name="password" id="password1" placeholder="비밀번호" onkeyup="checkCapsLock(event)">
                     <span class="input-group-text show-password" onclick="togglePassword()">🙈</span>
+                </div>
+                <div th:if="${param.error}"style="color: red; margin-top: 1rem;">
+                    <h id="capslock-message">😰입력정보를 다시 확인해주세요!</h>
                 </div>
                 <div id="capslock-message" style="color: red; margin-top: 1rem;"></div>
                 <a id="b2" class="link">비밀번호를 잊어버리셨나요?</a>

@@ -7,7 +7,7 @@
     }
 
     function togglePassword() {
-            const passwordField = document.getElementById("pw");
+            const passwordField = document.getElementById("password1");
             const passwordFieldType = passwordField.getAttribute("type");
             const toggleIcon = document.querySelector(".show-password");
             if (passwordFieldType === "password") {

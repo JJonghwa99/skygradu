@@ -4,7 +4,7 @@ import com.SkyGradU.SkyGradU.User.member.Member;
 import com.SkyGradU.SkyGradU.User.member.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +17,10 @@ public class RegisterController {
 
     @Autowired
     private AuthService authService;
-    
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
 
     @GetMapping("/auth")
     public String authPage() {
@@ -59,8 +62,7 @@ public class RegisterController {
             member.setUserName(userName);
             member.setMajor(major);
             member.setUserEmail(userEmail);
-            var encoder = new BCryptPasswordEncoder();
-            String encodedPassword = encoder.encode(password1);
+            String encodedPassword = passwordEncoder.encode(password1);
             member.setPassword1(encodedPassword);
             memberRepository.save(member);
 
