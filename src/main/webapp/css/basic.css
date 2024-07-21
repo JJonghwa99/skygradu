@@ -81,17 +81,37 @@ html, body {
     }
 }
 
-/* Navigation Bar Styles */
-.nav-masthead .nav-link {
-    padding: 0.25rem 0.75rem;
-    font-weight: 700;
-    color: #000000;
-    background-color: transparent;
-    border-bottom: 0.25rem solid transparent;
-    display: flex;
-    align-items: center;
-    font-weight: bold;
-}
+.nav-link {
+            color: #000000;
+            position: relative;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 50%;
+            background-color: #0064E4;
+            transition: width 0.3s, left 0.3s;
+        }
+
+        .nav-link:hover {
+            color: #0064E4;
+        }
+
+        .nav-link:hover::before {
+            width: 100%;
+            left: 0;
+        }
+
+        .nav-link:not(:hover)::before {
+            width: 0;
+            left: 50%;
+        }
 
 .nav-masthead .active {
     color: #0064E4;
