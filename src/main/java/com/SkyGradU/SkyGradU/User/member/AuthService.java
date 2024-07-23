@@ -1,4 +1,4 @@
-package com.SkyGradU.SkyGradU.User;
+package com.SkyGradU.SkyGradU.User.member;
 
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;

@@ -1,7 +1,5 @@
-package com.SkyGradU.SkyGradU.User;
+package com.SkyGradU.SkyGradU.User.member;
 
-import com.SkyGradU.SkyGradU.User.member.Member;
-import com.SkyGradU.SkyGradU.User.member.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -38,6 +36,10 @@ public class RegisterController {
     public String registerUser(@RequestParam Map<String, String> userDetails, Model model) {
         model.addAttribute("userDetails", userDetails);
         return "register";
+    }
+    @GetMapping("/success")
+    public String successPage() {
+        return "success";
     }
 
     private final MemberRepository memberRepository;

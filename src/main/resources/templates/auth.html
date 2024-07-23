@@ -38,7 +38,6 @@
             <li class="nav-item">
                 <a href="" class="nav-link" onclick="showContent('explain', this)">이용안내</a>
             </li>
-            <!-- sec:authorize를 사용하여 로그인 여부에 따라 항목 표시 -->
             <li class="nav-item" sec:authorize="isAuthenticated() and !hasAuthority('ROLE_ADMIN')">
                 <a href="/mypage" class="nav-link" onclick="showContent('mypage', this)">마이페이지</a>
             </li>

@@ -93,7 +93,7 @@ html, body {
 .nav-link::before {
     content: '';
     position: absolute;
-    width: 0;
+    width: 0;a
     height: 2px;
     bottom: -5px;
     left: 50%;
@@ -306,24 +306,19 @@ nav.container {
 .button--moema {
     position: relative;
     display: inline-block;
-    padding: 0.75em 1.5em; /* 버튼의 크기를 살짝 키웁니다. */
-    border-radius: 5px; /* 버튼을 네모나게 만듭니다. */
+    padding: 0.75em 1.5em;
+    border-radius: 5px;
     background: #4A90E2;
     border: 2px solid #4A90E2;
     color: #000000;
+    font-weight: bold;
     text-align: center;
     text-decoration: none;
-    font-size: 1rem; /* 텍스트 크기를 조정하여 버튼을 더 크게 보이게 합니다. */
+    font-size: 1rem;
     line-height: 1.5;
     overflow: hidden;
     transition: background-color 0.3s, color 0.3s, border-color 0.3s;
-}
-
-.button--moema span {
-    position: relative;
-    display: block;
-    width: 100%;
-    height: 100%;
+    cursor: pointer;
 }
 
 .button--moema::before,
@@ -333,7 +328,7 @@ nav.container {
     height: 0%;
     width: 2px;
     background: #4A90E2;
-    transition: all 500ms ease;
+    transition: height 500ms ease;
 }
 
 .button--moema::before {
@@ -372,7 +367,7 @@ nav.container {
     top: 0;
     width: 0%;
     height: 2px;
-    transition: all 500ms ease;
+    transition: width 500ms ease;
 }
 
 .button--moema span::after {
@@ -380,16 +375,17 @@ nav.container {
     bottom: 0;
     width: 0%;
     height: 2px;
-    transition: all 500ms ease;
+    transition: width 500ms ease;
 }
 
-.button--moema span:hover::before {
+.button--moema:hover span::before {
     width: 100%;
 }
 
-.button--moema span:hover::after {
+.button--moema:hover span::after {
     width: 100%;
 }
+
 /*학생인증 버튼 스타일*/
 /* 기본 버튼 스타일 */
 .button--moema2 {
@@ -402,6 +398,7 @@ nav.container {
     color: #000000; /* 기본 텍스트 색상 */
     text-align: center;
     text-decoration: none;
+    font-weight: bold;
     font-size: 0.875rem; /* 버튼 텍스트 크기 줄이기 */
     line-height: 1.5;
     overflow: hidden;
@@ -479,4 +476,55 @@ nav.container {
 .button--moema2 span:hover::after {
     width: 100%;
 }
+     /*success화면*/
+        .suc_container {
+            padding-bottom: 10rem;
+            width: 100%;
+            height: 100%;
+            font-weight: bold;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: rgb(248, 249, 250);
+        }
+
+        .suc_container i {
+            color: rgb(124, 199, 106);
+            font-size: 7rem;
+        }
+
+        .suc_container span {
+            color: #0064E4;
+        }
+
+        .suc_content1 {
+            letter-spacing: 1px;
+            font-size: 2.5rem;
+        }
+
+        .suc_content2 {
+            font-weight: lighter;
+            margin-top: 0.8rem;
+            font-size: 1.5rem;
+            color: #20B2AA;
+        }
+
+        .suc_btn {
+          background-color: #0064E4;
+          color: #fff;
+          border: none;
+          padding: 10px 20px;
+          border-radius: 5px;
+          font-size: 16px;
+          font-weight: bold;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          box-shadow: 0px 5px 0px 0px #0047A0;
+        }
+
+        .suc_btn:hover {
+          margin-top: 15px;
+          margin-bottom: 5px;
+          box-shadow: 0px 0px 0px 0px #0047A0;
+        }
 
