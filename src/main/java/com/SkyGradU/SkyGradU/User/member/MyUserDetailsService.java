@@ -17,6 +17,7 @@ import java.util.List;
 public class MyUserDetailsService implements UserDetailsService {
 
     private final MemberRepository memberRepository;
+    private static final String ADMIN_ID = "admin08";
 
     @Override
     public UserDetails loadUserByUsername(String studentID) throws UsernameNotFoundException{
@@ -27,12 +28,12 @@ public class MyUserDetailsService implements UserDetailsService {
         var user = result.get();
         List<GrantedAuthority> level =new ArrayList<>();
 
-        /*if (user.getStudentID()===20201056){*/
-            level.add(new SimpleGrantedAuthority("ROLE_USER")); //메모에 따라 어디에 들어갈 수 있음
-      /*  }else{
-            level.add(new SimpleGrantedAuthority("ROLE_ADMIN")); //메모에 따라 어디에 들어갈 수 있음
+        if (user.getStudentID().equals(ADMIN_ID)){
+            level.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
+        }else{
+            level.add(new SimpleGrantedAuthority("ROLE_USER"));
 
-        }*/
+        }
         return new User(user.getStudentID(),user.getPassword1(),level);
     }
 }
