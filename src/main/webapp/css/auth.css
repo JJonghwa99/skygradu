@@ -883,6 +883,9 @@ body:not(.device-touch) .suc_btn
     .login_logo {
         margin-top: 20px;
     }
+    .login_logo2 {
+            margin-top: 0px;
+        }
     .footer {
         padding: 1.5rem;
     }

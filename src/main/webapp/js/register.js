@@ -34,7 +34,7 @@
                     },
                     success: function(response) {
                         if(response === "success"){
-                            window.location.href = '/login';
+                            window.location.href = '/success';
                         } else if (response === "error1") {
                             $('#error-message').text('😰이미 가입된 학번입니다!❌');
                         } else if (response === "error2") {

@@ -1,0 +1,249 @@
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+
+body {
+    font-family: 'Pretendard', sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+.gray_sec {
+    background : #010101
+    padding: 10px;
+    text-align: center;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.custom_login_title {
+    font-size: 24px;
+    color: #0064E4;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.go_result_wrap {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.go_result_box {
+    margin: 0 10px;
+}
+
+.go_result_btn {
+    background-color: #0064E4;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.go_result_btn:hover {
+    background-color: #4A90E2;
+}
+
+.white_sec {
+    background-color: white;
+    padding: 20px;
+    margin: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.my_box_wrap {
+    display: flex;
+    justify-content: space-between;
+}
+.warning-message {
+  color: red;
+  font-weight: bold;
+}
+
+.info_section, .grade_section {
+    width: 48%;
+}
+
+.my_box {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.my_box_title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 18px;
+    color: #0064E4;
+}
+
+.my_box_mod_btn {
+    background-color: #0064E4;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.my_box_mod_btn:hover {
+    background-color: #4A90E2;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.my_box_table_1st_td{
+    width:5%;
+    font-weight: bold;
+}
+
+.link_site {
+    color: #0064E4;
+    text-decoration: none;
+}
+
+.link_site:hover {
+    text-decoration: underline;
+}
+
+.grade_table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.grade_table_th {
+    font-size: 1rem;
+    height: 2.5rem;
+    background-color: #f8f8f8;
+    border-right :1px solid #dadada;
+    border-bottom: 1px solid #dadada;
+}
+
+.grade_table_td {
+    font-size: 0.9rem;
+    height: 2rem;
+    border-right :1px solid #dadada;
+    border-bottom: 1px solid #dadada;
+}
+
+
+.grade_table_th {
+    background-color: #0064E4;
+    color: black;
+    text-align: center;
+    font-weight:bold;
+    font-size: 1rem;
+    height: 2.5rem;
+    background-color: #f8f8f8;
+    border-right :1px solid #dadada;
+    border-bottom: 1px solid #dadada;
+}
+
+.grade_table_td {
+    background-color: #f9f9f9;
+}
+
+.scroll {
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+hr {
+    border: 0;
+    border-top: 1px solid #ddd;
+}
+
+.gray_sec .action {
+  margin-top:2rem;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.gray_sec .action button {
+  flex: 0 1 45%;
+  border: none;
+  padding: 14px;
+  font-family: 'Pretendard', sans-serif;
+  cursor: pointer;
+  text-transform: uppercase;
+  background: #4A90E2;
+  border-color: #4A90E2;
+  color: #000000;
+  border-radius: 4px;
+  letter-spacing: 0.2px;
+  outline: 0;
+  -webkit-transition: all .3s;
+  transition: all .3s;
+}
+
+.gray_sec .action button:hover {
+  background-color: #0064E4;
+  border-color: #87CEEB;
+  color: #FFFFFF;
+}
+
+.gray_sec .action button:nth-child(2) {
+  background-color: #87CEEB;
+  color: #FFFFFF;
+  border-color: #87CEEB;
+}
+
+.gray_sec .action button:nth-child(2):hover {
+  background-color: #20B2AA;
+  border-color: #20B2AA;
+  color: #000000;
+}
+
+@media (max-width: 767px) {
+  .gray_sec .action {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .gray_sec .action button {
+    flex: 1 1 auto;
+    padding: 12px;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 479px) {
+  .gray_sec .action button {
+    padding: 10px;
+    font-size: 12px;
+  }
+}
+.my_warning_btn {
+    background-color: #d3d3d3;
+    color: #000000;
+    border: none;
+    padding: 5px 10px;
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.my_warning_btn:hover {
+    background-color: #ff0000;
+    color: #ffffff;
+}
+
+
