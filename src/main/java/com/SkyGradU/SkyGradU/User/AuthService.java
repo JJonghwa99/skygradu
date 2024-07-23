@@ -33,6 +33,7 @@ public class AuthService {
                     .method(Connection.Method.POST)
                     .execute();
 
+
             // 로그인 성공 여부 확인
             if (loginResponse.body().contains("\"result\":\"SUCCESS\"")) {
 
@@ -101,6 +102,7 @@ public class AuthService {
                 response.put("studentID", studentID);
                 response.put("major", major);
                 response.put("userEmail", userEmail);
+                response.put("portalID", userId);
             } else {
                 response.put("is_auth", false);
             }

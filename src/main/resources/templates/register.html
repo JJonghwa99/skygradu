@@ -124,6 +124,9 @@
                         <label>이메일</label>
                         <input class="form-control form-readonly" type="email" name="userEmail" th:value="${userDetails.userEmail}" readonly>
                     </div>
+                    <div>
+                    <input class="form-control form-readonly" type="hidden" name="portalID" th:value="${userDetails.portalID}" readonly>
+                    </div>
                     <div class="box-margin1">
                         <label>비밀번호</label>
                         <div class="input-group flex-nowrap">

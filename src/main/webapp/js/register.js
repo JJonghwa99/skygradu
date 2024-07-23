@@ -30,6 +30,7 @@
                         major: $('input[name="major"]').val(),
                         userEmail: $('input[name="userEmail"]').val(),
                         password1: $('#pw1').val(),
+                        portalID: $('input[name="portalID"]').val()
                     },
                     success: function(response) {
                         if(response === "success"){
@@ -43,7 +44,7 @@
                         }
                     },
                     error: function() {
-                        $('#error-message').text('😰회원가입에 실패했어요. \n 잠시후에 다시 시도해주세요.');
+                        $('#error-message').text('😰회원가입에 실패했어요.');
                     }
                 });
             }

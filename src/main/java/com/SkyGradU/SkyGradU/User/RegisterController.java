@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
+
 @Controller
 @RequiredArgsConstructor
 public class RegisterController {
@@ -47,7 +48,8 @@ public class RegisterController {
                             @RequestParam String studentID,
                             @RequestParam String major,
                             @RequestParam String userEmail,
-                            @RequestParam String password1) {
+                            @RequestParam String password1,
+                            @RequestParam String portalID) {
         try {
             if (password1.length() < 8) {
                 return "error2";
@@ -62,9 +64,12 @@ public class RegisterController {
             member.setUserName(userName);
             member.setMajor(major);
             member.setUserEmail(userEmail);
+            member.setPortalID(portalID);
             String encodedPassword = passwordEncoder.encode(password1);
             member.setPassword1(encodedPassword);
             memberRepository.save(member);
+
+            System.out.println(member);
 
             return "success";
 

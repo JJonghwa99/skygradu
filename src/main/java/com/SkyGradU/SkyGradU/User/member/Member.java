@@ -20,6 +20,7 @@ public class Member {
     private String major;
     private String userEmail;
     private String password1;
+    private String portalID;
 }
 
 
