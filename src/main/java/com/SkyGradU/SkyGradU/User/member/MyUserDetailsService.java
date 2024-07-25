@@ -39,6 +39,7 @@ public class MyUserDetailsService implements UserDetailsService {
         a.major = user.getMajor();
         a.userName = user.getUserName();
         a.studentID = user.getStudentID();
+        a.portalID = user.getPortalID();
         return a;
     }
 }

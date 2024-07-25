@@ -9,6 +9,7 @@
     <link href="/webapp/css/auth.css" rel="stylesheet">
     <link href="/webapp/css/mypage.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
     <link rel="apple-touch-icon" sizes="180x180" href="/webapp/images/icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/webapp/images/icon.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/webapp/images/icon.png">
@@ -17,6 +18,9 @@
     <link rel="icon" href="/webapp/images/icon.ico">
     <meta name="theme-color" content="#712cf9">
     <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+    <style>
+
+    </style>
 </head>
 <body class="d-flex flex-column h-100 text-center" style="overflow:auto">
 <nav class="container-fluid">
@@ -50,6 +54,7 @@
         </ul>
     </header>
 </nav>
+<div class="background">
 <div class="gray_sec">
     <div class="container">
         <div class="login_logo2">
@@ -88,7 +93,7 @@
                 <hr style="margin-bottom:0.8rem; margin-top:1.6rem;">
                 <div class="my_box_title">
                     <div><i class="fas fa-key"></i><b>비밀번호 변경</b></div>
-                    <button id='b2' class="my_box_mod_btn">변경하기</button>
+                    <button id='b2' class="my_box_mod_btn2">변경하기</button>
                 </div>
                 <hr style="margin-bottom:0.8rem; margin-top:0.8rem;">
                 <div class="my_box_title">
@@ -97,26 +102,28 @@
                 </div>
             </div>
         </div>
+
         <div class="grade_section">
             <div class="my_box_grade my_box_width">
                 <div class="table_grade">
                     <div class="my_box_title">
                         <div><i class="fas fa-graduation-cap"></i><b>내 기이수과목</b></div>
                         <div>
-                            <button id='b4' class="my_box_mod_btn">업데이트</button>
+                            <button id='b4' class="my_box_mod_btn2">직접 업로드</button>
+                            <button id='b5' class="my_box_mod_btn">업데이트</button>
                         </div>
                     </div>
                     <hr>
                     <div class="scroll">
                         <table id="long_table" class="grade_table">
                             <tr>
-                                <th class="grade_table_th" style="width:5%">년도</th>
-                                <th class="grade_table_th" style="width:5%">학기</th>
-                                <th class="grade_table_th" style="width:7%">학수번호</th>
-                                <th class="grade_table_th" style="width:15%">과목명</th>
-                                <th class="grade_table_th" style="width:9%">이수구분</th>
-                                <th class="grade_table_th" style="width:9%">선택영역</th>
-                                <th class="grade_table_th" style="width:8%; border-right :0px">학점</th>
+                                <th class="grade_table_th" style="width:10%">년도</th>
+                                <th class="grade_table_th" style="width:10%">학기</th>
+                                <th class="grade_table_th" style="width:10%">학수번호</th>
+                                <th class="grade_table_th" style="width:40%">과목명</th>
+                                <th class="grade_table_th" style="width:10%">이수구분</th>
+                                <th class="grade_table_th" style="width:14%">선택영역</th>
+                                <th class="grade_table_th" style="width:6%; border-right :0px">학점</th>
                             </tr>
                             <tr th:each="course : ${courses}">
                                 <td class="grade_table_td" th:text="${course.year}"></td>
@@ -133,6 +140,7 @@
             </div>
         </div>
     </div>
+</div>
 </div>
 <footer class="text-white-100 mastfoot mt-auto">
     <p>© The SkyGradU 2024</p>
