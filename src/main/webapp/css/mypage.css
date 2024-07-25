@@ -89,17 +89,33 @@ body {
 }
 
 .my_box_mod_btn {
-    background-color: #0064E4;
-    color: white;
+    background-color: #4A90E2;
+    color: #000000;
+    border: none;
+    font-weight:bold;
+    padding: 5px 10px;
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+.my_box_mod_btn2 {
+    background-color: #87CEEB;
     border: none;
     padding: 5px 10px;
+    font-weight:bold;
+    color:white;
     font-size: 14px;
     cursor: pointer;
     border-radius: 5px;
 }
 
 .my_box_mod_btn:hover {
-    background-color: #4A90E2;
+    background-color: #0064E4;
+    color:white;
+}
+.my_box_mod_btn2:hover {
+    background-color: #20B2AA;
+    color: #000000;
 }
 
 table {
@@ -233,6 +249,7 @@ hr {
 .my_warning_btn {
     background-color: #d3d3d3;
     color: #000000;
+    font-weight: bold;
     border: none;
     padding: 5px 10px;
     font-size: 14px;

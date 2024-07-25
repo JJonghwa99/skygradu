@@ -9,6 +9,7 @@ public class CustomUser extends User {
     public String major;
     public String userName;
     public String studentID;
+    public String portalID;
 
     public CustomUser(String username, String password, Collection<? extends GrantedAuthority> authorities) {
         super(username, password, authorities);
