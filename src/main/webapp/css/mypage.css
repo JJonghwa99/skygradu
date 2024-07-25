@@ -58,7 +58,6 @@ body {
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
-
 .my_box_wrap {
     display: flex;
     justify-content: space-between;
@@ -72,7 +71,7 @@ body {
     width: 48%;
 }
 
-.my_box {
+.my_box, .my_box_grade {
     background-color: white;
     padding: 20px;
     border-radius: 10px;
@@ -80,6 +79,23 @@ body {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
+/* 모바일 화면에서의 스타일 */
+@media (max-width: 768px) {
+    .my_box_wrap {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .info_section, .grade_section {
+        width: 130%;
+    }
+
+    .my_box_table_1st_td {
+        width: 5%;
+        font-weight: bold;
+        white-space: nowrap; /* 텍스트 줄바꿈 방지 */
+    }
+}
 .my_box_title {
     display: flex;
     justify-content: space-between;
