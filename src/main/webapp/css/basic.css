@@ -82,12 +82,12 @@ html, body {
 }
 
 /* 기존 스타일 */
-.nav-link {
-            color: #000000;
+        .nav-link {
+            color: #0064E4;
             position: relative;
             text-decoration: none;
             white-space: nowrap; /* 글씨가 줄바꿈되지 않도록 설정 */
-            transition: color 0.3s;
+            transition: width 0.3s, left 0.3s;
         }
 
         .nav-link::before {
@@ -97,6 +97,7 @@ html, body {
             height: 2px;
             bottom: -5px;
             left: 50%;
+            white-space: nowrap; /* 글씨가 줄바꿈되지 않도록 설정 */
             background-color: #0064E4;
             transition: width 0.3s, left 0.3s;
         }
