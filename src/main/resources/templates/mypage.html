@@ -21,7 +21,9 @@
 
     <script src="https://use.fontawesome.com/releases/v6.0.0/js/all.js"></script>
     <style>
-
+        .show-password1{
+                    cursor: pointer;
+                }
     </style>
 </head>
 <body class="d-flex flex-column h-100 text-center" style="overflow:auto">
@@ -64,8 +66,8 @@
         <div class="cutstom_login_title">마이페이지</div>
     </div>
     <div class="action">
-        <button class="button-text" id="login_button">졸업요건 검사하기</button>
-        <button class="button-text" id="register_button">공학인증 검사하기</button>
+        <button class="button-text" id="test">졸업요건 검사하기</button>
+        <button class="button-text" id="test2">공학인증 검사하기</button>
     </div>
 </div>
 <div class="white_sec">
@@ -94,7 +96,7 @@
                 <hr style="margin-bottom:0.8rem; margin-top:0.8rem;">
                 <div class="my_box_title">
                     <div><i class="fa-solid fa-lock"></i><b>&nbsp;&nbsp;비밀번호 변경</b></div>
-                    <button id='b2' class="my_box_mod_btn2">변경하기</button>
+                    <button id='b2' class="my_box_mod_btn2" onclick="openM2()">변경하기</button>
                 </div>
                 <hr style="margin-bottom:0.8rem; margin-top:0.8rem;">
                 <div class="my_box_title">
@@ -149,6 +151,54 @@
     <p>© The SkyGradU 2024</p>
     <a href="/faqs/privacy" style="color: #ffffff;">개인정보처리방침</a>
 </footer>
+
+<div id="m2" class="m2-modal">
+    <div class="m2-modal-content">
+        <div class="modal-header">
+            <span class="m2-close" onclick="closeM2()">&times;</span>
+            <h2>비밀번호 변경하기</h2>
+        </div>
+        <div class="modal-body" id="modalStep1">
+            <p>변경하기 전 현재 비밀번호를 확인합니다.</p>
+            <div class="input-group flex-nowrap">
+                <input class="form-control" id="currentPassword" type="password" placeholder="현재 비밀번호 입력">
+                <span class="input-group-text show-password1" onclick="togglePassword()">🙈</span>
+            </div>
+            <button class="m2-button" onclick="verifyCurrentPassword()">확인</button>
+        </div>
+        <div id="modalStep2" style="display: none;">
+            <h2>새 비밀번호 입력</h2>
+            <input type="password" id="newPassword" placeholder="새 비밀번호 입력" class="m2-input">
+            <input type="password" id="confirmNewPassword" placeholder="새 비밀번호 확인" class="m2-input">
+            <button class="m2-button" onclick="changePassword()">변경하기</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    <!--비밀번호 보이기-->
+    function togglePassword() {
+            const passwordField = document.getElementById("currentPassword");
+            const passwordFieldType = passwordField.getAttribute("type");
+            const toggleIcon = document.querySelector(".show-password1");
+            if (passwordFieldType === "password") {
+                passwordField.setAttribute("type", "text");
+                toggleIcon.textContent = "🐵";
+            } else {
+                passwordField.setAttribute("type", "password");
+                toggleIcon.textContent = "🙈";
+            }
+    }
+
+
+
+    function openM2() {
+      document.getElementById('m2').style.display = 'block';
+  }
+
+  function closeM2() {
+      document.getElementById('m2').style.display = 'none';
+  }
 
 
 </script>

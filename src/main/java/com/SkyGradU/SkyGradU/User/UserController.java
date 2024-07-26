@@ -2,13 +2,14 @@ package com.SkyGradU.SkyGradU.User;
 
 import com.SkyGradU.SkyGradU.User.member.CustomUser;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
-public class LoginController {
+public class UserController {
     @GetMapping("/login")
     public String login() {
 
@@ -28,5 +29,11 @@ public class LoginController {
 
         return "mypage.html";
     }
+
+    /*@PostMapping("/edit/password")
+    @ResponseBody
+    public String editPassword(){
+        return true;
+    }*/
 
 }
