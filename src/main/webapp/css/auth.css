@@ -59,6 +59,7 @@ input[type="button"]
     height: auto;
 }
 .load-modal-content {
+font-family: 'Pretendard', sans-serif;
     background-color: #fefefe;
     border-radius: 5px;
     padding: 2.2rem;
@@ -258,6 +259,7 @@ input[type=checkbox] {
     background-color: rgb(248,249,250);
 }
 .load_info{
+font-family: 'Pretendard', sans-serif;
     letter-spacing:1px;
     margin-top:0.8rem;
     font-size:1rem;
@@ -527,12 +529,14 @@ body:not(.device-touch) .suc_btn
 
 /* ---------------------------------( agree )---------------------------------------- */
 .info_title{
+font-family: 'Pretendard', sans-serif;
     font-size : 1.8rem;
     font-weight: bold;
     padding-top:2.5rem;
     text-align: center;
 }
 .info_box{
+font-family: 'Pretendard', sans-serif;
     margin: 0 auto;
     width: 100%;
     max-width: 1280px;
@@ -540,25 +544,30 @@ body:not(.device-touch) .suc_btn
     background-color: white;
 }
 .info_box_wrapper{
+font-family: 'Pretendard', sans-serif;
     margin: 0 auto;
     width: 100%;
     margin-top: 1rem;
 }
 .info_box_small {
+font-family: 'Pretendard', sans-serif;
     max-width: 600px;
 }
 .info_box_content {
+font-family: 'Pretendard', sans-serif;
     max-height: 300px;
     overflow-y: auto;
     overflow-x: hidden;
 }
 .info_content{
+font-family: 'Pretendard', sans-serif;
     margin:2rem;
     font-weight:normal;
     font-size:1rem;
     text-align:left;
 }
 .info_agree{
+font-family: 'Pretendard', sans-serif;
     padding-top:1rem;
     text-align:right;
 }
@@ -605,10 +614,7 @@ body:not(.device-touch) .suc_btn
     font-size: 18px;
     font-weight: bold;
 }
-.btn-primary {
-    --bs-btn-bg: var(--sangmyung);
-    --bs-btn-border-color: var(--sangmyung);
-}
+
 .form-login {
     padding: 30px 60px 30px 60px;
     max-width: 350px;
@@ -618,6 +624,7 @@ body:not(.device-touch) .suc_btn
     padding: 2.5rem 2.5rem 0 2.5rem;
 }
 .login-form .agree {
+font-family: 'Pretendard', sans-serif;
     padding: 75px 100px;
     text-align: center;
 }

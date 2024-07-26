@@ -27,10 +27,12 @@ html, body {
 
 /* General Styles */
 .cover-container {
+font-family: 'Pretendard', sans-serif;
     max-width: 42em;
 }
 
 .lead {
+font-family: 'Pretendard', sans-serif;
     color: #000000;
     text-align: center;
 }
@@ -38,18 +40,21 @@ html, body {
 .btn-primary:hover,
 .btn-primary:focus,
 .btn-primary:active {
+font-family: 'Pretendard', sans-serif;
     background-color: #0064E4;
     border-color: #0056b3;
 
 }
 
 .link-body-emphasis {
+font-family: 'Pretendard', sans-serif;
     pointer-events: none;
     cursor: default;
 }
 
 /* Hero Section */
 .hero {
+font-family: 'Pretendard', sans-serif;
     position: relative;
     width: 100%;
     height: calc(100vh - 56px); /* 56px는 네비게이션 바의 높이 */
@@ -59,6 +64,7 @@ html, body {
 }
 
 .hero img {
+font-family: 'Pretendard', sans-serif;
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -68,6 +74,7 @@ html, body {
 }
 
 .hero .button--moema {
+font-family: 'Pretendard', sans-serif;
     position: absolute;
     right: 370px;
     top: 45%;
@@ -75,6 +82,7 @@ html, body {
 }
 
 @media (max-width: 768px) {
+font-family: 'Pretendard', sans-serif;
     .hero .button--moema {
         right: 100px;
         top: 45%;
@@ -85,6 +93,7 @@ html, body {
         .nav-link {
             color: #0064E4;
             position: relative;
+            font-family: 'Pretendard', sans-serif;
             text-decoration: none;
             white-space: nowrap; /* 글씨가 줄바꿈되지 않도록 설정 */
             transition: width 0.3s, left 0.3s;
@@ -152,6 +161,7 @@ html, body {
 
 /* Footer Styles */
 .mastfoot {
+font-family: 'Pretendard', sans-serif;
     color: #FFFFFF;
     text-align: left;
     padding: 5px 10px;
@@ -240,6 +250,7 @@ html, body {
 
 /* Modal Text Styles */
 .header-text {
+font-family: 'Pretendard', sans-serif;
     position: absolute;
         bottom: 80px;
         left: 50%;
@@ -296,12 +307,14 @@ html, body {
    }
  /*로그인 박스에서 텍스트 위치조정*/
  .cutstom_login_title{
+ font-family: 'Pretendard', sans-serif;
      font-size : 1.8rem;
      font-weight: bold;
      text-align: center;
  }
  /*시작화면 버튼 스타일*/
 .button--moema {
+font-family: 'Pretendard', sans-serif;
     position: relative;
     display: inline-block;
     padding: 0.75em 1.5em;
@@ -387,6 +400,7 @@ html, body {
 /*학생인증 버튼 스타일*/
 /* 기본 버튼 스타일 */
 .button--moema2 {
+font-family: 'Pretendard', sans-serif;
     position: relative;
     display: inline-block;
     padding: 0.5em 1em; /* 버튼 크기 줄이기 */
@@ -476,6 +490,7 @@ html, body {
 }
      /*success화면*/
         .suc_container {
+        font-family: 'Pretendard', sans-serif;
             padding-bottom: 10rem;
             width: 100%;
             height: 100%;
