@@ -21,6 +21,10 @@ public class Member {
     private String userEmail;
     private String password1;
     private String portalID;
+
+    public void updatePassword(String newPassword){
+        this.password1 = newPassword;
+    }
 }
 
 
