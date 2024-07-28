@@ -198,57 +198,14 @@
             <button class="m3-button-confirm" onclick="verifyCurrentPassword2()">확인</button>
         </div>
         <div id="WithdrawalModalStep2" style="display: none;">
-            <p style="margin-top:1rem">⚠️탈퇴하기 버튼을 누르면 탈퇴와 동시에 정보가 모두 삭제됩니다.⚠️</p>
+            <p style="margin-top:1rem"><b>탈퇴하기 버튼을 누르면</b></p>
+            <p><b>탈퇴와 동시에 정보가 모두 삭제됩니다.</b></p>
+            <div id="error-message4" style="color: red; margin-top: 1rem;"></div>
             <button class="m3-button" onclick="deleteAccount()">탈퇴하기</button>
         </div>
     </div>
 </div>
 <script src="/webapp/js/updatePW.js"></script>
-<script>
-    <!--(M3) 회원탈퇴 모달 스크립트-->
-     function togglePassword2() {
-            const passwordField = document.getElementById("currentPassword1");
-            const passwordFieldType = passwordField.getAttribute("type");
-            const toggleIcon = document.querySelector(".show-password2");
-            if (passwordFieldType === "password") {
-                passwordField.setAttribute("type", "text");
-                toggleIcon.textContent = "🐵";
-            } else {
-                passwordField.setAttribute("type", "password");
-                toggleIcon.textContent = "🙈";
-            }
-    }
-
-     function openM3() {
-      document.getElementById('m3').style.display = 'block';
-    }
-
-    function closeM3() {
-      document.getElementById('m3').style.display = 'none';
-    }
-
-    function verifyCurrentPassword2() {
-    var currentPassword = document.getElementById('currentPassword1').value;
-
-    fetch('/checkPW', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ currentPassword: currentPassword })
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            document.getElementById('WithdrawalModalStep1').style.display = 'none';
-            document.getElementById('WithdrawalModalStep2').style.display = 'block';
-            document.getElementById('error-message3').textContent = '';
-        } else {
-            document.getElementById('error-message3').textContent = '❌현재 비밀번호가 일치하지 않습니다.😰';
-        }
-    });
-}
-
-</script>
+<script src="/webapp/js/deleteAccount.js"></script>
 </body>
 </html>
