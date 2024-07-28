@@ -24,6 +24,9 @@
         .show-password1{
                     cursor: pointer;
                 }
+        .show-password2{
+                    cursor: pointer;
+                }
     </style>
 </head>
 <body class="d-flex flex-column h-100 text-center" style="overflow:auto">
@@ -101,7 +104,7 @@
                 <hr style="margin-bottom:0.8rem; margin-top:0.8rem;">
                 <div class="my_box_title">
                     <div class="warning-message"><i class="fa-solid fa-bomb"></i><b>&nbsp;&nbsp;회원 탈퇴</b></div>
-                    <button id='b3' class="my_warning_btn">탈퇴하기</button>
+                    <button id='b3' class="my_warning_btn" onclick="openM3()">탈퇴하기</button>
                 </div>
             </div>
         </div>
@@ -152,35 +155,61 @@
     <a href="/faqs/privacy" style="color: #ffffff;">개인정보처리방침</a>
 </footer>
 
+<!--비밀번호 변경모달-->
 <div id="m2" class="m2-modal">
     <div class="m2-modal-content">
         <div class="modal-header">
-            <span class="m2-close" onclick="closeM2()">&times;</span>
+            <span class="modal-close" onclick="closeM2()">&times;</span>
             <h2>비밀번호 변경하기</h2>
         </div>
-        <div class="modal-body" id="modalStep1">
+        <div class="modal-body" id="passwordUpdateModalStep1">
             <p>변경하기 전 현재 비밀번호를 확인합니다.</p>
             <div class="input-group flex-nowrap">
                 <input class="form-control" id="currentPassword" type="password" placeholder="현재 비밀번호 입력">
-                <span class="input-group-text show-password1" onclick="togglePassword()">🙈</span>
+                <span class="input-group-text show-password1" onclick="togglePassword1()">🙈</span>
             </div>
-            <button class="m2-button" onclick="verifyCurrentPassword()">확인</button>
+            <div id="error-message1" style="color: red; margin-top: 1rem;"></div>
+            <button class="m2-button" onclick="verifyCurrentPassword1()">확인</button>
         </div>
-        <div id="modalStep2" style="display: none;">
-            <h2>새 비밀번호 입력</h2>
-            <input type="password" id="newPassword" placeholder="새 비밀번호 입력" class="m2-input">
-            <input type="password" id="confirmNewPassword" placeholder="새 비밀번호 확인" class="m2-input">
+        <div id="passwordUpdateModalStep2" style="display: none;">
+            <p style="margin-top:1rem">보안을 위해 8자리 이상 입력해주세요!😊</p>
+            <input type="password" id="newPassword" placeholder="새 비밀번호" class="form-control">
+            <input type="password" id="confirmNewPassword" placeholder="새 비밀번호 확인" class="form-control" style="margin-top:1rem">
+            <div id="error-message2" style="color: red; margin-top: 1rem;"></div>
             <button class="m2-button" onclick="changePassword()">변경하기</button>
         </div>
     </div>
 </div>
 
+<!--회원탈퇴 모달-->
+<div id="m3" class="m3-modal">
+    <div class="m3-modal-content">
+        <div class="modal-header">
+            <span class="modal-close" onclick="closeM3()">&times;</span>
+            <h2>회원 <b style="color:red;">탈퇴하기</b></h2>
+        </div>
+        <div class="modal-body" id="WithdrawalModalStep1">
+            <p><b style="color:red;">탈퇴하기</b> 전 현재 비밀번호를 확인합니다.</p>
+            <div class="input-group flex-nowrap">
+                <input class="form-control" id="currentPassword1" type="password" placeholder="현재 비밀번호 입력">
+                <span class="input-group-text show-password2" onclick="togglePassword2()">🙈</span>
+            </div>
+            <div id="error-message3" style="color: red; margin-top: 1rem;"></div>
+            <button class="m3-button-confirm" onclick="verifyCurrentPassword2()">확인</button>
+        </div>
+        <div id="WithdrawalModalStep2" style="display: none;">
+            <p style="margin-top:1rem">⚠️탈퇴하기 버튼을 누르면 탈퇴와 동시에 정보가 모두 삭제됩니다.⚠️</p>
+            <button class="m3-button" onclick="deleteAccount()">탈퇴하기</button>
+        </div>
+    </div>
+</div>
+<script src="/webapp/js/updatePW.js"></script>
 <script>
-    <!--비밀번호 보이기-->
-    function togglePassword() {
-            const passwordField = document.getElementById("currentPassword");
+    <!--(M3) 회원탈퇴 모달 스크립트-->
+     function togglePassword2() {
+            const passwordField = document.getElementById("currentPassword1");
             const passwordFieldType = passwordField.getAttribute("type");
-            const toggleIcon = document.querySelector(".show-password1");
+            const toggleIcon = document.querySelector(".show-password2");
             if (passwordFieldType === "password") {
                 passwordField.setAttribute("type", "text");
                 toggleIcon.textContent = "🐵";
@@ -190,16 +219,35 @@
             }
     }
 
+     function openM3() {
+      document.getElementById('m3').style.display = 'block';
+    }
 
+    function closeM3() {
+      document.getElementById('m3').style.display = 'none';
+    }
 
-    function openM2() {
-      document.getElementById('m2').style.display = 'block';
-  }
+    function verifyCurrentPassword2() {
+    var currentPassword = document.getElementById('currentPassword1').value;
 
-  function closeM2() {
-      document.getElementById('m2').style.display = 'none';
-  }
-
+    fetch('/checkPW', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ currentPassword: currentPassword })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            document.getElementById('WithdrawalModalStep1').style.display = 'none';
+            document.getElementById('WithdrawalModalStep2').style.display = 'block';
+            document.getElementById('error-message3').textContent = '';
+        } else {
+            document.getElementById('error-message3').textContent = '❌현재 비밀번호가 일치하지 않습니다.😰';
+        }
+    });
+}
 
 </script>
 </body>

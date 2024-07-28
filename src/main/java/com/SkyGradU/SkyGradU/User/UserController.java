@@ -29,11 +29,4 @@ public class UserController {
 
         return "mypage.html";
     }
-
-    /*@PostMapping("/edit/password")
-    @ResponseBody
-    public String editPassword(){
-        return true;
-    }*/
-
 }
