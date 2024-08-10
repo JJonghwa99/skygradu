@@ -100,12 +100,12 @@
                 <hr style="margin-bottom:0.8rem; margin-top:0.8rem;">
                 <div class="my_box_title">
                     <div><i class="fa-solid fa-lock"></i><b>&nbsp;&nbsp;비밀번호 변경</b></div>
-                    <button id='b2' class="my_box_mod_btn2" onclick="openM2()">변경하기</button>
+                    <button id='b2' class="my_box_mod_btn2" onclick="toggleModal('m2', 'open')">변경하기</button>
                 </div>
                 <hr style="margin-bottom:0.8rem; margin-top:0.8rem;">
                 <div class="my_box_title">
                     <div class="warning-message"><i class="fa-solid fa-bomb"></i><b>&nbsp;&nbsp;회원 탈퇴</b></div>
-                    <button id='b3' class="my_warning_btn" onclick="openM3()">탈퇴하기</button>
+                    <button id='b3' class="my_warning_btn" onclick="toggleModal('m3', 'open')">탈퇴하기</button>
                 </div>
             </div>
         </div>
@@ -160,14 +160,14 @@
 <div id="m2" class="m2-modal">
     <div class="m2-modal-content">
         <div class="modal-header">
-            <span class="modal-close" onclick="closeM2()">&times;</span>
+            <span class="modal-close" onclick="toggleModal('m2', 'close')">&times;</span>
             <h2>비밀번호 변경하기</h2>
         </div>
         <div class="modal-body" id="passwordUpdateModalStep1">
             <p>변경하기 전 현재 비밀번호를 확인합니다.</p>
             <div class="input-group flex-nowrap">
                 <input class="form-control" id="currentPassword" type="password" placeholder="현재 비밀번호 입력">
-                <span class="input-group-text show-password1" onclick="togglePassword1()">🙈</span>
+                <span class="input-group-text show-password1" onclick="togglePassword('currentPassword', 'show-password1')">🙈</span>
             </div>
             <div id="error-message1" style="color: red; margin-top: 1rem;"></div>
             <button class="m2-button" onclick="verifyCurrentPassword1()">확인</button>
@@ -186,14 +186,14 @@
 <div id="m3" class="m3-modal">
     <div class="m3-modal-content">
         <div class="modal-header">
-            <span class="modal-close" onclick="closeM3()">&times;</span>
+            <span class="modal-close" onclick="toggleModal('m3', 'close')">&times;</span>
             <h2>회원 <b style="color:red;">탈퇴하기</b></h2>
         </div>
         <div class="modal-body" id="WithdrawalModalStep1">
             <p><b style="color:red;">탈퇴하기</b> 전 현재 비밀번호를 확인합니다.</p>
             <div class="input-group flex-nowrap">
                 <input class="form-control" id="currentPassword1" type="password" placeholder="현재 비밀번호 입력">
-                <span class="input-group-text show-password2" onclick="togglePassword2()">🙈</span>
+                <span class="input-group-text show-password2" onclick="togglePassword('currentPassword1', 'show-password2')">🙈</span>
             </div>
             <div id="error-message3" style="color: red; margin-top: 1rem;"></div>
             <button class="m3-button-confirm" onclick="verifyCurrentPassword2()">확인</button>
@@ -208,5 +208,38 @@
 </div>
 <script src="/webapp/js/updatePW.js"></script>
 <script src="/webapp/js/deleteAccount.js"></script>
+<script>
+
+    <!--비밀번호 보이기 스크립트-->
+    function togglePassword(inputId, iconClass) {
+    const passwordField = document.getElementById(inputId);
+    const passwordFieldType = passwordField.getAttribute("type");
+    const toggleIcon = document.querySelector(`.${iconClass}`);
+
+    if (passwordFieldType === "password") {
+        passwordField.setAttribute("type", "text");
+        toggleIcon.textContent = "🐵";
+    } else {
+        passwordField.setAttribute("type", "password");
+        toggleIcon.textContent = "🙈";
+    }
+}
+
+    <!--모달 여닫기 스크립트-->
+    function toggleModal(modalId, action) {
+    const modal = document.getElementById(modalId);
+
+    if (action === 'open') {
+        modal.style.display = 'block';
+    } else if (action === 'close') {
+        modal.style.display = 'none';
+
+        if (modalId === 'm2') {
+            document.getElementById('error-message1').textContent = '';
+        }
+    }
+}
+
+</script>
 </body>
 </html>

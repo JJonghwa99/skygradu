@@ -1,26 +1,4 @@
-    <!--(M2) 비번변경 모달 스크립트-->
-    function togglePassword1() {
-    const passwordField = document.getElementById("currentPassword");
-    const passwordFieldType = passwordField.getAttribute("type");
-    const toggleIcon = document.querySelector(".show-password1");
-    if (passwordFieldType === "password") {
-        passwordField.setAttribute("type", "text");
-        toggleIcon.textContent = "🐵";
-    } else {
-        passwordField.setAttribute("type", "password");
-        toggleIcon.textContent = "🙈";
-    }
-}
-
-function openM2() {
-    document.getElementById('m2').style.display = 'block';
-}
-
-function closeM2() {
-    document.getElementById('m2').style.display = 'none';
-    document.getElementById('error-message1').textContent = '';
-}
-
+<!--(M2) 비번변경 모달 스크립트-->
 function verifyCurrentPassword1() {
     var currentPassword = document.getElementById('currentPassword').value;
 

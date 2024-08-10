@@ -11,6 +11,7 @@
 
     <link href="/webapp/css/basic.css" rel="stylesheet">
     <link href="/webapp/css/auth.css" rel="stylesheet">
+    <link href="/webapp/css/mypage.css" rel="stylesheet">
 
 
     <!-- Bootstrap CSS -->
@@ -100,7 +101,7 @@
                     <h id="capslock-message">😰입력정보를 다시 확인해주세요!</h>
                 </div>
                 <div id="capslock-message" style="color: red; margin-top: 1rem;"></div>
-                <a id="b2" class="link">비밀번호를 잊어버리셨나요?</a>
+                <a id="b2" class="link" onclick="openM2()">비밀번호를 잊어버리셨나요?</a>
             </div>
             <div class="action">
                 <button class="button-text" id="login_button" type='submit'>로그인</button>
@@ -117,7 +118,49 @@
     <a href="/faqs/privacy" style="color: #ffffff;">개인정보처리방침</a>
 </footer>
 
+<!--비밀번호 찾기모달-->
+<div id="m2" class="m2-modal">
+    <div class="m2-modal-content">
+        <div class="modal-header">
+            <span class="modal-close" onclick="closeM2()">&times;</span>
+            <h2>비밀번호 찾기</h2>
+        </div>
+        <div class="modal-body" id="passwordUpdateModalStep1">
+            <p>
+                성결대 포털 로그인으로 재학생 인증을 진행합니다.<br>
+                (<a href="https://www.sungkyul.ac.kr/portalLogin/skukr/portalLoginForm.do" class="text-black footer_link" style="font-weight: bold;" target="_blank">성결대학교 포털</a> 통합아이디/비밀번호)
+            </p>
+            <div class="input-group flex-nowrap">
+                <input type="text" class="form-control" name="username" id="id" placeholder="포털 아이디">
+            </div>
+            <div class="input-group flex-nowrap" style="margin-top:1rem;">
+                <input class="form-control" id="currentPassword" type="password" placeholder="포털 비밀번호 입력">
+                <span class="input-group-text show-password1" onclick="togglePassword1()">🙈</span>
+            </div>
+            <div id="error-message1" style="color: red; margin-top: 1rem;"></div>
+            <button class="m2-button" onclick="verifyCurrentPassword1()">확인</button>
+        </div>
+        <div id="passwordUpdateModalStep2" style="display: none;">
+            <p style="margin-top:1rem">보안을 위해 8자리 이상 입력해주세요!😊</p>
+            <input type="password" id="newPassword" placeholder="새 비밀번호" class="form-control">
+            <input type="password" id="confirmNewPassword" placeholder="새 비밀번호 확인" class="form-control" style="margin-top:1rem">
+            <div id="error-message2" style="color: red; margin-top: 1rem;"></div>
+            <button class="m2-button" onclick="changePassword()">변경하기</button>
+        </div>
+    </div>
+</div>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="/webapp/js/login.js"></script>
+<script>
+    function openM2() {
+    document.getElementById('m2').style.display = 'block';
+}
+
+function closeM2() {
+    document.getElementById('m2').style.display = 'none';
+    document.getElementById('error-message1').textContent = '';
+}
+</script>
 </body>
 </html>

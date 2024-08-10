@@ -1,25 +1,4 @@
     <!--(M3) 회원탈퇴 모달 스크립트-->
-     function togglePassword2() {
-            const passwordField = document.getElementById("currentPassword1");
-            const passwordFieldType = passwordField.getAttribute("type");
-            const toggleIcon = document.querySelector(".show-password2");
-            if (passwordFieldType === "password") {
-                passwordField.setAttribute("type", "text");
-                toggleIcon.textContent = "🐵";
-            } else {
-                passwordField.setAttribute("type", "password");
-                toggleIcon.textContent = "🙈";
-            }
-    }
-
-     function openM3() {
-      document.getElementById('m3').style.display = 'block';
-    }
-
-    function closeM3() {
-      document.getElementById('m3').style.display = 'none';
-    }
-
     function verifyCurrentPassword2() {
     var currentPassword = document.getElementById('currentPassword1').value;
 

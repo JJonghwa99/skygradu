@@ -51,7 +51,23 @@
         });
     });
 
-    function togglePassword1() {
+    <!--비밀번호 보이기 스크립트-->
+        function togglePassword(inputId, iconClass) {
+        const passwordField = document.getElementById(inputId);
+        const passwordFieldType = passwordField.getAttribute("type");
+        const toggleIcon = document.querySelector(`.${iconClass}`);
+
+        if (passwordFieldType === "password") {
+            passwordField.setAttribute("type", "text");
+            toggleIcon.textContent = "🐵";
+        } else {
+            passwordField.setAttribute("type", "password");
+            toggleIcon.textContent = "🙈";
+        }
+    }
+
+
+    /*function togglePassword1() {
         const passwordField = document.getElementById("pw1");
         const passwordFieldType = passwordField.getAttribute("type");
         const toggleIcon = document.querySelector(".show-password1");
@@ -75,4 +91,4 @@
             passwordField.setAttribute("type", "password");
             toggleIcon.textContent = "🙈";
         }
-    }
+    }*/
