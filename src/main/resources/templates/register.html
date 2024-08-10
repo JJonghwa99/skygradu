@@ -132,7 +132,7 @@
                         <label>비밀번호</label>
                         <div class="input-group flex-nowrap">
                             <input class="form-control" id="pw1" type="password" name="password1" th:value="${password1}" placeholder="8자 이상 입력해주세요">
-                            <span class="input-group-text show-password1" onclick="togglePassword1()">🙈</span>
+                            <span class="input-group-text show-password1" onclick="togglePassword('pw1', 'show-password1')">🙈</span>
                         </div>
                         <div class='regi_guide' style="color: rgb(1, 42, 127);">
                             The SkyGradU의 <b>고유 비밀번호</b>를 설정 해주세요.
@@ -142,7 +142,7 @@
                         <label>비밀번호 재확인</label>
                         <div class="input-group flex-nowrap">
                             <input class="form-control" id="pw2" type="password" name="password2" th:value="${password2}">
-                            <span class="input-group-text show-password2" onclick="togglePassword2()">🙈</span>
+                            <span class="input-group-text show-password2" onclick="togglePassword('pw2', 'show-password2')">🙈</span>
                         </div>
                     </div>
                     <div id="error-message" style="color: red; margin-top: 1rem;"></div>
