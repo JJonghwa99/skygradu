@@ -1,0 +1,542 @@
+@font-face {
+  font-family: 'Pretendard';
+  src: url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.woff2') format('woff2'),
+       url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.woff') format('woff');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+}
+
+html, body {
+    height: 100%;
+    font-family: 'Pretendard', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    background-color: #ffffff;
+    color: #000000;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+/* General Styles */
+.cover-container {
+font-family: 'Pretendard', sans-serif;
+    max-width: 42em;
+}
+
+.lead {
+font-family: 'Pretendard', sans-serif;
+    color: #000000;
+    text-align: center;
+}
+
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active {
+font-family: 'Pretendard', sans-serif;
+    background-color: #0064E4;
+    border-color: #0056b3;
+
+}
+
+.link-body-emphasis {
+font-family: 'Pretendard', sans-serif;
+    pointer-events: none;
+    cursor: default;
+}
+
+/* Hero Section */
+.hero {
+font-family: 'Pretendard', sans-serif;
+    position: relative;
+    width: 100%;
+    height: calc(100vh - 56px); /* 56px는 네비게이션 바의 높이 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hero img {
+font-family: 'Pretendard', sans-serif;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.hero .button--moema {
+font-family: 'Pretendard', sans-serif;
+    position: absolute;
+    right: 370px;
+    top: 45%;
+    transform: translateY(-50%);
+}
+
+@media (max-width: 768px) {
+    .hero .button--moema {
+        right: 100px;
+        top: 45%;
+    }
+}
+
+/* 기존 스타일 */
+        .nav-link {
+            color: #0064E4;
+            position: relative;
+            font-family: 'Pretendard', sans-serif;
+            text-decoration: none;
+            white-space: nowrap; /* 글씨가 줄바꿈되지 않도록 설정 */
+            transition: width 0.3s, left 0.3s;
+        }
+
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 50%;
+            white-space: nowrap; /* 글씨가 줄바꿈되지 않도록 설정 */
+            background-color: #0064E4;
+            transition: width 0.3s, left 0.3s;
+        }
+
+        .nav-link:hover {
+            color: #0064E4;
+        }
+
+        .nav-link:hover::before {
+            width: 100%;
+            left: 0;
+        }
+
+        .nav-link:not(:hover)::before {
+            width: 0;
+            left: 50%;
+        }
+
+        .nav-masthead .active {
+            color: #0064E4;
+            border-bottom-color: #0064E4;
+        }
+
+        nav.container {
+            max-width: 100%;
+            padding: 0;
+        }
+
+        .container > header {
+            width: 100%;
+            padding: 0 1rem;
+        }
+
+        /* 모바일 화면 스타일 */
+        @media (max-width: 768px) {
+            .nav-pills {
+                display: flex;
+                justify-content: space-between;
+                flex-wrap: nowrap;
+                padding: 0;
+            }
+
+            .nav-item {
+                flex: 1 1 20%; /* 각 아이템이 한 줄에 5개 들어가도록 설정 */
+                text-align: center;
+                padding: 0; /* 좌우 여백 제거 */
+            }
+
+
+        }
+
+
+/* Footer Styles */
+.mastfoot {
+font-family: 'Pretendard', sans-serif;
+    color: #FFFFFF;
+    text-align: left;
+    padding: 5px 10px;
+    background-color: #000000; /* 진한 회색 배경 */
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.mastfoot p,
+.mastfoot a {
+    font-size: 14px; /* 기본 글자 크기 설정 */
+    margin: 0; /* 기본적인 margin 제거 */
+}
+
+.mastfoot a {
+    color: #ffffff;
+    text-decoration: none;
+    margin-left: 20px; /* 각 요소 간의 간격 조정 */
+}
+
+@media (max-width: 768px) {
+    .mastfoot p,
+    .mastfoot a {
+        font-size: 12px; /* 모바일 화면에서 글자 크기 줄이기 */
+    }
+}
+
+/* Login Box Styles */
+#container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start; /* 변경: flex-start로 설정 */
+    height: 100%;
+    padding-top: 50px; /* 추가: 로그인 박스를 위로 올리기 위해 상단 패딩 추가 */
+}
+
+#loginBox {
+    width: 300px;
+    text-align: center;
+    background-color: #ffffff;
+}
+
+.input-form-box {
+    border: 0px solid #ff0000;
+    display: flex;
+    margin-bottom: 5px;
+}
+
+.input-form-box > span {
+    display: block;
+    text-align: left;
+    padding-top: 5px;
+    min-width: 65px;
+}
+
+.button-login-box {
+    margin: 10px 0;
+}
+
+.button-login-box button + button {
+    margin-top: 10px; /* 간격을 벌리는 스타일 추가 */
+}
+
+#loginBoxTitle {
+    color: #000000;
+    font-weight: bold;
+    font-size: 32px;
+    text-transform: uppercase;
+    padding: 5px;
+    margin-bottom: 20px;
+    background: linear-gradient(to right, #270a09, #8ca6ce);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+#inputBox {
+    margin: 10px;
+}
+
+#inputBox button {
+    padding: 3px 5px;
+}
+
+/* Modal Text Styles */
+.header-text {
+font-family: 'Pretendard', sans-serif;
+    position: absolute;
+        bottom: 80px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        align-items: center;
+        width: 100%; /* Ensure full width */
+        justify-content: center;
+    }
+
+.header-text span {
+    font-weight:1000;
+    animation: wave 1.5s ease-in-out;
+    animation-iteration-count: 15;
+}
+
+@keyframes wave {
+    0%, 40%, 100% {transform: translateY(0);}
+    20%{transform: translateY(-15px);}
+    60%{transform: translateY(-5px);}
+}
+
+.header-text span:nth-child(1) {animation-delay: 0.1s;}
+.header-text span:nth-child(2) {animation-delay: 0.13s;}
+.header-text span:nth-child(3) {animation-delay: 0.16s;}
+.header-text span:nth-child(4) {animation-delay: 0.19s;}
+.header-text span:nth-child(5) {animation-delay: 0.22s;}
+.header-text span:nth-child(6) {animation-delay: 0.25s;}
+.header-text span:nth-child(7) {animation-delay: 0.28s;}
+.header-text span:nth-child(8) {animation-delay: 0.31s;}
+.header-text span:nth-child(9) {animation-delay: 0.34s;}
+
+/*비밀번호 표시 이모지 드래그 방지*/
+ .show-password {
+            user-select: none; /* 텍스트 선택 방지 */
+            -webkit-user-drag: none; /* 아이콘 드래그 방지 (웹킷 기반 브라우저) */
+            -webkit-user-select: none; /* 텍스트 선택 방지 (웹킷 기반 브라우저) */
+            -moz-user-select: none; /* 텍스트 선택 방지 (파이어폭스) */
+            -ms-user-select: none; /* 텍스트 선택 방지 (IE) */
+ }
+  .show-password1 {
+             user-select: none; /* 텍스트 선택 방지 */
+             -webkit-user-drag: none; /* 아이콘 드래그 방지 (웹킷 기반 브라우저) */
+             -webkit-user-select: none; /* 텍스트 선택 방지 (웹킷 기반 브라우저) */
+             -moz-user-select: none; /* 텍스트 선택 방지 (파이어폭스) */
+             -ms-user-select: none; /* 텍스트 선택 방지 (IE) */
+  }
+   .show-password2 {
+              user-select: none; /* 텍스트 선택 방지 */
+              -webkit-user-drag: none; /* 아이콘 드래그 방지 (웹킷 기반 브라우저) */
+              -webkit-user-select: none; /* 텍스트 선택 방지 (웹킷 기반 브라우저) */
+              -moz-user-select: none; /* 텍스트 선택 방지 (파이어폭스) */
+              -ms-user-select: none; /* 텍스트 선택 방지 (IE) */
+   }
+ /*로그인 박스에서 텍스트 위치조정*/
+ .cutstom_login_title{
+ font-family: 'Pretendard', sans-serif;
+     font-size : 1.8rem;
+     font-weight: bold;
+     text-align: center;
+ }
+ /*시작화면 버튼 스타일*/
+.button--moema {
+font-family: 'Pretendard', sans-serif;
+    position: relative;
+    display: inline-block;
+    padding: 0.75em 1.5em;
+    border-radius: 5px;
+    background: #4A90E2;
+    border: 2px solid #4A90E2;
+    color: #000000;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    font-size: 1rem;
+    line-height: 1.5;
+    overflow: hidden;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+    cursor: pointer;
+}
+
+.button--moema::before,
+.button--moema::after {
+    position: absolute;
+    content: "";
+    height: 0%;
+    width: 2px;
+    background: #4A90E2;
+    transition: height 500ms ease;
+}
+
+.button--moema::before {
+    right: 0;
+    top: 0;
+}
+
+.button--moema::after {
+    left: 0;
+    bottom: 0;
+}
+
+.button--moema:hover {
+    background: transparent;
+    color: #FFFFFF;
+    border-color: #87CEEB;
+}
+
+.button--moema:hover::before {
+    height: 100%;
+}
+
+.button--moema:hover::after {
+    height: 100%;
+}
+
+.button--moema span::before,
+.button--moema span::after {
+    position: absolute;
+    content: "";
+    background: #4A90E2;
+}
+
+.button--moema span::before {
+    left: 0;
+    top: 0;
+    width: 0%;
+    height: 2px;
+    transition: width 500ms ease;
+}
+
+.button--moema span::after {
+    right: 0;
+    bottom: 0;
+    width: 0%;
+    height: 2px;
+    transition: width 500ms ease;
+}
+
+.button--moema:hover span::before {
+    width: 100%;
+}
+
+.button--moema:hover span::after {
+    width: 100%;
+}
+
+/*학생인증 버튼 스타일*/
+/* 기본 버튼 스타일 */
+.button--moema2 {
+font-family: 'Pretendard', sans-serif;
+    position: relative;
+    display: inline-block;
+    padding: 0.5em 1em; /* 버튼 크기 줄이기 */
+    border-radius: 5px; /* 네모난 버튼 모양 */
+    background: #4A90E2;
+    border: 2px solid #4A90E2;
+    color: #000000; /* 기본 텍스트 색상 */
+    text-align: center;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 0.875rem; /* 버튼 텍스트 크기 줄이기 */
+    line-height: 1.5;
+    overflow: hidden;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+}
+
+.button--moema2 span {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.button--moema2::before,
+.button--moema2::after {
+    position: absolute;
+    content: "";
+    height: 0%;
+    width: 2px;
+    background: #4A90E2;
+    transition: all 500ms ease;
+}
+
+.button--moema2::before {
+    right: 0;
+    top: 0;
+}
+
+.button--moema2::after {
+    left: 0;
+    bottom: 0;
+}
+
+.button--moema2:hover {
+    background: #0064E4; /* 호버 상태에서 버튼 배경색상 변경 */
+    color: #FFFFFF; /* 호버 상태에서 텍스트 색상 변경 */
+    border-color: #0064E4; /* 호버 상태에서 테두리 색상 변경 */
+}
+
+.button--moema2:hover::before {
+    height: 100%;
+}
+
+.button--moema2:hover::after {
+    height: 100%;
+}
+
+.button--moema2 span::before,
+.button--moema2 span::after {
+    position: absolute;
+    content: "";
+    background: #4A90E2;
+}
+
+.button--moema2 span::before {
+    left: 0;
+    top: 0;
+    width: 0%;
+    height: 2px;
+    transition: all 500ms ease;
+}
+
+.button--moema2 span::after {
+    right: 0;
+    bottom: 0;
+    width: 0%;
+    height: 2px;
+    transition: all 500ms ease;
+}
+
+.button--moema2 span:hover::before {
+    width: 100%;
+}
+
+.button--moema2 span:hover::after {
+    width: 100%;
+}
+     /*success화면*/
+        .suc_container {
+        font-family: 'Pretendard', sans-serif;
+            padding-bottom: 10rem;
+            width: 100%;
+            height: 100%;
+            font-weight: bold;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: rgb(248, 249, 250);
+        }
+
+        .suc_container i {
+            color: rgb(124, 199, 106);
+            font-size: 7rem;
+        }
+
+        .suc_container span {
+            color: #0064E4;
+        }
+
+        .suc_content1 {
+            letter-spacing: 1px;
+            font-size: 2.5rem;
+        }
+
+        .suc_content2 {
+            font-weight: lighter;
+            margin-top: 0.8rem;
+            font-size: 1.5rem;
+            color: #20B2AA;
+        }
+
+        .suc_btn {
+          background-color: #0064E4;
+          color: #fff;
+          border: none;
+          padding: 10px 20px;
+          border-radius: 5px;
+          font-size: 16px;
+          font-weight: bold;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          box-shadow: 0px 5px 0px 0px #0047A0;
+        }
+
+        .suc_btn:hover {
+          margin-top: 15px;
+          margin-bottom: 5px;
+          box-shadow: 0px 0px 0px 0px #0047A0;
+        }
+
