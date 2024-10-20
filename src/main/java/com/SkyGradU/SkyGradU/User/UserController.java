@@ -22,10 +22,12 @@ public class UserController {
         String userName = userDetails.userName;
         String studentID = userDetails.studentID;
         String major = userDetails.major;
+        String portalID = userDetails.portalID;
 
         model.addAttribute("userName", userName);
         model.addAttribute("studentID", studentID);
         model.addAttribute("major", major);
+        model.addAttribute("portalID",portalID);
 
         return "mypage.html";
     }

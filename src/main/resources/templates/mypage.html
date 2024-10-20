@@ -28,6 +28,15 @@
         .show-password2{
                     cursor: pointer;
                 }
+        .show-password3{
+                    cursor: pointer;
+                }
+        .show-password4{
+                    cursor: pointer;
+                }
+        .show-password5{
+                    cursor: pointer;
+                }
     </style>
 </head>
 <body class="d-flex flex-column h-100 text-center" style="overflow:auto">
@@ -80,7 +89,7 @@
             <div class="my_box my_box_width">
                 <div class="my_box_title">
                     <div><i class="fas fa-user"></i><b>&nbsp;&nbsp;내 정보</b></div>
-                    <button id='b1' class="my_box_mod_btn">업데이트</button>
+                    <button id='b1' class="my_box_mod_btn" onclick="toggleModal('m1', 'open')" >업데이트</button>
                 </div>
                 <hr>
                 <table>
@@ -156,6 +165,34 @@
     <a href="/faqs/privacy" style="color: #ffffff;">개인정보처리방침</a>
 </footer>
 
+
+<!--정보 업데이트 모달-->
+<div id="m1" class="m1-modal">
+    <div class="m1-modal-content">
+        <div class="modal-header">
+            <span class="modal-close" onclick="toggleModal('m1', 'close')">&times;</span>
+            <h2>정보 업데이트</h2>
+        </div>
+        <div class="modal-body" id="InfoUpdateModalStep1">
+            <p><a href="https://www.sungkyul.ac.kr/portalLogin/skukr/portalLoginForm.do" class="text-black footer_link" style="font-weight: bold;" target="_blank">성결대학교 포털</a> <br>
+                로그인을 통해 정보를 업데이트 합니다.</p>
+            <div class="input-group flex-nowrap">
+                <input class="form-control form-readonly" type="text" name="userId" th:value="${portalID}" readonly>
+            </div>
+            <div class="input-group flex-nowrap" style="margin-top: 0.5rem;">
+                <input type="password" class="form-control" name="password" id="PortalPassword" placeholder="포털 비밀번호" onkeyup="checkCapsLock(event)">
+                <span class="input-group-text show-password3" onclick="togglePassword('PortalPassword','show-password3')">🙈</span>
+            </div>
+            <!--<div id="error-message1" style="color: red; margin-top: 1rem;"></div>-->
+            <button class="m1-button" onclick="verifyCurrentPassword1()">확인</button>
+        </div>
+        <div id="InfoUpdateModalStep2" style="display: none;">
+            <!--크롤링하는동안 로딩 모달 띄우기-->
+        </div>
+    </div>
+</div>
+
+
 <!--비밀번호 변경모달-->
 <div id="m2" class="m2-modal">
     <div class="m2-modal-content">
@@ -174,8 +211,14 @@
         </div>
         <div id="passwordUpdateModalStep2" style="display: none;">
             <p style="margin-top:1rem">보안을 위해 8자리 이상 입력해주세요!😊</p>
-            <input type="password" id="newPassword" placeholder="새 비밀번호" class="form-control">
-            <input type="password" id="confirmNewPassword" placeholder="새 비밀번호 확인" class="form-control" style="margin-top:1rem">
+            <div class="input-group flex-nowrap">
+                <input type="password" id="newPassword" placeholder="새 비밀번호" class="form-control">
+                <span class="input-group-text show-password4" onclick="togglePassword('newPassword', 'show-password4')">🙈</span>
+            </div>
+            <div class="input-group flex-nowrap" style="margin-top:1rem">
+                <input type="password" id="confirmNewPassword" placeholder="새 비밀번호 확인" class="form-control" >
+                <span class="input-group-text show-password5" onclick="togglePassword('confirmNewPassword', 'show-password5')">🙈</span>
+            </div>
             <div id="error-message2" style="color: red; margin-top: 1rem;"></div>
             <button class="m2-button" onclick="changePassword()">변경하기</button>
         </div>
