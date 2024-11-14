@@ -21,11 +21,11 @@ public class Member {
     private String userEmail;
     private String password1;
     private String portalID;
+    private String doubleMajor;
+    private String minor;
+    private String enrollYear;
 
     public void updatePassword(String newPassword){
         this.password1 = newPassword;
     }
 }
-
-
-
