@@ -124,6 +124,7 @@
                     <div class="my_box_title">
                         <div><i class="fa-solid fa-book"></i><b>&nbsp;&nbsp;내 기이수과목</b></div>
                         <div>
+                            <input type="file" id="excelUpload" style="display: none;" accept=".xlsx, .xls">
                             <button id='b4' class="my_box_mod_btn2">직접 업로드</button>
                             <button id='b5' class="my_box_mod_btn">업데이트</button>
                         </div>
@@ -282,6 +283,30 @@
     }
 }
 
+</script>
+<script>
+    document.getElementById('b4').addEventListener('click', function() {
+        document.getElementById('excelUpload').click();
+    });
+
+    document.getElementById('excelUpload').addEventListener('change', function(event) {
+        const file = event.target.files[0];
+        if (!file) return;
+
+        if (confirm("업로드하시겠습니까?")) {
+            const formData = new FormData();
+            formData.append("file", file);
+
+            // 서버로 전송 (파싱 전 단계)
+            fetch("/api/excel/upload", {
+                method: "POST",
+                body: formData
+            })
+                .then(response => response.json())
+                .then(data => alert("이수과목 업로드 완료!"))
+                .catch(error => alert("업로드 실패: " + error));
+        }
+    });
 </script>
 </body>
 </html>
