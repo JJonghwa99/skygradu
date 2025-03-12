@@ -113,6 +113,33 @@
     </div>
 </div>
 
+<div id='m5' class="modal">
+    <div class="update_modal_content">
+        <div id='c5' class="close">&times;</div>
+        <div class="modal-title">
+            이수과목 자동 업데이트
+        </div>
+        <div class="modal-expl">
+            통합로그인을 통해 재학생 인증을 진행합니다.<br><br>
+            (<a href="#" class="footer_link" style="font-weight: bold;" target="_blank">포털시스템</a> 학번/비밀번호)
+        </div>
+        <hr class="modal-hr">
+        <form th:action="@{/accounts/update}" method="post" name='form1' onsubmit="return check_up1()">
+            <div class="form-login">
+                <div class="input-group flex-nowrap">
+                    <input class="form-control" type="text" name='username' placeholder="학번" th:value="${portalID}">
+                </div>
+                <div class="input-group flex-nowrap">
+                    <input class="form-control" type="password" name='password' placeholder="포털시스템 비밀번호">
+                </div>
+                <div class="action">
+                    <input class="button" type="submit" value="업데이트">
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
 <script>
     document.addEventListener('DOMContentLoaded', (event) => {
         const modals = {

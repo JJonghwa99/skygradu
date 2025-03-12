@@ -126,7 +126,7 @@
                         <div>
                             <input type="file" id="excelUpload" style="display: none;" accept=".xlsx, .xls">
                             <button id='b4' class="my_box_mod_btn2">직접 업로드</button>
-                            <button id='b5' class="my_box_mod_btn">업데이트</button>
+                            <button id='b5' class="my_box_mod_btn" onclick="toggleModal('m5', 'open')">업데이트</button>
                         </div>
                     </div>
                     <hr>
@@ -246,6 +246,31 @@
             <p><b>탈퇴와 동시에 정보가 모두 삭제됩니다.</b></p>
             <div id="error-message4" style="color: red; margin-top: 1rem;"></div>
             <button class="m3-button" onclick="deleteAccount()">탈퇴하기</button>
+        </div>
+    </div>
+</div>
+
+<div id="m5" class="m5-modal">
+    <div class="m5-modal-content">
+        <div class="modal-header">
+            <span class="modal-close" onclick="toggleModal('m5', 'close')">&times;</span>
+            <h2>이수과목 자동 업데이트</h2>
+        </div>
+        <div class="modal-body" >
+            <p><a href="https://www.sungkyul.ac.kr/portalLogin/skukr/portalLoginForm.do" class="text-black footer_link" style="font-weight: bold;" target="_blank">성결대학교 포털</a> <br>
+                로그인을 통해 이수과목을 업데이트 합니다.</p>
+            <div class="input-group flex-nowrap">
+                <input class="form-control form-readonly" type="text" name="userId" th:value="${portalID}" readonly>
+            </div>
+            <div class="input-group flex-nowrap" style="margin-top: 0.5rem;">
+                <input type="password" class="form-control" name="password" id="PortalPassword3" placeholder="포털 비밀번호" onkeyup="checkCapsLock(event)">
+                <span class="input-group-text show-password3" onclick="togglePassword('PortalPassword','show-password3')">🙈</span>
+            </div>
+            <!--<div id="error-message1" style="color: red; margin-top: 1rem;"></div>-->
+            <button class="m1-button" onclick="">확인</button>
+        </div>
+        <div id="InfoUpdateModalStep23" style="display: none;">
+            <!--크롤링하는동안 로딩 모달 띄우기-->
         </div>
     </div>
 </div>
