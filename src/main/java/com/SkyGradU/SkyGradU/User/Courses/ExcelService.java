@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -21,10 +22,10 @@ public class ExcelService {
     private final CompletedCourseRepository completedCourseRepository;
     private static final Logger log = LoggerFactory.getLogger(ExcelService.class);
 
-    public void processExcelFile(MultipartFile file, Authentication auth) {
+    public String processExcelFile(MultipartFile file, Authentication auth) {
         if (auth == null || auth.getPrincipal() == null) {
             log.warn("로그인 정보가 없습니다.");
-            return;
+            return null;
         }
 
         CustomUser userDetails = (CustomUser) auth.getPrincipal();
@@ -39,12 +40,18 @@ public class ExcelService {
 
             if (!loggedInStudentID.equals(studentIdFromExcel)) {
                 log.warn("본인의 엑셀 파일이 맞는지 확인해 주세요. (학번 불일치)");
-                return;
+                return loggedInStudentID;
             }
 
             log.info("엑셀 파일 검증 완료. 데이터 처리 시작...");
 
+            List<CompletedCourse> existingCourses = completedCourseRepository.findByMemberId((loggedInStudentID));
+            List<String> existingCourseNames = existingCourses.stream()
+                    .map(CompletedCourse::getCourseName)
+                    .collect(Collectors.toList());
+
             List<CompletedCourse> courseList = new ArrayList<>();
+            int duplicateCount = 0; // 중복된 데이터 개수
             for (int i = 3; i <= sheet.getLastRowNum(); i++) {
                 Row row = sheet.getRow(i);
 
@@ -85,6 +92,12 @@ public class ExcelService {
 
                 String semesterCompleted = getCellValueAsString(row.getCell(25)); // 학기 열
 
+                if (existingCourseNames.contains(courseName)) {
+                    duplicateCount++;
+                    log.info("중복된 강좌 '{}'을(를) 제외합니다.", courseName);
+                    continue; // 중복된 데이터는 추가하지 않음
+                }
+
 
                 CompletedCourse course = new CompletedCourse();
                 course.setMemberId(loggedInStudentID);
@@ -97,17 +110,23 @@ public class ExcelService {
 
                 courseList.add(course);
             }
-            log.info(courseList.toString());
 
             completedCourseRepository.saveAll(courseList);
 
 
-            log.info("{}개의 강좌를 성공적으로 저장했습니다.", courseList.size());
+            log.info("{}개의 강좌를 성공적으로 저장했습니다. (중복 제거: {}개)", courseList.size(), duplicateCount);
+
+            if (duplicateCount == 0) {
+                return "OK"; // 중복 없음
+            } else {
+                return duplicateCount + "개의 강좌가 중복되어 제외되었습니다.";
+            }
 
         } catch (IOException e) {
             throw new RuntimeException("엑셀 파일 처리 중 오류 발생", e);
         }
     }
+
 
     private boolean isRowEmpty(Row row) {
         if (row == null) return true; // 행 자체가 null이면 비어있음으로 간주
