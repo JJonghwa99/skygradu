@@ -137,23 +137,23 @@
                                 <th class="grade_table_th" style="width:10%">학기</th>
                                 <th class="grade_table_th" style="width:40%">과목명</th>
                                 <th class="grade_table_th" style="width:10%">이수구분</th>
-                                <th class="grade_table_th" style="width:14%">선택영역</th>
                                 <th class="grade_table_th" style="width:6%; border-right :0px">학점</th>
                             </tr>
-                            <tr th:each="course : ${courses}">
-                                <td class="grade_table_td" th:text="${course.year}"></td>
-                                <td class="grade_table_td" th:text="${course.semester}"></td>
-                                <td class="grade_table_td" th:text="${course.subject.name}"></td>
-                                <td class="grade_table_td" th:text="${course.type}"></td>
-                                <td class="grade_table_td" th:if="${course.domain}" th:text="${course.domain}"></td>
-                                <td class="grade_table_td" style="border-right :0px" th:text="${course.credit}"></td>
+                            <tr th:each="course : ${courses}"
+                                th:style="${course.isCustom} ? 'color: #20B2AA;' : ''">
+                                <td class="grade_table_td" th:text="${course.year != null ? course.year : ''}"></td>
+                                <td class="grade_table_td" th:text="${course.semesterCompleted != null ? course.semesterCompleted : ''}"></td>
+                                <td class="grade_table_td" th:text="${course.courseName != null ? course.courseName : ''}"></td>
+                                <td class="grade_table_td" th:text="${course.courseType != null ? course.courseType : ''}"></td>
+                                <td class="grade_table_td" style="border-right: 0px" th:text="${course.credits != null ? course.credits : ''}"></td>
                             </tr>
+
                         </table>
-                        <hr style="margin-bottom:0.8rem; margin-top:1.6rem;">
-                        <div class="my_box_title2">
-                            <div><i class="fa-solid fa-screwdriver-wrench"></i><b>&nbsp;&nbsp;기이수과목 커스텀</b></div>
-                            <button id='b6' class="my_box_mod_btn3">커스텀하기</button></div>
                         </div>
+                    <hr style="margin-bottom:0.8rem; margin-top:1.6rem;">
+                    <div class="my_box_title2">
+                        <div><i class="fa-solid fa-screwdriver-wrench"></i><b>&nbsp;&nbsp;기이수과목 커스텀</b></div>
+                        <button id='b6' class="my_box_mod_btn3">커스텀하기</button></div>
                     </div>
                 </div>
             </div>
@@ -322,23 +322,26 @@
             const formData = new FormData();
             formData.append("file", file);
 
-            // 서버로 전송
             fetch("/api/excel/upload", {
                 method: "POST",
                 body: formData
             })
                 .then(response => response.json())
                 .then(data => {
+                    console.log("서버 응답:", data);
                     if (data.error) {
-                        alert("업로드 실패: " + data.error);
+                        alert("업로드 실패 ❌\n 본인의 파일이 맞는지 확인해주세요;");
                     } else {
                         alert(`이수과목 업로드 완료!\n${data.message}`);
                     }
                     window.location.reload();
                 })
-                .catch(error => alert("업로드 요청 중 오류 발생: " + error));
+                .catch(error => {
+                    alert("업로드 요청 중 오류 발생: " + error);
+                });
         }
     });
+
 </script>
 
 </body>

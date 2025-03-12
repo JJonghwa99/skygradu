@@ -3,6 +3,7 @@ package com.SkyGradU.SkyGradU.User.Courses;
 import com.SkyGradU.SkyGradU.User.member.CustomUser;
 import lombok.RequiredArgsConstructor;
 import org.apache.poi.ss.usermodel.*;
+import org.apache.tomcat.util.http.fileupload.FileUploadException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;
@@ -39,8 +40,8 @@ public class ExcelService {
             String studentIdFromExcel = getCellValueAsString(secondRow.getCell(9));
 
             if (!loggedInStudentID.equals(studentIdFromExcel)) {
-                log.warn("본인의 엑셀 파일이 맞는지 확인해 주세요. (학번 불일치)");
-                return loggedInStudentID;
+                log.warn("본인의 파일이 맞는지 확인해 주세요.");
+                throw new FileUploadException("error1");
             }
 
             log.info("엑셀 파일 검증 완료. 데이터 처리 시작...");
@@ -117,7 +118,7 @@ public class ExcelService {
             log.info("{}개의 강좌를 성공적으로 저장했습니다. (중복 제거: {}개)", courseList.size(), duplicateCount);
 
             if (duplicateCount == 0) {
-                return "OK"; // 중복 없음
+                return "";
             } else {
                 return duplicateCount + "개의 강좌가 중복되어 제외되었습니다.";
             }
