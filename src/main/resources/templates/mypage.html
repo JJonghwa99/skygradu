@@ -266,8 +266,8 @@
                 <input type="password" class="form-control" name="password" id="PortalPassword3" placeholder="포털 비밀번호" onkeyup="checkCapsLock(event)">
                 <span class="input-group-text show-password3" onclick="togglePassword('PortalPassword','show-password3')">🙈</span>
             </div>
-            <!--<div id="error-message1" style="color: red; margin-top: 1rem;"></div>-->
-            <button class="m1-button" onclick="">확인</button>
+            <div id="error-message" style="color: red; margin-top: 1rem;"></div>
+            <button class="m1-button" onclick="submitAutoExcel()">확인</button>
         </div>
         <div id="InfoUpdateModalStep23" style="display: none;">
             <!--크롤링하는동안 로딩 모달 띄우기-->
@@ -341,8 +341,37 @@
                 });
         }
     });
+</script>
+<script>
+    function submitAutoExcel() {
+        const userId = document.querySelector('input[name="userId"]').value;
+        const password = document.getElementById('PortalPassword3').value;
+        const errorMessage = document.getElementById('error-message');
+
+        if (!password) {
+            errorMessage.textContent = "비밀번호를 입력해주세요";
+            return;
+        }
+
+        fetch("/api/excel/auto", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
+            },
+            body: new URLSearchParams({ userId, password }),
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.is_auth === false) {
+                    errorMessage.textContent = "입력 정보를 다시 확인해 주세요.";
+                }
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                errorMessage.textContent = "서버 오류가 발생했습니다.";
+            });
+    }
 
 </script>
-
 </body>
 </html>
