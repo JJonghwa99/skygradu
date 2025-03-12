@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.Map;
+
 @RestController
 @RequestMapping("/api/excel")
 @RequiredArgsConstructor
@@ -17,9 +19,13 @@ public class CourseController {
     private final ExcelService excelService;
 
     @PostMapping("/upload")
-    public String uploadExcel(@RequestParam MultipartFile file, Authentication auth) {
-        excelService.processExcelFile(file, auth);
-        return "redirect:/mypage";
+    public ResponseEntity<?> uploadExcel(@RequestParam MultipartFile file, Authentication auth) {
+        try {
+            String resultMessage = excelService.processExcelFile(file, auth);
+            return ResponseEntity.ok(Map.of("message", resultMessage));
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body(Map.of("message", "업로드 실패", "error", e.getMessage()));
+        }
     }
-}
 
+}

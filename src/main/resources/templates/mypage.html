@@ -297,16 +297,24 @@
             const formData = new FormData();
             formData.append("file", file);
 
-            // 서버로 전송 (파싱 전 단계)
+            // 서버로 전송
             fetch("/api/excel/upload", {
                 method: "POST",
                 body: formData
             })
                 .then(response => response.json())
-                .then(data => alert("이수과목 업로드 완료!"))
-                .catch(error => alert("업로드 실패: " + error));
+                .then(data => {
+                    if (data.error) {
+                        alert("업로드 실패: " + data.error);
+                    } else {
+                        alert(`이수과목 업로드 완료!\n${data.message}`);
+                    }
+                    window.location.reload();
+                })
+                .catch(error => alert("업로드 요청 중 오류 발생: " + error));
         }
     });
 </script>
+
 </body>
 </html>
