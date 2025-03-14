@@ -56,7 +56,6 @@ public class ExcelService {
             for (int i = 3; i <= sheet.getLastRowNum(); i++) {
                 Row row = sheet.getRow(i);
 
-                // Skip empty rows
                 if (row == null || isRowEmpty(row)) {
                     log.info("비어있는 행을 건너뜁니다. (행 번호: {})", i);
                     continue;
@@ -64,7 +63,103 @@ public class ExcelService {
 
                 String gradeStatus = getCellValueAsString(row.getCell(20)); // 등급 열
 
-                // Skip rows with "F" or "NP"
+                if ("F".equalsIgnoreCase(gradeStatus) || "NP".equalsIgnoreCase(gradeStatus)) {
+                    log.info("등급이 '{}'인 강좌를 건너뜁니다.", gradeStatus);
+                    continue;
+                }
+
+
+                String currentCourseType = getCellValueAsString(row.getCell(6)); // 영역
+                String courseName = getCellValueAsString(row.getCell(8)); // 강좌명
+                if ("".equalsIgnoreCase(currentCourseType) || "".equalsIgnoreCase(courseName)) {
+                    log.info("비어있는 행을 건너뜁니다.");
+                    continue;
+                }
+                if ("이수구분".equalsIgnoreCase(currentCourseType) || "강좌명".equalsIgnoreCase(courseName)) {
+                    log.info("필요없는 행을 건너뜁니다.");
+                    continue;
+                }
+
+                int credits, year;
+                try {
+                    credits = parseIntegerOrDefault(getCellValueAsString(row.getCell(18)), 0); // 학점 열
+                    year = parseIntegerOrDefault(getCellValueAsString(row.getCell(23)), 0);   // 년도 열
+                } catch (NumberFormatException e) {
+                    log.warn("숫자 변환 실패: 강좌명={}, 학점={}, 년도={}", courseName, row.getCell(18), row.getCell(23));
+                    continue; // 숫자 변환 실패 시 건너뜁니다.
+                }
+
+                String semesterCompleted = getCellValueAsString(row.getCell(25)); // 학기 열
+
+                if (existingCourseNames.contains(courseName)) {
+                    duplicateCount++;
+                    log.info("중복된 강좌 '{}'을(를) 제외합니다.", courseName);
+                    continue; // 중복된 데이터는 추가하지 않음
+                }
+
+
+                CompletedCourse course = new CompletedCourse();
+                course.setMemberId(loggedInStudentID);
+                course.setCourseType(currentCourseType);
+                course.setCourseName(courseName);
+                course.setCredits(credits);
+                course.setYear(year);
+                course.setSemesterCompleted(semesterCompleted.isEmpty() ? "알 수 없음" : semesterCompleted); // 학기가 비어있으면 기본값 설정
+                course.setCustom(false);
+
+                courseList.add(course);
+            }
+
+            completedCourseRepository.saveAll(courseList);
+
+
+            log.info("{}개의 강좌를 성공적으로 저장했습니다. (중복 제거: {}개)", courseList.size(), duplicateCount);
+
+            if (duplicateCount == 0) {
+                return "";
+            } else {
+                return duplicateCount + "개의 강좌가 중복되어 제외되었습니다.";
+            }
+
+        } catch (IOException e) {
+            throw new RuntimeException("엑셀 파일 처리 중 오류 발생", e);
+        }
+    }
+
+    public String processExcelFile2(MultipartFile file) {
+
+        String originalFilename = file.getOriginalFilename();
+
+        if (originalFilename == null || originalFilename.isEmpty()) {
+            throw new IllegalArgumentException("파일명이 올바르지 않습니다.");
+        }
+
+
+        String loggedInStudentID = originalFilename.replaceFirst("[.][^.]+$", "");
+
+        try (InputStream inputStream = file.getInputStream()) {
+            Workbook workbook = WorkbookFactory.create(inputStream);
+            Sheet sheet = workbook.getSheetAt(0);
+
+            Row secondRow = sheet.getRow(1);
+
+            List<CompletedCourse> existingCourses = completedCourseRepository.findByMemberId((loggedInStudentID));
+            List<String> existingCourseNames = existingCourses.stream()
+                    .map(CompletedCourse::getCourseName)
+                    .collect(Collectors.toList());
+
+            List<CompletedCourse> courseList = new ArrayList<>();
+            int duplicateCount = 0; // 중복된 데이터 개수
+            for (int i = 3; i <= sheet.getLastRowNum(); i++) {
+                Row row = sheet.getRow(i);
+
+                if (row == null || isRowEmpty(row)) {
+                    log.info("비어있는 행을 건너뜁니다. (행 번호: {})", i);
+                    continue;
+                }
+
+                String gradeStatus = getCellValueAsString(row.getCell(20)); // 등급 열
+
                 if ("F".equalsIgnoreCase(gradeStatus) || "NP".equalsIgnoreCase(gradeStatus)) {
                     log.info("등급이 '{}'인 강좌를 건너뜁니다.", gradeStatus);
                     continue;

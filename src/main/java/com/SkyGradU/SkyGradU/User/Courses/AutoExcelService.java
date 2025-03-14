@@ -1,28 +1,49 @@
 package com.SkyGradU.SkyGradU.User.Courses;
 
+import com.SkyGradU.SkyGradU.User.member.Member;
+import com.SkyGradU.SkyGradU.User.member.MemberRepository;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Cookie;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.http.*;
 import org.springframework.stereotype.Service;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.client.RestTemplate;
 
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.*;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 @Service
 public class AutoExcelService {
+    private static final String DOWNLOAD_DIR = System.getProperty("user.home") + "/Downloads";  // 기본 다운로드 경로
+    private static final String UPLOAD_URL = "http://localhost:8080/api/excel/upload2"; // 업로드할 API 주소
+    private final MemberRepository memberRepository;
+
+    public AutoExcelService(MemberRepository memberRepository) {
+        this.memberRepository = memberRepository;
+    }
+
     public Map<String, Object> autoExcelUpdate(String userId, String password) {
         Map<String, Object> response = new HashMap<>();
 
         ChromeOptions options = new ChromeOptions();
         /*options.addArguments("--headless=new");*/ // 창을 띄우지 않음
+        HashMap<String, Object> prefs = new HashMap<>();
+        prefs.put("download.default_directory", DOWNLOAD_DIR);
+        prefs.put("download.prompt_for_download", false);
+        prefs.put("download.directory_upgrade", true);
+        prefs.put("safebrowsing.enabled", true);
+        options.setExperimentalOption("prefs", prefs);
 
         WebDriver driver = new ChromeDriver(options);
+
 
         try {
             Connection.Response loginResponse = Jsoup.connect("https://www.sungkyul.ac.kr/portalLogin/skukr/loginProcess.do")
@@ -111,21 +132,77 @@ public class AutoExcelService {
                     엑셀저장버튼.click();
 
 
+
+                    Optional<Member> member = memberRepository.findByPortalID(userId);
+                    String filename = member.get().getStudentID();
+
+                    File downloadedFile = findDownloadedFile();
+                    if (downloadedFile != null) {
+                        // 파일명 변경
+                        File renamedFile = renameFile(downloadedFile, filename);
+
+                        // 파일 업로드
+                        boolean uploadSuccess = uploadFile(renamedFile);
+                        response.put("upload_success", uploadSuccess);
+
+                        // 파일 삭제
+                        if (renamedFile.exists()) {
+                            renamedFile.delete();
+                        }
+                    }
                 } else {
-                    System.out.println("❌ '성적정보' 클릭 실패 (요소가 비어 있음).");
+                    response.put("error", "'성적정보' 페이지 이동 실패");
                 }
             } else {
                 response.put("is_auth", false);
             }
-        } catch (IOException e) {
+        } catch (IOException | InterruptedException e) {
             e.printStackTrace();
-            response.put("is_auth", false);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-            response.put("is_auth", false);
+            response.put("error", e.getMessage());
         } finally {
-            /*driver.quit();*/
+            driver.quit();
         }
         return response;
     }
+    private File renameFile(File oldFile, String filename) {
+        File newFile = new File(DOWNLOAD_DIR, filename + ".xlsx");
+        try {
+            Files.move(oldFile.toPath(), newFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+            return newFile;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return oldFile;
+        }
+    }
+
+
+    private boolean uploadFile(File file) {
+        RestTemplate restTemplate = new RestTemplate();
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.MULTIPART_FORM_DATA);
+
+
+
+        MultiValueMap<String, Object> body = new LinkedMultiValueMap<>();
+        body.add("file", new FileSystemResource(file));
+
+        HttpEntity<MultiValueMap<String, Object>> requestEntity = new HttpEntity<>(body, headers);
+        ResponseEntity<String> response = restTemplate.exchange(UPLOAD_URL, HttpMethod.POST, requestEntity, String.class);
+
+        return response.getStatusCode() == HttpStatus.OK;
+    }
+
+    private File findDownloadedFile() {
+        File dir = new File(DOWNLOAD_DIR);
+        File[] files = dir.listFiles((dir1, name) -> name.endsWith(".xls") || name.endsWith(".xlsx"));
+
+        if (files == null || files.length == 0) {
+            return null;
+        }
+
+        return Arrays.stream(files)
+                .max(Comparator.comparingLong(File::lastModified))
+                .orElse(null);
+    }
+
 }

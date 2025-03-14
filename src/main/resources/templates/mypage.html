@@ -269,8 +269,30 @@
             <div id="error-message" style="color: red; margin-top: 1rem;"></div>
             <button class="m1-button" onclick="submitAutoExcel()">확인</button>
         </div>
-        <div id="InfoUpdateModalStep23" style="display: none;">
-            <!--크롤링하는동안 로딩 모달 띄우기-->
+
+</div>
+    <div id='m6' class="modal" style="display: none;">
+        <div class="load-modal-content">
+            <div class="modal_loadcontainer">
+                <div>
+                    <lottie-player id="lottiePlayer" src="/webapp/json/dotloading.json" background="transparent" speed="1" style="width: 340px; height: 300px;" loop autoplay>
+                    </lottie-player>
+                </div>
+                <div class="header-text">
+                    <span>정</span>
+                    <span>보</span>
+                    <span>확</span>
+                    <span>인</span>
+                    <span>중</span>
+                    <span>.</span>
+                    <span>.</span>
+                    <span>.</span>
+                    <span>.</span>
+                </div>
+                <div class="load_info">
+                    학생 인증 중입니다. 창을 이동하지 마세요!
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -347,11 +369,16 @@
         const userId = document.querySelector('input[name="userId"]').value;
         const password = document.getElementById('PortalPassword3').value;
         const errorMessage = document.getElementById('error-message');
+        const mainModal = document.getElementById('m5');
+        const loadingModal = document.getElementById('m6');
 
         if (!password) {
             errorMessage.textContent = "비밀번호를 입력해주세요";
             return;
         }
+
+        errorMessage.textContent = "";
+        loadingModal.style.display = "block";
 
         fetch("/api/excel/auto", {
             method: "POST",
@@ -363,15 +390,25 @@
             .then(response => response.json())
             .then(data => {
                 if (data.is_auth === false) {
+                    loadingModal.style.display = "none";
                     errorMessage.textContent = "입력 정보를 다시 확인해 주세요.";
+                } else {
+                    alert("이수 과목 업데이트가 완료되었습니다.");
+                    closeAllModals();
+                    location.reload();
                 }
             })
             .catch(error => {
                 console.error("Error:", error);
-                errorMessage.textContent = "서버 오류가 발생했습니다.";
+                loadingModal.style.display = "none";
+                alert("서버 오류가 발생했습니다.");
             });
     }
 
+    function closeAllModals() {
+        document.getElementById('m5').style.display = "none";
+        document.getElementById('m6').style.display = "none";
+    }
 </script>
 </body>
 </html>
