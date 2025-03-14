@@ -32,9 +32,24 @@ public class CourseController {
             return ResponseEntity.status(500).body(Map.of("message", "업로드 실패", "error", e.getMessage()));
         }
     }
+
     @PostMapping("/auto")
     @ResponseBody
     public Map<String, Object> autoExcelUpdate(@RequestParam String userId, @RequestParam String password) {
         return autoExcelService.autoExcelUpdate(userId, password);
+    }
+
+    @PostMapping("/upload2")
+    public ResponseEntity<?> uploadExcel2(@RequestParam MultipartFile file) {
+        try {
+            String resultMessage = excelService.processExcelFile2(file);
+            return ResponseEntity.ok(Map.of("message", resultMessage));
+        } catch (FileUploadException e) {
+            Map<String, String> errorResponse = new HashMap<>();
+            errorResponse.put("error", "error1");
+            return ResponseEntity.status(500).body(errorResponse);
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body(Map.of("message", "업로드 실패", "error", e.getMessage()));
+        }
     }
 }
