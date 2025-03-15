@@ -34,7 +34,7 @@ public class AutoExcelService {
         Map<String, Object> response = new HashMap<>();
 
         ChromeOptions options = new ChromeOptions();
-        /*options.addArguments("--headless=new");*/ // 창을 띄우지 않음
+        options.addArguments("--headless=new"); // 창을 띄우지 않음
         HashMap<String, Object> prefs = new HashMap<>();
         prefs.put("download.default_directory", DOWNLOAD_DIR);
         prefs.put("download.prompt_for_download", false);
@@ -131,6 +131,8 @@ public class AutoExcelService {
                     driver.switchTo().frame("rex_ifrmRexPreview_new");
                     WebElement 엑셀저장버튼 = driver.findElement(By.xpath("//*[@title='엑셀저장']"));
                     엑셀저장버튼.click();
+
+                    Thread.sleep(500);
 
 
 

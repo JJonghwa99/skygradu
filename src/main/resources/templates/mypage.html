@@ -37,6 +37,9 @@
         .show-password5{
                     cursor: pointer;
                 }
+        .show-password7{
+            cursor: pointer;
+        }
     </style>
 </head>
 <body class="d-flex flex-column h-100 text-center" style="overflow:auto">
@@ -264,7 +267,7 @@
             </div>
             <div class="input-group flex-nowrap" style="margin-top: 0.5rem;">
                 <input type="password" class="form-control" name="password" id="PortalPassword3" placeholder="포털 비밀번호" onkeyup="checkCapsLock(event)">
-                <span class="input-group-text show-password3" onclick="togglePassword('PortalPassword','show-password3')">🙈</span>
+                <span class="input-group-text show-password7" onclick="togglePassword('PortalPassword3','show-password7')">🙈</span>
             </div>
             <div id="error-message" style="color: red; margin-top: 1rem;"></div>
             <button class="m1-button" onclick="submitAutoExcel()">확인</button>
@@ -290,7 +293,7 @@
                     <span>.</span>
                 </div>
                 <div class="load_info">
-                    학생 인증 중입니다. 창을 이동하지 마세요!
+                    이수과목을 업데이트 중입니다! 창을 이동하지 마세요
                 </div>
             </div>
         </div>
