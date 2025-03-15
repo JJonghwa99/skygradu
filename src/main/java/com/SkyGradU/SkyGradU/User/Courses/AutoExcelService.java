@@ -22,8 +22,8 @@ import java.util.concurrent.TimeUnit;
 
 @Service
 public class AutoExcelService {
-    private static final String DOWNLOAD_DIR = System.getProperty("user.home") + "/Downloads";  // 기본 다운로드 경로
-    private static final String UPLOAD_URL = "http://localhost:8080/api/excel/upload2"; // 업로드할 API 주소
+    private static final String DOWNLOAD_DIR = System.getProperty("user.home") + "/Downloads";
+    private static final String UPLOAD_URL = "http://localhost:8080/api/excel/upload2";
     private final MemberRepository memberRepository;
 
     public AutoExcelService(MemberRepository memberRepository) {
@@ -43,6 +43,7 @@ public class AutoExcelService {
         options.setExperimentalOption("prefs", prefs);
 
         WebDriver driver = new ChromeDriver(options);
+
 
 
         try {
