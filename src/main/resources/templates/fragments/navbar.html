@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Navbar</title>
+    <!-- 외부 스타일시트 -->
+    <link href="/webapp/css/basic.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+    <!-- 아이콘 및 메타 태그 -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/webapp/images/icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/webapp/images/icon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/webapp/images/icon.png">
+    <link rel="manifest" href="https://getbootstrap.com/docs/5.3/assets/img/favicons/manifest.json">
+    <link rel="mask-icon" href="/webapp/images/icon.png" color="#712cf9">
+    <link rel="icon" href="/webapp/images/icon.ico">
+    <meta name="theme-color" content="#ffffff">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#ffffff">
+    <!-- Lottie 애니메이션 -->
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+</head>
+<body>
+    <!-- 네비게이션 바 -->
+    <nav class="container-fluid" th:fragment="navbar">
+        <header class="d-flex flex-wrap justify-content-center py-3 mb-2 border-bottom">
+            <!-- 로고 부분 -->
+            <a href="/" class="d-flex align-items-center mb-2 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
+                <lottie-player src="/webapp/json/homelogo.json" background="transparent" speed="1" style="width: 40px; height: 32px" loop autoplay></lottie-player>
+                <span class="fs-4" style="color: #000000;">The SkyGradU</span>
+            </a>
+
+            <!-- 메뉴 항목들 -->
+            <ul class="nav nav-pills navbar-expand-md">
+                <li class="nav-item">
+                    <a href="/" class="nav-link" onclick="showContent('home', this)">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="/qna" class="nav-link" onclick="showContent('faqs', this)">FAQs</a>
+                </li>
+                <li class="nav-item">
+                    <a href="" class="nav-link" onclick="showContent('explain', this)">이용안내</a>
+                </li>
+                <li class="nav-item" sec:authorize="isAuthenticated() and !hasAuthority('ROLE_ADMIN')">
+                    <a href="/mypage" class="nav-link" onclick="showContent('mypage', this)">마이페이지</a>
+                </li>
+                <li class="nav-item" sec:authorize="hasAuthority('ROLE_ADMIN')">
+                    <a href="/admin" class="nav-link" onclick="showContent('admin', this)">관리자</a>
+                </li>
+                <li class="nav-item" sec:authorize="isAnonymous()">
+                    <a href="/login" class="nav-link" onclick="showContent('login', this)">로그인</a>
+                </li>
+                <li class="nav-item" sec:authorize="isAuthenticated()">
+                    <a href="/logout" class="nav-link" onclick="showContent('logout', this)">로그아웃</a>
+                </li>
+            </ul>
+        </header>
+    </nav>
+</body>
+</html>
