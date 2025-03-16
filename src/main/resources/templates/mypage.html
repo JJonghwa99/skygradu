@@ -19,261 +19,218 @@
     <meta name="theme-color" content="#ffffff">
     <meta name="apple-mobile-web-app-status-bar-style" content="#ffffff">
     <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
-
     <script src="https://use.fontawesome.com/releases/v6.0.0/js/all.js"></script>
     <style>
-        .show-password1{
-                    cursor: pointer;
-                }
-        .show-password2{
-                    cursor: pointer;
-                }
-        .show-password3{
-                    cursor: pointer;
-                }
-        .show-password4{
-                    cursor: pointer;
-                }
-        .show-password5{
-                    cursor: pointer;
-                }
-        .show-password7{
-            cursor: pointer;
-        }
+        .show-password1 { cursor: pointer; }
+        .show-password2 { cursor: pointer; }
+        .show-password3 { cursor: pointer; }
+        .show-password4 { cursor: pointer; }
+        .show-password5 { cursor: pointer; }
+        .show-password7 { cursor: pointer; }
     </style>
 </head>
 <body class="d-flex flex-column h-100 text-center" style="overflow:auto">
-<nav class="container-fluid">
-    <header class="d-flex flex-wrap justify-content-center py-3 mb-2 border-bottom">
-        <a href="/" class="d-flex align-items-center mb-2 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
-            <lottie-player src="/webapp/json/homelogo.json" background="transparent" speed="1" style="width: 40px; height: 32px" loop autoplay></lottie-player>
-            <span class="fs-4" style="color: #000000;">The SkyGradU</span>
-        </a>
-        <ul class="nav nav-pills navbar-expand-md">
-            <li class="nav-item">
-                <a href="/" class="nav-link">Home</a>
-            </li>
-            <li class="nav-item">
-                <a href="/qna" class="nav-link">FAQs</a>
-            </li>
-            <li class="nav-item">
-                <a href="" class="nav-link">이용안내</a>
-            </li>
-            <li class="nav-item" sec:authorize="isAuthenticated() and !hasAuthority('ROLE_ADMIN')">
-                <a href="/mypage" class="nav-link">마이페이지</a>
-            </li>
-            <li class="nav-item" sec:authorize="hasAuthority('ROLE_ADMIN')">
-                <a href="/admin" class="nav-link">관리자</a>
-            </li>
-            <li class="nav-item" sec:authorize="isAnonymous()">
-                <a href="/login" class="nav-link">로그인</a>
-            </li>
-            <li class="nav-item" sec:authorize="isAuthenticated()">
-                <a href="/logout" class="nav-link">로그아웃</a>
-            </li>
-        </ul>
-    </header>
-</nav>
-<div class="gray_sec">
-    <div class="container">
-        <div class="login_logo2">
-            <lottie-player id="home_logo" src="/webapp/json/homelogo.json" background="transparent" speed="1" style="width: 100px; height: 80px" loop autoplay></lottie-player>
-        </div>
-        <div class="cutstom_login_title">마이페이지</div>
-    </div>
-    <div class="action">
-        <button class="button-text" id="test">졸업요건 검사하기</button>
-    </div>
-</div>
-<div class="white_sec">
-    <div class="my_box_wrap">
-        <div class="info_section">
-            <div class="my_box my_box_width">
-                <div class="my_box_title">
-                    <div><i class="fas fa-user"></i><b>&nbsp;&nbsp;내 정보</b></div>
-                    <button id='b1' class="my_box_mod_btn" onclick="toggleModal('m1', 'open')" >업데이트</button>
-                </div>
-                <hr>
-                <table>
-                    <tr>
-                        <td class="my_box_table_1st_td"><b>이름</b></td>
-                        <td><span th:text="${userName}"></span></td>
-                    </tr>
-                    <tr>
-                        <td class="my_box_table_1st_td"><b>학번</b></td>
-                        <td><span th:text="${studentID}"></span></td>
-                    </tr>
-                    <tr>
-                        <td class="my_box_table_1st_td"><b>학과</b></td>
-                        <td><span th:text="${major}"></span></td>
-                    </tr>
-                </table>
-                <hr style="margin-bottom:0.8rem; margin-top:0.8rem;">
-                <div class="my_box_title">
-                    <div><i class="fa-solid fa-lock"></i><b>&nbsp;&nbsp;비밀번호 변경</b></div>
-                    <button id='b2' class="my_box_mod_btn2" onclick="toggleModal('m2', 'open')">변경하기</button>
-                </div>
-                <hr style="margin-bottom:0.8rem; margin-top:0.8rem;">
-                <div class="my_box_title">
-                    <div class="warning-message"><i class="fa-solid fa-bomb"></i><b>&nbsp;&nbsp;회원 탈퇴</b></div>
-                    <button id='b3' class="my_warning_btn" onclick="toggleModal('m3', 'open')">탈퇴하기</button>
-                </div>
-            </div>
-        </div>
+    <!-- 네비게이션 바 포함 -->
+    <div th:replace="~{fragments/navbar :: navbar}"></div>
 
-        <div class="grade_section">
-            <div class="my_box_grade my_box_width">
-                <div class="table_grade">
+    <div class="gray_sec">
+        <div class="container">
+            <div class="login_logo2">
+                <lottie-player id="home_logo" src="/webapp/json/homelogo.json" background="transparent" speed="1" style="width: 100px; height: 80px" loop autoplay></lottie-player>
+            </div>
+            <div class="cutstom_login_title">마이페이지</div>
+        </div>
+        <div class="action">
+            <button class="button-text" id="test">졸업요건 검사하기</button>
+        </div>
+    </div>
+    <div class="white_sec">
+        <div class="my_box_wrap">
+            <div class="info_section">
+                <div class="my_box my_box_width">
                     <div class="my_box_title">
-                        <div><i class="fa-solid fa-book"></i><b>&nbsp;&nbsp;내 기이수과목</b></div>
-                        <div>
-                            <input type="file" id="excelUpload" style="display: none;" accept=".xlsx, .xls">
-                            <button id='b4' class="my_box_mod_btn2">직접 업로드</button>
-                            <button id='b5' class="my_box_mod_btn" onclick="toggleModal('m5', 'open')">업데이트</button>
-                        </div>
+                        <div><i class="fas fa-user"></i><b>&nbsp;&nbsp;내 정보</b></div>
+                        <button id='b1' class="my_box_mod_btn" onclick="toggleModal('m1', 'open')">업데이트</button>
                     </div>
                     <hr>
-                    <div class="scroll">
-                        <table id="long_table" class="grade_table">
-                            <tr>
-                                <th class="grade_table_th" style="width:10%">년도</th>
-                                <th class="grade_table_th" style="width:10%">학기</th>
-                                <th class="grade_table_th" style="width:40%">과목명</th>
-                                <th class="grade_table_th" style="width:10%">이수구분</th>
-                                <th class="grade_table_th" style="width:6%; border-right :0px">학점</th>
-                            </tr>
-                            <tr th:each="course : ${courses}"
-                                th:style="${course.isCustom} ? 'color: #20B2AA;' : ''">
-                                <td class="grade_table_td" th:text="${course.year != null ? course.year : ''}"></td>
-                                <td class="grade_table_td" th:text="${course.semesterCompleted != null ? course.semesterCompleted : ''}"></td>
-                                <td class="grade_table_td" th:text="${course.courseName != null ? course.courseName : ''}"></td>
-                                <td class="grade_table_td" th:text="${course.courseType != null ? course.courseType : ''}"></td>
-                                <td class="grade_table_td" style="border-right: 0px" th:text="${course.credits != null ? course.credits : ''}"></td>
-                            </tr>
+                    <table>
+                        <tr>
+                            <td class="my_box_table_1st_td"><b>이름</b></td>
+                            <td><span th:text="${userName}"></span></td>
+                        </tr>
+                        <tr>
+                            <td class="my_box_table_1st_td"><b>학번</b></td>
+                            <td><span th:text="${studentID}"></span></td>
+                        </tr>
+                        <tr>
+                            <td class="my_box_table_1st_td"><b>학과</b></td>
+                            <td><span th:text="${major}"></span></td>
+                        </tr>
+                    </table>
+                    <hr style="margin-bottom:0.8rem; margin-top:0.8rem;">
+                    <div class="my_box_title">
+                        <div><i class="fa-solid fa-lock"></i><b>&nbsp;&nbsp;비밀번호 변경</b></div>
+                        <button id='b2' class="my_box_mod_btn2" onclick="toggleModal('m2', 'open')">변경하기</button>
+                    </div>
+                    <hr style="margin-bottom:0.8rem; margin-top:0.8rem;">
+                    <div class="my_box_title">
+                        <div class="warning-message"><i class="fa-solid fa-bomb"></i><b>&nbsp;&nbsp;회원 탈퇴</b></div>
+                        <button id='b3' class="my_warning_btn" onclick="toggleModal('m3', 'open')">탈퇴하기</button>
+                    </div>
+                </div>
+            </div>
 
-                        </table>
+            <div class="grade_section">
+                <div class="my_box_grade my_box_width">
+                    <div class="table_grade">
+                        <div class="my_box_title">
+                            <div><i class="fa-solid fa-book"></i><b>&nbsp;&nbsp;내 기이수과목</b></div>
+                            <div>
+                                <input type="file" id="excelUpload" style="display: none;" accept=".xlsx, .xls">
+                                <button id='b4' class="my_box_mod_btn2">직접 업로드</button>
+                                <button id='b5' class="my_box_mod_btn" onclick="toggleModal('m5', 'open')">업데이트</button>
+                            </div>
                         </div>
-                    <hr style="margin-bottom:0.8rem; margin-top:1.6rem;">
-                    <div class="my_box_title2">
-                        <div><i class="fa-solid fa-screwdriver-wrench"></i><b>&nbsp;&nbsp;기이수과목 커스텀</b></div>
-                        <button id='b6' class="my_box_mod_btn3">커스텀하기</button></div>
+                        <hr>
+                        <div class="scroll">
+                            <table id="long_table" class="grade_table">
+                                <tr>
+                                    <th class="grade_table_th" style="width:10%">년도</th>
+                                    <th class="grade_table_th" style="width:10%">학기</th>
+                                    <th class="grade_table_th" style="width:40%">과목명</th>
+                                    <th class="grade_table_th" style="width:10%">이수구분</th>
+                                    <th class="grade_table_th" style="width:6%; border-right :0px">학점</th>
+                                </tr>
+                                <tr th:each="course : ${courses}"
+                                    th:style="${course.isCustom} ? 'color: #20B2AA;' : ''">
+                                    <td class="grade_table_td" th:text="${course.year != null ? course.year : ''}"></td>
+                                    <td class="grade_table_td" th:text="${course.semesterCompleted != null ? course.semesterCompleted : ''}"></td>
+                                    <td class="grade_table_td" th:text="${course.courseName != null ? course.courseName : ''}"></td>
+                                    <td class="grade_table_td" th:text="${course.courseType != null ? course.courseType : ''}"></td>
+                                    <td class="grade_table_td" style="border-right: 0px" th:text="${course.credits != null ? course.credits : ''}"></td>
+                                </tr>
+                            </table>
+                        </div>
+                        <hr style="margin-bottom:0.8rem; margin-top:1.6rem;">
+                        <div class="my_box_title2">
+                            <div><i class="fa-solid fa-screwdriver-wrench"></i><b>&nbsp;&nbsp;기이수과목 커스텀</b></div>
+                            <button id='b6' class="my_box_mod_btn3">커스텀하기</button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-<footer class="text-white-100 mastfoot mt-auto">
-    <p>© The SkyGradU 2024</p>
-    <a href="/faqs/privacy" style="color: #ffffff;">개인정보처리방침</a>
-</footer>
 
+    <!-- 푸터 포함 -->
+    <div th:replace="~{fragments/footer :: footer}"></div>
 
-<!--정보 업데이트 모달-->
-<div id="m1" class="m1-modal">
-    <div class="m1-modal-content">
-        <div class="modal-header">
-            <span class="modal-close" onclick="toggleModal('m1', 'close')">&times;</span>
-            <h2>정보 업데이트</h2>
-        </div>
-        <div class="modal-body" id="InfoUpdateModalStep1">
-            <p><a href="https://www.sungkyul.ac.kr/portalLogin/skukr/portalLoginForm.do" class="text-black footer_link" style="font-weight: bold;" target="_blank">성결대학교 포털</a> <br>
-                로그인을 통해 정보를 업데이트 합니다.</p>
-            <div class="input-group flex-nowrap">
-                <input class="form-control form-readonly" type="text" name="userId" th:value="${portalID}" readonly>
+    <!--정보 업데이트 모달-->
+    <div id="m1" class="m1-modal">
+        <div class="m1-modal-content">
+            <div class="modal-header">
+                <span class="modal-close" onclick="toggleModal('m1', 'close')">&times;</span>
+                <h2>정보 업데이트</h2>
             </div>
-            <div class="input-group flex-nowrap" style="margin-top: 0.5rem;">
-                <input type="password" class="form-control" name="password" id="PortalPassword" placeholder="포털 비밀번호" onkeyup="checkCapsLock(event)">
-                <span class="input-group-text show-password3" onclick="togglePassword('PortalPassword','show-password3')">🙈</span>
+            <div class="modal-body" id="InfoUpdateModalStep1">
+                <p><a href="https://www.sungkyul.ac.kr/portalLogin/skukr/portalLoginForm.do" class="text-black footer_link" style="font-weight: bold;" target="_blank">성결대학교 포털</a> <br>
+                    로그인을 통해 정보를 업데이트 합니다.</p>
+                <div class="input-group flex-nowrap">
+                    <input class="form-control form-readonly" type="text" name="userId" th:value="${portalID}" readonly>
+                </div>
+                <div class="input-group flex-nowrap" style="margin-top: 0.5rem;">
+                    <input type="password" class="form-control" name="password" id="PortalPassword" placeholder="포털 비밀번호" onkeyup="checkCapsLock(event)">
+                    <span class="input-group-text show-password3" onclick="togglePassword('PortalPassword','show-password3')">🙈</span>
+                </div>
+                <button class="m1-button" onclick="">확인</button>
             </div>
-            <!--<div id="error-message1" style="color: red; margin-top: 1rem;"></div>-->
-            <button class="m1-button" onclick="">확인</button>
-        </div>
-        <div id="InfoUpdateModalStep2" style="display: none;">
-            <!--크롤링하는동안 로딩 모달 띄우기-->
+            <div id="InfoUpdateModalStep2" style="display: none;">
+                <!--크롤링하는동안 로딩 모달 띄우기-->
+            </div>
         </div>
     </div>
-</div>
 
-
-<!--비밀번호 변경모달-->
-<div id="m2" class="m2-modal">
-    <div class="m2-modal-content">
-        <div class="modal-header">
-            <span class="modal-close" onclick="toggleModal('m2', 'close')">&times;</span>
-            <h2>비밀번호 변경하기</h2>
-        </div>
-        <div class="modal-body" id="passwordUpdateModalStep1">
-            <p>변경하기 전 현재 비밀번호를 확인합니다.</p>
-            <div class="input-group flex-nowrap">
-                <input class="form-control" id="currentPassword" type="password" placeholder="현재 비밀번호 입력">
-                <span class="input-group-text show-password1" onclick="togglePassword('currentPassword', 'show-password1')">🙈</span>
+    <!--비밀번호 변경모달-->
+    <div id="m2" class="m2-modal">
+        <div class="m2-modal-content">
+            <div class="modal-header">
+                <span class="modal-close" onclick="toggleModal('m2', 'close')">&times;</span>
+                <h2>비밀번호 변경하기</h2>
             </div>
-            <div id="error-message1" style="color: red; margin-top: 1rem;"></div>
-            <button class="m2-button" onclick="verifyCurrentPassword1()">확인</button>
-        </div>
-        <div id="passwordUpdateModalStep2" style="display: none;">
-            <p style="margin-top:1rem">보안을 위해 8자리 이상 입력해주세요!😊</p>
-            <div class="input-group flex-nowrap">
-                <input type="password" id="newPassword" placeholder="새 비밀번호" class="form-control">
-                <span class="input-group-text show-password4" onclick="togglePassword('newPassword', 'show-password4')">🙈</span>
+            <div class="modal-body" id="passwordUpdateModalStep1">
+                <p>변경하기 전 현재 비밀번호를 확인합니다.</p>
+                <div class="input-group flex-nowrap">
+                    <input class="form-control" id="currentPassword" type="password" placeholder="현재 비밀번호 입력">
+                    <span class="input-group-text show-password1" onclick="togglePassword('currentPassword', 'show-password1')">🙈</span>
+                </div>
+                <div id="error-message1" style="color: red; margin-top: 1rem;"></div>
+                <button class="m2-button" onclick="verifyCurrentPassword1()">확인</button>
             </div>
-            <div class="input-group flex-nowrap" style="margin-top:1rem">
-                <input type="password" id="confirmNewPassword" placeholder="새 비밀번호 확인" class="form-control" >
-                <span class="input-group-text show-password5" onclick="togglePassword('confirmNewPassword', 'show-password5')">🙈</span>
+            <div id="passwordUpdateModalStep2" style="display: none;">
+                <p style="margin-top:1rem">보안을 위해 8자리 이상 입력해주세요!😊</p>
+                <div class="input-group flex-nowrap">
+                    <input type="password" id="newPassword" placeholder="새 비밀번호" class="form-control">
+                    <span class="input-group-text show-password4" onclick="togglePassword('newPassword', 'show-password4')">🙈</span>
+                </div>
+                <div class="input-group flex-nowrap" style="margin-top:1rem">
+                    <input type="password" id="confirmNewPassword" placeholder="새 비밀번호 확인" class="form-control">
+                    <span class="input-group-text show-password5" onclick="togglePassword('confirmNewPassword', 'show-password5')">🙈</span>
+                </div>
+                <div id="error-message2" style="color: red; margin-top: 1rem;"></div>
+                <button class="m2-button" onclick="changePassword()">변경하기</button>
             </div>
-            <div id="error-message2" style="color: red; margin-top: 1rem;"></div>
-            <button class="m2-button" onclick="changePassword()">변경하기</button>
         </div>
     </div>
-</div>
 
-<!--회원탈퇴 모달-->
-<div id="m3" class="m3-modal">
-    <div class="m3-modal-content">
-        <div class="modal-header">
-            <span class="modal-close" onclick="toggleModal('m3', 'close')">&times;</span>
-            <h2>회원 <b style="color:red;">탈퇴하기</b></h2>
-        </div>
-        <div class="modal-body" id="WithdrawalModalStep1">
-            <p><b style="color:red;">탈퇴하기</b> 전 현재 비밀번호를 확인합니다.</p>
-            <div class="input-group flex-nowrap">
-                <input class="form-control" id="currentPassword1" type="password" placeholder="현재 비밀번호 입력">
-                <span class="input-group-text show-password2" onclick="togglePassword('currentPassword1', 'show-password2')">🙈</span>
+    <!--회원탈퇴 모달-->
+    <div id="m3" class="m3-modal">
+        <div class="m3-modal-content">
+            <div class="modal-header">
+                <span class="modal-close" onclick="toggleModal('m3', 'close')">&times;</span>
+                <h2>회원 <b style="color:red;">탈퇴하기</b></h2>
             </div>
-            <div id="error-message3" style="color: red; margin-top: 1rem;"></div>
-            <button class="m3-button-confirm" onclick="verifyCurrentPassword2()">확인</button>
-        </div>
-        <div id="WithdrawalModalStep2" style="display: none;">
-            <p style="margin-top:1rem"><b>탈퇴하기 버튼을 누르면</b></p>
-            <p><b>탈퇴와 동시에 정보가 모두 삭제됩니다.</b></p>
-            <div id="error-message4" style="color: red; margin-top: 1rem;"></div>
-            <button class="m3-button" onclick="deleteAccount()">탈퇴하기</button>
+            <div class="modal-body" id="WithdrawalModalStep1">
+                <p><b style="color:red;">탈퇴하기</b> 전 현재 비밀번호를 확인합니다.</p>
+                <div class="input-group flex-nowrap">
+                    <input class="form-control" id="currentPassword1" type="password" placeholder="현재 비밀번호 입력">
+                    <span class="input-group-text show-password2" onclick="togglePassword('currentPassword1', 'show-password2')">🙈</span>
+                </div>
+                <div id="error-message3" style="color: red; margin-top: 1rem;"></div>
+                <button class="m3-button-confirm" onclick="verifyCurrentPassword2()">확인</button>
+            </div>
+            <div id="WithdrawalModalStep2" style="display: none;">
+                <p style="margin-top:1rem"><b>탈퇴하기 버튼을 누르면</b></p>
+                <p><b>탈퇴와 동시에 정보가 모두 삭제됩니다.</b></p>
+                <div id="error-message4" style="color: red; margin-top: 1rem;"></div>
+                <button class="m3-button" onclick="deleteAccount()">탈퇴하기</button>
+            </div>
         </div>
     </div>
-</div>
 
-<div id="m5" class="m5-modal">
-    <div class="m5-modal-content">
-        <div class="modal-header">
-            <span class="modal-close" onclick="toggleModal('m5', 'close')">&times;</span>
-            <h2>이수과목 자동 업데이트</h2>
-        </div>
-        <div class="modal-body" >
-            <p><a href="https://www.sungkyul.ac.kr/portalLogin/skukr/portalLoginForm.do" class="text-black footer_link" style="font-weight: bold;" target="_blank">성결대학교 포털</a> <br>
-                로그인을 통해 이수과목을 업데이트 합니다.</p>
-            <div class="input-group flex-nowrap">
-                <input class="form-control form-readonly" type="text" name="userId" th:value="${portalID}" readonly>
+    <!--이수과목 업데이트 모달-->
+    <div id="m5" class="m5-modal">
+        <div class="m5-modal-content">
+            <div class="modal-header">
+                <span class="modal-close" onclick="toggleModal('m5', 'close')">&times;</span>
+                <h2>이수과목 자동 업데이트</h2>
             </div>
-            <div class="input-group flex-nowrap" style="margin-top: 0.5rem;">
-                <input type="password" class="form-control" name="password" id="PortalPassword3" placeholder="포털 비밀번호" onkeyup="checkCapsLock(event)">
-                <span class="input-group-text show-password7" onclick="togglePassword('PortalPassword3','show-password7')">🙈</span>
+            <div class="modal-body">
+                <p><a href="https://www.sungkyul.ac.kr/portalLogin/skukr/portalLoginForm.do" class="text-black footer_link" style="font-weight: bold;" target="_blank">성결대학교 포털</a> <br>
+                    로그인을 통해 이수과목을 업데이트 합니다.</p>
+                <div class="input-group flex-nowrap">
+                    <input class="form-control form-readonly" type="text" name="userId" th:value="${portalID}" readonly>
+                </div>
+                <div class="input-group flex-nowrap" style="margin-top: 0.5rem;">
+                    <input type="password" class="form-control" name="password" id="PortalPassword3" placeholder="포털 비밀번호" onkeyup="checkCapsLock(event)">
+                    <span class="input-group-text show-password7" onclick="togglePassword('PortalPassword3','show-password7')">🙈</span>
+                </div>
+                <div id="error-message" style="color: red; margin-top: 1rem;"></div>
+                <button class="m1-button" onclick="submitAutoExcel()">확인</button>
             </div>
-            <div id="error-message" style="color: red; margin-top: 1rem;"></div>
-            <button class="m1-button" onclick="submitAutoExcel()">확인</button>
         </div>
+    </div>
 
-</div>
+    <!--로딩 모달-->
     <div id='m6' class="modal" style="display: none;">
         <div class="load-modal-content">
             <div class="modal_loadcontainer">
@@ -298,120 +255,118 @@
             </div>
         </div>
     </div>
-</div>
-<script src="/webapp/js/updatePW.js"></script>
-<script src="/webapp/js/deleteAccount.js"></script>
-<script>
 
-    <!--비밀번호 보이기 스크립트-->
-    function togglePassword(inputId, iconClass) {
-    const passwordField = document.getElementById(inputId);
-    const passwordFieldType = passwordField.getAttribute("type");
-    const toggleIcon = document.querySelector(`.${iconClass}`);
+    <script src="/webapp/js/updatePW.js"></script>
+    <script src="/webapp/js/deleteAccount.js"></script>
+    <script>
+        <!--비밀번호 보이기 스크립트-->
+        function togglePassword(inputId, iconClass) {
+            const passwordField = document.getElementById(inputId);
+            const passwordFieldType = passwordField.getAttribute("type");
+            const toggleIcon = document.querySelector(`.${iconClass}`);
 
-    if (passwordFieldType === "password") {
-        passwordField.setAttribute("type", "text");
-        toggleIcon.textContent = "🐵";
-    } else {
-        passwordField.setAttribute("type", "password");
-        toggleIcon.textContent = "🙈";
-    }
-}
-
-    <!--모달 여닫기 스크립트-->
-    function toggleModal(modalId, action) {
-    const modal = document.getElementById(modalId);
-
-    if (action === 'open') {
-        modal.style.display = 'block';
-    } else if (action === 'close') {
-        modal.style.display = 'none';
-
-        if (modalId === 'm2') {
-            document.getElementById('error-message1').textContent = '';
+            if (passwordFieldType === "password") {
+                passwordField.setAttribute("type", "text");
+                toggleIcon.textContent = "🐵";
+            } else {
+                passwordField.setAttribute("type", "password");
+                toggleIcon.textContent = "🙈";
+            }
         }
-    }
-}
 
-</script>
-<script>
-    document.getElementById('b4').addEventListener('click', function() {
-        document.getElementById('excelUpload').click();
-    });
+        <!--모달 여닫기 스크립트-->
+        function toggleModal(modalId, action) {
+            const modal = document.getElementById(modalId);
 
-    document.getElementById('excelUpload').addEventListener('change', function(event) {
-        const file = event.target.files[0];
-        if (!file) return;
+            if (action === 'open') {
+                modal.style.display = 'block';
+            } else if (action === 'close') {
+                modal.style.display = 'none';
 
-        if (confirm("업로드하시겠습니까?")) {
-            const formData = new FormData();
-            formData.append("file", file);
+                if (modalId === 'm2') {
+                    document.getElementById('error-message1').textContent = '';
+                }
+            }
+        }
+    </script>
+    <script>
+        document.getElementById('b4').addEventListener('click', function() {
+            document.getElementById('excelUpload').click();
+        });
 
-            fetch("/api/excel/upload", {
+        document.getElementById('excelUpload').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            if (confirm("업로드하시겠습니까?")) {
+                const formData = new FormData();
+                formData.append("file", file);
+
+                fetch("/api/excel/upload", {
+                    method: "POST",
+                    body: formData
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log("서버 응답:", data);
+                        if (data.error) {
+                            alert("업로드 실패 ❌\n 본인의 파일이 맞는지 확인해주세요;");
+                        } else {
+                            alert(`이수과목 업로드 완료!\n${data.message}`);
+                        }
+                        window.location.reload();
+                    })
+                    .catch(error => {
+                        alert("업로드 요청 중 오류 발생: " + error);
+                    });
+            }
+        });
+    </script>
+    <script>
+        function submitAutoExcel() {
+            const userId = document.querySelector('input[name="userId"]').value;
+            const password = document.getElementById('PortalPassword3').value;
+            const errorMessage = document.getElementById('error-message');
+            const mainModal = document.getElementById('m5');
+            const loadingModal = document.getElementById('m6');
+
+            if (!password) {
+                errorMessage.textContent = "비밀번호를 입력해주세요";
+                return;
+            }
+
+            errorMessage.textContent = "";
+            loadingModal.style.display = "block";
+
+            fetch("/api/excel/auto", {
                 method: "POST",
-                body: formData
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded",
+                },
+                body: new URLSearchParams({ userId, password }),
             })
                 .then(response => response.json())
                 .then(data => {
-                    console.log("서버 응답:", data);
-                    if (data.error) {
-                        alert("업로드 실패 ❌\n 본인의 파일이 맞는지 확인해주세요;");
+                    if (data.is_auth === false) {
+                        loadingModal.style.display = "none";
+                        errorMessage.textContent = "입력 정보를 다시 확인해 주세요.";
                     } else {
-                        alert(`이수과목 업로드 완료!\n${data.message}`);
+                        alert("이수 과목 업데이트가 완료되었습니다.");
+                        closeAllModals();
+                        location.reload();
                     }
-                    window.location.reload();
                 })
                 .catch(error => {
-                    alert("업로드 요청 중 오류 발생: " + error);
+                    console.error("Error:", error);
+                    loadingModal.style.display = "none";
+                    alert("서버 오류가 발생했습니다.");
                 });
         }
-    });
-</script>
-<script>
-    function submitAutoExcel() {
-        const userId = document.querySelector('input[name="userId"]').value;
-        const password = document.getElementById('PortalPassword3').value;
-        const errorMessage = document.getElementById('error-message');
-        const mainModal = document.getElementById('m5');
-        const loadingModal = document.getElementById('m6');
 
-        if (!password) {
-            errorMessage.textContent = "비밀번호를 입력해주세요";
-            return;
+        function closeAllModals() {
+            document.getElementById('m5').style.display = "none";
+            document.getElementById('m6').style.display = "none";
         }
-
-        errorMessage.textContent = "";
-        loadingModal.style.display = "block";
-
-        fetch("/api/excel/auto", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/x-www-form-urlencoded",
-            },
-            body: new URLSearchParams({ userId, password }),
-        })
-            .then(response => response.json())
-            .then(data => {
-                if (data.is_auth === false) {
-                    loadingModal.style.display = "none";
-                    errorMessage.textContent = "입력 정보를 다시 확인해 주세요.";
-                } else {
-                    alert("이수 과목 업데이트가 완료되었습니다.");
-                    closeAllModals();
-                    location.reload();
-                }
-            })
-            .catch(error => {
-                console.error("Error:", error);
-                loadingModal.style.display = "none";
-                alert("서버 오류가 발생했습니다.");
-            });
-    }
-
-    function closeAllModals() {
-        document.getElementById('m5').style.display = "none";
-        document.getElementById('m6').style.display = "none";
-    }
-</script>
+    </script>
 </body>
 </html>
