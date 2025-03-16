@@ -24,142 +24,113 @@
     </style>
 </head>
 <body class="d-flex flex-column h-100 text-center">
-<nav class="container-fluid">
-    <header class="d-flex flex-wrap justify-content-center py-3 mb-2 border-bottom">
-        <a href="/" class="d-flex align-items-center mb-2 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
-            <lottie-player src="/webapp/json/homelogo.json" background="transparent" speed="1" style="width: 40px; height: 32px" loop autoplay></lottie-player>
-            <span class="fs-4" style="color: #000000;">The SkyGradU</span>
-        </a>
-        <ul class="nav nav-pills navbar-expand-md">
-            <li class="nav-item">
-                <a href="/" class="nav-link" onclick="showContent('home', this)">Home</a>
-            </li>
-            <li class="nav-item">
-                <a href="/qna" class="nav-link" onclick="showContent('faqs', this)">FAQs</a>
-            </li>
-            <li class="nav-item">
-                <a href="" class="nav-link" onclick="showContent('explain', this)">이용안내</a>
-            </li>
-            <li class="nav-item" sec:authorize="isAuthenticated() and !hasAuthority('ROLE_ADMIN')">
-                <a href="/mypage" class="nav-link" onclick="showContent('mypage', this)">마이페이지</a>
-            </li>
-            <li class="nav-item" sec:authorize="hasAuthority('ROLE_ADMIN')">
-                <a href="/admin" class="nav-link" onclick="showContent('admin', this)">관리자</a>
-            </li>
-            <li class="nav-item" sec:authorize="isAnonymous()">
-                <a href="/login" class="nav-link" onclick="showContent('login', this)">로그인</a>
-            </li>
-            <li class="nav-item" sec:authorize="isAuthenticated()">
-                <a href="/logout" class="nav-link" onclick="showContent('logout', this)">로그아웃</a>
-            </li>
+    <!-- 네비게이션 바 포함 -->
+    <div th:replace="~{fragments/navbar :: navbar}"></div>
 
-        </ul>
-    </header>
-</nav>
-<div class="background">
-    <div class="info_title"><b>이용약관</b></div>
-    <div class="info_box_wrapper info_box_small">
-        <div class="info_box_content">
-            <div class="info_box">
-                <div class="info_content">
-                    <p>1. 현재 검사 가능한 학과는 다음과 같습니다.</p>
-                    <p style="margin-left:1rem; font-size:0.85rem;">
-                        - 검사대상: &nbsp;<a id='target_btn' class="link_site" style='cursor: pointer;'>검사대상표</a>
-                    </p>
-                    <p>2. 편입생, 교직이수, 다전공, 외국인유학생 입학자에 해당하는 사용자는 검사 기준이 따로 설정되지 않습니다.</p>
-                    <p>3. 추천 과목 정보는 <b>2025학년도 1학기</b> 정보를 기준으로 합니다.</p>
-                    <p>4. 검사 기준은 <b>2025학년도 1학기</b> 교육과정으로 기준으로 합니다.</p>
-                    <p style="margin-left:1rem; font-size:0.85rem;">
-                        - 성결대학교 교육과정:<br>(과년도 전공의 이수체계도는 각 학과 홈페이지에서 확인 가능합니다.)<br>
-                        <a class="link_site" target="_blank" href="https://www.sungkyul.ac.kr/skukr/580/subview.do">전공</a>
-                        <a class="link_site" target="_blank" href="https://www.sungkyul.ac.kr/paideia/5399/subview.do">교양</a>
-                    </p>
-                    <p>5. 사용자의 성결대학교 포털 사이트의 비밀번호는 재학생 인증에만<br> 사용되며 <b>저장되지 않습니다.</b></p>
-                    <p>6. 성결대학교에서 공식적으로 만든 사이트가 아니므로<br>
-                        <b>검사 결과가 정확하지 않을 수 있습니다.</b></p>
-                    <p>7. 회원가입 시 <b>PC에서 크롬으로 접속 후 사용을 권장</b>드리며,
-                        <br> 사용자 PC에 <b>크롬이 설치되지 않은 경우</b>에는 재학생 인증이 동작하지 않을 수 있습니다.</p>
-                    <p>8. 검사 시 마이페이지에서 사용자의 <b>이수구분별성적 엑셀파일</b>을
-                        <br>업로드 해야합니다.</p>
-                    <p>9. 사용자가 업로드하는 이수구분별성적 엑셀파일은 <b>저장되지 않고</b>,
-                        <br> 성적을 제외한 과목정보만이 데이터베이스로 변환하여 저장됩니다.</p>
-                    <p>10. 저장된 사용자 데이터베이스는 <b>과목추천 및 교양과목 통계에만 사용</b>되며, 다른 용도로 사용되지 않습니다.</p>
-                    <p style="margin-left:1rem; font-size:0.85rem;">
-                        - 자세한 이용안내는 우측의 링크를 통해 확인 하실 수 있습니다.&nbsp;&nbsp;&nbsp;<a class="link_site" target="_blank" href="/faqs/h2u">이용안내</a>
-                        <br>충분히 읽어보시고 <b>동의</b> 하신다면 재학생 인증을 진행해 주세요!
-
+    <div class="background">
+        <div class="info_title"><b>이용약관</b></div>
+        <div class="info_box_wrapper info_box_small">
+            <div class="info_box_content">
+                <div class="info_box">
+                    <div class="info_content">
+                        <p>1. 현재 검사 가능한 학과는 다음과 같습니다.</p>
+                        <p style="margin-left:1rem; font-size:0.85rem;">
+                            - 검사대상: &nbsp;<a id='target_btn' class="link_site" style='cursor: pointer;'>검사대상표</a>
+                        </p>
+                        <p>2. 편입생, 교직이수, 다전공, 외국인유학생 입학자에 해당하는 사용자는 검사 기준이 따로 설정되지 않습니다.</p>
+                        <p>3. 추천 과목 정보는 <b>2025학년도 1학기</b> 정보를 기준으로 합니다.</p>
+                        <p>4. 검사 기준은 <b>2025학년도 1학기</b> 교육과정으로 기준으로 합니다.</p>
+                        <p style="margin-left:1rem; font-size:0.85rem;">
+                            - 성결대학교 교육과정:<br>(과년도 전공의 이수체계도는 각 학과 홈페이지에서 확인 가능합니다.)<br>
+                            <a class="link_site" target="_blank" href="https://www.sungkyul.ac.kr/skukr/580/subview.do">전공</a>
+                            <a class="link_site" target="_blank" href="https://www.sungkyul.ac.kr/paideia/5399/subview.do">교양</a>
+                        </p>
+                        <p>5. 사용자의 성결대학교 포털 사이트의 비밀번호는 재학생 인증에만<br> 사용되며 <b>저장되지 않습니다.</b></p>
+                        <p>6. 성결대학교에서 공식적으로 만든 사이트가 아니므로<br>
+                            <b>검사 결과가 정확하지 않을 수 있습니다.</b></p>
+                        <p>7. 회원가입 시 <b>PC에서 크롬으로 접속 후 사용을 권장</b>드리며,
+                            <br> 사용자 PC에 <b>크롬이 설치되지 않은 경우</b>에는 재학생 인증이 동작하지 않을 수 있습니다.</p>
+                        <p>8. 검사 시 마이페이지에서 사용자의 <b>이수구분별성적 엑셀파일</b>을
+                            <br>업로드 해야합니다.</p>
+                        <p>9. 사용자가 업로드하는 이수구분별성적 엑셀파일은 <b>저장되지 않고</b>,
+                            <br> 성적을 제외한 과목정보만이 데이터베이스로 변환하여 저장됩니다.</p>
+                        <p>10. 저장된 사용자 데이터베이스는 <b>과목추천 및 교양과목 통계에만 사용</b>되며, 다른 용도로 사용되지 않습니다.</p>
+                        <p style="margin-left:1rem; font-size:0.85rem;">
+                            - 자세한 이용안내는 우측의 링크를 통해 확인 하실 수 있습니다.&nbsp;&nbsp;&nbsp;<a class="link_site" target="_blank" href="/faqs/h2u">이용안내</a>
+                            <br>충분히 읽어보시고 <b>동의</b> 하신다면 재학생 인증을 진행해 주세요!
+                    </div>
+                </div>
+            </div>
+            <div class="info_agree">
+                <label style='cursor: pointer;'>
+                    <input type="checkbox" onclick="agreeFunc()" id="agree">
+                    <label for='agree'></label>
+                    &nbsp;다음 이용약관에 동의합니다.
+                </label>
+            </div>
+        </div>
+        <div class="info_title"><b>재학생 인증</b></div>
+        <div class="info_content" style="text-align: center; margin-top: 10px;">
+            <p>
+                성결대 포털 로그인을 통해 재학생 인증을 진행합니다.<br>
+                (<a href="https://www.sungkyul.ac.kr/portalLogin/skukr/portalLoginForm.do" class="text-black footer_link" style="font-weight: bold;" target="_blank">성결대학교 포털</a> 통합아이디/비밀번호)
+            </p>
+        </div>
+        <div class="container" style="width: auto;">
+            <div style="display: flex; justify-content: center;">
+                <div class="login-form login-margin" style="margin-top: 10px; border:0.001px solid rgb(216, 216, 216); box-shadow: none;">
+                    <form id="auth-form" onsubmit="return submitAuthForm();" method="post">
+                        <div class="agree">
+                            <div class="input-group flex-nowrap">
+                                <input type="text" class="form-control" name="username" id="id" placeholder="포털 아이디">
+                            </div>
+                            <div class="input-group flex-nowrap" style="margin-top: 1rem;">
+                                <input type="password" class="form-control" name="password" id="pw" placeholder="비밀번호" onkeyup="checkCapsLock(event)">
+                                <span class="input-group-text show-password" onclick="togglePassword()">🙈</span>
+                            </div>
+                            <div id="capslock-message" style="color: red; margin-top: 1rem;"></div>
+                            <div id="login_btn">
+                                <div class='login_btn_default'>이용약관에 동의해주세요.</div>
+                            </div>
+                            <div id="error-message1" style="color: red; margin-top: 1rem;"></div>
+                            <div id="error-message2" style="color: red; margin-top: 1rem;"></div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
-        <div class="info_agree">
-            <label style='cursor: pointer;'>
-                <input type="checkbox" onclick="agreeFunc()" id="agree">
-                <label for='agree'></label>
-                &nbsp;다음 이용약관에 동의합니다.
-            </label>
-        </div>
     </div>
-    <div class="info_title"><b>재학생 인증</b></div>
-    <div class="info_content" style="text-align: center; margin-top: 10px;">
-        <p>
-            성결대 포털 로그인을 통해 재학생 인증을 진행합니다.<br>
-            (<a href="https://www.sungkyul.ac.kr/portalLogin/skukr/portalLoginForm.do" class="text-black footer_link" style="font-weight: bold;" target="_blank">성결대학교 포털</a> 통합아이디/비밀번호)
-        </p>
-    </div>
-    <div class="container" style="width: auto;">
-        <div style="display: flex; justify-content: center;">
-            <div class="login-form login-margin" style="margin-top: 10px; border:0.001px solid rgb(216, 216, 216); box-shadow: none;">
-                <form id="auth-form" onsubmit="return submitAuthForm();" method="post">
-                    <div class="agree">
-                        <div class="input-group flex-nowrap">
-                            <input type="text" class="form-control" name="username" id="id" placeholder="포털 아이디">
-                        </div>
-                        <div class="input-group flex-nowrap" style="margin-top: 1rem;">
-                            <input type="password" class="form-control" name="password" id="pw" placeholder="비밀번호" onkeyup="checkCapsLock(event)">
-                            <span class="input-group-text show-password" onclick="togglePassword()">🙈</span>
-                        </div>
-                        <div id="capslock-message" style="color: red; margin-top: 1rem;"></div>
-                        <div id="login_btn">
-                            <div class='login_btn_default'>이용약관에 동의해주세요.</div>
-                        </div>
-                        <div id="error-message1" style="color: red; margin-top: 1rem;"></div>
-                        <div id="error-message2" style="color: red; margin-top: 1rem;"></div>
-                    </div>
-                </form>
+
+    <!-- 푸터 포함 -->
+    <div th:replace="~{fragments/footer :: footer}"></div>
+
+    <!-- 로딩 모달 -->
+    <div id='m1' class="modal" style="display: none;">
+        <div class="load-modal-content">
+            <div class="modal_loadcontainer">
+                <div>
+                    <lottie-player id="lottiePlayer" src="/webapp/json/dotloading.json" background="transparent" speed="1" style="width: 340px; height: 300px;" loop autoplay>
+                    </lottie-player>
+                </div>
+                <div class="header-text">
+                    <span>정</span>
+                    <span>보</span>
+                    <span>확</span>
+                    <span>인</span>
+                    <span>중</span>
+                    <span>.</span>
+                    <span>.</span>
+                    <span>.</span>
+                    <span>.</span>
+                </div>
+                <div class="load_info">
+                    학생 인증 중입니다. 창을 이동하지 마세요!
+                </div>
             </div>
         </div>
     </div>
-</div>
-<footer class="text-white-100 mastfoot mt-auto">
-    <p>© The SkyGradU 2024</p>
-    <a href="/faqs/privacy" style="color: #ffffff;">개인정보처리방침</a>
-</footer>
-</div>
-<div id='m1' class="modal" style="display: none;">
-    <div class="load-modal-content">
-        <div class="modal_loadcontainer">
-            <div>
-                <lottie-player id="lottiePlayer" src="/webapp/json/dotloading.json" background="transparent" speed="1" style="width: 340px; height: 300px;" loop autoplay>
-                </lottie-player>
-            </div>
-            <div class="header-text">
-                <span>정</span>
-                <span>보</span>
-                <span>확</span>
-                <span>인</span>
-                <span>중</span>
-                <span>.</span>
-                <span>.</span>
-                <span>.</span>
-                <span>.</span>
-            </div>
-            <div class="load_info">
-                학생 인증 중입니다. 창을 이동하지 마세요!
-            </div>
-        </div>
-    </div>
-</div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script src="/webapp/js/auth.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="/webapp/js/auth.js"></script>
 </body>
 </html>
