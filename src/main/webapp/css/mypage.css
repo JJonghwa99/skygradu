@@ -8,12 +8,14 @@ body {
     padding: 0;
 }
 
-.gray_sec {
+.grey_sec {
 font-family: 'Pretendard', sans-serif;
-    background : #010101;
+    background : #f4f4f4;
+    color: #333;
     padding: 10px;
     text-align: center;
 }
+
 
 .container {
 font-family: 'Pretendard', sans-serif;
@@ -25,11 +27,10 @@ font-family: 'Pretendard', sans-serif;
 
 .custom_login_title {
 font-family: 'Pretendard', sans-serif;
+    font-size: 30px;
+    color: #000000;
+    font-weight: bold;
 
-    font-size: 24px;
-    color: #0064E4;
-    margin-top: 10px;
-    margin-bottom: 10px;
 }
 
 .go_result_wrap {
@@ -95,17 +96,17 @@ font-family: 'Pretendard', sans-serif;
 
 /* 모바일 화면에서의 스타일 */
 @media (max-width: 768px) {
-    .gray_sec .login_logo2{
+    .grey_sec .login_logo2{
         width: 100px;
         height: 60px
 
     }
-    .cutstom_login_title{
+    .custom_login_title{
          font-size :20px;
          font-weight: bold;
          text-align: center;
      }
-     .gray_sec .action {
+     .grey_sec .action {
        margin-top:10px;
        display: flex;
        justify-content: center;
@@ -278,7 +279,7 @@ hr {
     border-top: 1px solid #ddd;
 }
 
-.gray_sec .action {
+.grey_sec .action {
 font-family: 'Pretendard', sans-serif;
   margin-top:2rem;
   display: flex;
@@ -286,7 +287,7 @@ font-family: 'Pretendard', sans-serif;
   gap: 20px;
 }
 
-.gray_sec .action button {
+.grey_sec .action button {
   flex: 0 1 45%;
   border: none;
   padding: 14px;
@@ -303,33 +304,33 @@ font-family: 'Pretendard', sans-serif;
   transition: all .3s;
 }
 
-.gray_sec .action button:hover {
+.grey_sec .action button:hover {
   font-family: 'Pretendard', sans-serif;
   background-color: #0064E4;
   border-color: #87CEEB;
   color: #FFFFFF;
 }
 
-.gray_sec .action button:nth-child(2) {
+.grey_sec .action button:nth-child(2) {
 font-family: 'Pretendard', sans-serif;
   background-color: #87CEEB;
   color: #FFFFFF;
   border-color: #87CEEB;
 }
 
-.gray_sec .action button:nth-child(2):hover {
+.grey_sec .action button:nth-child(2):hover {
   background-color: #20B2AA;
   border-color: #20B2AA;
   color: #000000;
 }
 
 @media (max-width: 767px) {
-  .gray_sec .action {
+  .grey_sec .action {
     flex-direction: column;
     gap: 10px;
   }
 
-  .gray_sec .action button {
+  .grey_sec .action button {
     font-family: 'Pretendard', sans-serif;
     flex: 1 1 auto;
     padding: 12px;
@@ -340,7 +341,7 @@ font-family: 'Pretendard', sans-serif;
 }
 
 @media (max-width: 479px) {
-  .gray_sec .action button {
+  .grey_sec .action button {
     padding: 10px;
     font-size: 14px;
     width: calc(100% - 20px);
