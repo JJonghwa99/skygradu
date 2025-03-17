@@ -13,10 +13,17 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 @Service
 public class AuthService {
+
+    private final MemberRepository memberRepository;
+
+    public AuthService(MemberRepository memberRepository) {
+        this.memberRepository = memberRepository;
+    }
 
     public Map<String, Object> authenticate(String userId, String password) {
         Map<String, Object> response = new HashMap<>();
@@ -117,4 +124,85 @@ public class AuthService {
         }
         return response;
     }
+
+    public Map<String, Object> getMajor(String userId, String password) {
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--headless=new");
+        WebDriver driver = new ChromeDriver(options);
+
+        Map<String, Object> response = new HashMap<>();
+
+        try {
+            // 로그인 처리
+            Connection.Response loginResponse = Jsoup.connect("https://www.sungkyul.ac.kr/portalLogin/skukr/loginProcess.do")
+                    .data("userId", userId)
+                    .data("password", password)
+                    .method(Connection.Method.POST)
+                    .execute();
+
+            if (loginResponse.body().contains("\"result\":\"SUCCESS\"")) {
+                driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+
+                // 로그인 페이지로 이동 및 로그인 수행
+                driver.get("https://www.sungkyul.ac.kr/portalLogin/skukr/portalLoginForm.do");
+                WebElement userIdField = driver.findElement(By.name("userId"));
+                WebElement passwordField = driver.findElement(By.name("password"));
+                userIdField.sendKeys(userId);
+                passwordField.sendKeys(password);
+                WebElement loginButton = driver.findElement(By.id("btn-login"));
+                loginButton.click();
+
+                WebElement nextPageLink = driver.findElement(By.cssSelector("a[href='https://success.sungkyul.ac.kr/sso/main.aspx']"));
+                nextPageLink.click();
+
+                driver.get("https://success.sungkyul.ac.kr/Career/startpage.aspx");
+
+                // 버튼 클릭 후 대기
+                Thread.sleep(1500);
+
+                // 프로필 페이지 접근
+                driver.get("https://success.sungkyul.ac.kr/Office/Teacher/ProfileGetData.aspx?mode=6&pid=N");
+                String profilePageHtml = driver.getPageSource();
+
+                // 버튼 클릭 후 대기
+                Thread.sleep(1500);
+
+                // 학과 정보 추출
+                WebElement userNameElement = driver.findElement(By.cssSelector("div[style='font-size:11pt;font-weight:bold']"));
+                WebElement majorElement = userNameElement.findElement(By.xpath("following-sibling::div[1]"));
+
+                String newMajor = majorElement.getText();
+
+
+                Member member = memberRepository.findByPortalID(userId).orElseThrow(() ->
+                        new IllegalArgumentException("사용자를 찾을 수 없습니다.")
+                );
+
+                // 기존 학과 정보와 비교하여 업데이트 수행
+                if (!newMajor.equals(member.getMajor())) {
+                    member.setMajor(newMajor);
+                    memberRepository.save(member); // 변경 사항 저장
+
+                    response.put("status", "success");
+                    return response;
+                }
+
+                response.put("status", "no_change");
+            } else {
+                response.put("status", "no_login");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            response.put("status", "error");
+            response.put("message", "오류 발생: " + e.getMessage());
+        } finally {
+            driver.quit();
+        }
+
+        return response;
+    }
+
 }
+
+
+

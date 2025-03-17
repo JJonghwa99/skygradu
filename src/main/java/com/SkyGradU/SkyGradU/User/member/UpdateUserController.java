@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.parameters.P;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.web.bind.annotation.*;
@@ -19,11 +20,14 @@ import java.util.Map;
 public class UpdateUserController {
 
     private final UserService userService;
+    private final AuthService authService;
 
     @Autowired
-    public UpdateUserController(UserService userService,forgetPWService forgetPWService) {
+    public UpdateUserController(UserService userService,forgetPWService forgetPWService,AuthService authService) {
         this.userService = userService;
         this.forgetPWService = forgetPWService;
+        this.authService = authService;
+
     }
 
     @PostMapping("/checkPW")
@@ -99,4 +103,11 @@ public class UpdateUserController {
         return forgetPWService.changePassword(userId, newPassword);
     }
 
+    //마이페이지 정보 업데이트(전과하는 경우만 있으므로 학과만 가져오기)
+    @PostMapping("/updateMajor")
+    public ResponseEntity<Map<String, Object>> updateMajor(@RequestParam String userId, @RequestParam String password) {
+
+        Map<String, Object> response = authService.getMajor(userId, password);
+        return ResponseEntity.ok(response);
+    }
 }

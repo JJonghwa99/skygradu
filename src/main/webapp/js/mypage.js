@@ -35,7 +35,7 @@
     const file = event.target.files[0];
     if (!file) return;
 
-    if (confirm("업로드하시겠습니까?")) {
+    if (confirm("엑셀파일을 업로드 할까요?")) {
     const formData = new FormData();
     formData.append("file", file);
 
@@ -47,7 +47,7 @@
     .then(data => {
     console.log("서버 응답:", data);
     if (data.error) {
-    alert("업로드 실패 ❌\n 본인의 파일이 맞는지 확인해주세요;");
+    alert("업로드 실패 ❌\n 본인의 파일이 맞는지 확인해주세요😥");
 } else {
     alert(`이수과목 업로드 완료!\n${data.message}`);
 }
@@ -85,7 +85,7 @@
     .then(data => {
     if (data.is_auth === false) {
     loadingModal.style.display = "none";
-    errorMessage.textContent = "입력 정보를 다시 확인해 주세요.";
+    errorMessage.textContent = "⚠️입력정보를 다시 확인해주세요!⚠️";
 } else {
     alert("이수 과목 업데이트 완료!");
     closeAllModals();
@@ -103,3 +103,41 @@
     document.getElementById('m5').style.display = "none";
     document.getElementById('m6').style.display = "none";
 }
+    function updateMajor() {
+        const userId = document.getElementById('PortalUserId').value;
+        const password = document.getElementById('PortalPassword').value;
+
+        toggleModal('m7', 'open');
+
+        fetch('/updateMajor', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: `userId=${encodeURIComponent(userId)}&password=${encodeURIComponent(password)}`
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'no_login') {
+                    const errorMessage = document.getElementById('error-message5');
+                    errorMessage.textContent = "⚠️입력정보를 다시 확인해주세요!⚠️";
+                    errorMessage.style.display = "block";
+                    toggleModal('m7', 'close');
+                } else {
+                    toggleModal('m1', 'close');
+                    toggleModal('m7', 'close');
+
+                    if (data.status === 'success') {
+                        alert("✅학과 정보 업데이트 완료!");
+                        location.reload();
+                    } else if (data.status === 'no_change') {
+                        alert("🤔변경된 정보가 없어서 업데이트 되지 않았어요");
+                        location.reload();
+                    } else if (data.status === 'error') {
+                        alert("😥업데이트 중 오류가 발생했습니다.❌");
+                    }
+                }
+            })
+            .catch(error => {
+                toggleModal('m7', 'close');
+                alert('네트워크 오류가 발생했습니다: ' + error.message);
+            });
+    }

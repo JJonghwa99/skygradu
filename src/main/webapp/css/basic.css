@@ -251,7 +251,7 @@ font-family: 'Pretendard', sans-serif;
 .header-text {
 font-family: 'Pretendard', sans-serif;
     position: absolute;
-        bottom: 80px;
+        bottom: 110px;
         left: 50%;
         transform: translateX(-50%);
         display: flex;
@@ -261,7 +261,7 @@ font-family: 'Pretendard', sans-serif;
     }
 
 .header-text span {
-    font-weight:1000;
+    font-weight:800;
     animation: wave 1.5s ease-in-out;
     animation-iteration-count: 15;
 }
