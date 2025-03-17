@@ -2,6 +2,7 @@ package com.SkyGradU.SkyGradU.User.member;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -20,8 +21,9 @@ public class UpdateUserController {
     private final UserService userService;
 
     @Autowired
-    public UpdateUserController(UserService userService) {
+    public UpdateUserController(UserService userService,forgetPWService forgetPWService) {
         this.userService = userService;
+        this.forgetPWService = forgetPWService;
     }
 
     @PostMapping("/checkPW")
@@ -69,4 +71,32 @@ public class UpdateUserController {
 
         return ResponseEntity.ok("회원탈퇴가 완료되었습니다.");
     }
+
+    //로그인페이지 비밀번호 찾기
+    private final forgetPWService forgetPWService;
+
+    @PostMapping("/login/checkPortal")
+    public Map<String, Object> changePW(@RequestParam String userId, @RequestParam String password, HttpSession session) {
+        Map<String, Object> result = forgetPWService.checkPortal(userId, password);
+        if ("exists".equals(result.get("status"))) {
+            session.setAttribute("UserId", userId);
+        }
+        return result;
+    }
+
+    @PostMapping("/login/changePW")
+    public Map<String, Object> changeLoginPW(@RequestBody Map<String, String> request, HttpSession session) {
+        Map<String, Object> result = new HashMap<>();
+
+        String newPassword = request.get("newPassword");
+
+        String userId = (String) session.getAttribute("UserId");
+        if (userId == null || userId.isEmpty()) {
+            result.put("status", "session_expired");
+            result.put("message", "세션이 만료되었습니다. 다시 인증해주세요.");
+            return result;
+        }
+        return forgetPWService.changePassword(userId, newPassword);
+    }
+
 }

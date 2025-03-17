@@ -22,7 +22,7 @@ public class AuthService {
         Map<String, Object> response = new HashMap<>();
 
         ChromeOptions options = new ChromeOptions();
-        options.addArguments("--headless=new"); // 창을 띄우지 않음
+        options.addArguments("--headless=new");
 
         WebDriver driver = new ChromeDriver(options);
 
