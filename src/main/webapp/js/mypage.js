@@ -1,0 +1,105 @@
+
+    function togglePassword(inputId, iconClass) {
+    const passwordField = document.getElementById(inputId);
+    const passwordFieldType = passwordField.getAttribute("type");
+    const toggleIcon = document.querySelector(`.${iconClass}`);
+
+    if (passwordFieldType === "password") {
+    passwordField.setAttribute("type", "text");
+    toggleIcon.textContent = "🐵";
+} else {
+    passwordField.setAttribute("type", "password");
+    toggleIcon.textContent = "🙈";
+}
+}
+
+    function toggleModal(modalId, action) {
+    const modal = document.getElementById(modalId);
+
+    if (action === 'open') {
+    modal.style.display = 'block';
+} else if (action === 'close') {
+    modal.style.display = 'none';
+
+    if (modalId === 'm2') {
+    document.getElementById('error-message1').textContent = '';
+}
+}
+}
+
+    document.getElementById('b4').addEventListener('click', function() {
+    document.getElementById('excelUpload').click();
+});
+
+    document.getElementById('excelUpload').addEventListener('change', function(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    if (confirm("업로드하시겠습니까?")) {
+    const formData = new FormData();
+    formData.append("file", file);
+
+    fetch("/api/excel/upload", {
+    method: "POST",
+    body: formData
+})
+    .then(response => response.json())
+    .then(data => {
+    console.log("서버 응답:", data);
+    if (data.error) {
+    alert("업로드 실패 ❌\n 본인의 파일이 맞는지 확인해주세요;");
+} else {
+    alert(`이수과목 업로드 완료!\n${data.message}`);
+}
+    window.location.reload();
+})
+    .catch(error => {
+    alert("업로드 요청 중 오류 발생: " + error);
+});
+}
+});
+
+    function submitAutoExcel() {
+    const userId = document.querySelector('input[name="userId"]').value;
+    const password = document.getElementById('PortalPassword3').value;
+    const errorMessage = document.getElementById('error-message');
+    const mainModal = document.getElementById('m5');
+    const loadingModal = document.getElementById('m6');
+
+    if (!password) {
+    errorMessage.textContent = "😰비밀번호를 입력해주세요.";
+    return;
+}
+
+    errorMessage.textContent = "";
+    loadingModal.style.display = "block";
+
+    fetch("/api/excel/auto", {
+    method: "POST",
+    headers: {
+    "Content-Type": "application/x-www-form-urlencoded",
+},
+    body: new URLSearchParams({ userId, password }),
+})
+    .then(response => response.json())
+    .then(data => {
+    if (data.is_auth === false) {
+    loadingModal.style.display = "none";
+    errorMessage.textContent = "입력 정보를 다시 확인해 주세요.";
+} else {
+    alert("이수 과목 업데이트 완료!");
+    closeAllModals();
+    location.reload();
+}
+})
+    .catch(error => {
+    console.error("Error:", error);
+    loadingModal.style.display = "none";
+    alert("서버 오류가 발생했습니다.");
+});
+}
+
+    function closeAllModals() {
+    document.getElementById('m5').style.display = "none";
+    document.getElementById('m6').style.display = "none";
+}
