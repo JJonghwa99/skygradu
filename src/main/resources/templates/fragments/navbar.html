@@ -35,10 +35,10 @@
                     <a href="/" class="nav-link" onclick="showContent('home', this)">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a href="/qna" class="nav-link" onclick="showContent('faqs', this)">FAQs</a>
+                    <a href="/faq" class="nav-link" onclick="showContent('faqs', this)">FAQs</a>
                 </li>
                 <li class="nav-item">
-                    <a href="" class="nav-link" onclick="showContent('explain', this)">이용안내</a>
+                    <a href="/guide" class="nav-link" onclick="showContent('explain', this)">이용안내</a>
                 </li>
                 <li class="nav-item" sec:authorize="isAuthenticated() and !hasAuthority('ROLE_ADMIN')">
                     <a href="/mypage" class="nav-link" onclick="showContent('mypage', this)">마이페이지</a>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Q&A - The SkyGradU</title>
+    <link href="/webapp/css/basic.css" rel="stylesheet">
+    <link href="/webapp/css/auth.css" rel="stylesheet">
+    <link href="/webapp/css/mypage.css" rel="stylesheet">
+    <link href="/webapp/css/styles.css" rel="stylesheet">
+    <link href="/webapp/css/qna.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+    <script src="https://use.fontawesome.com/releases/v6.0.0/js/all.js"></script>
+</head>
+<body class="d-flex flex-column h-100 text-center">
+
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+<main class="faq-container">
+    <h2 class="faq-title">Q&A 게시판</h2>
+    <div class="faq-tabs">
+        <button class="faq-tab" onclick="window.location.href='/faq'">FAQs</button>
+        <button class="faq-tab active" onclick="window.location.href='/qna'">Q&A</button>
+    </div>
+    <div id="qna-list" class="faq-list">
+        <div class="faq-item">
+            <button class="faq-question">Q&A 질문 예시 1 <span class="toggle-icon">+</span></button>
+            <div class="faq-answer">이곳에 Q&A 질문의 답변이 표시됩니다.</div>
+        </div>
+        <div class="faq-item">
+            <button class="faq-question">Q&A 질문 예시 2 <span class="toggle-icon">+</span></button>
+            <div class="faq-answer">이곳에 Q&A 질문의 답변이 표시됩니다.</div>
+        </div>
+    </div>
+    <button id="qna-submit-btn" class="qna-submit-btn">질문 등록</button>
+</main>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+<script src="/webapp/js/qna.js"></script>
+</body>
+</html>
