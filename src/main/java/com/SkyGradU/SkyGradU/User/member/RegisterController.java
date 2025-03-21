@@ -1,7 +1,10 @@
 package com.SkyGradU.SkyGradU.User.member;
 
+import com.SkyGradU.SkyGradU.SkyAuth;
+import com.google.gson.JsonObject;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,21 +18,27 @@ import java.util.Map;
 public class RegisterController {
 
     @Autowired
-    private AuthService authService;
+    private SkyAuth skyAuth;
+
 
     @Autowired
     private PasswordEncoder passwordEncoder;
 
 
-    @GetMapping("/auth")
-    public String authPage() {
-        return "auth";
-    }
-
     @PostMapping("/api/auth")
     @ResponseBody
-    public Map<String, Object> authenticate(@RequestParam String userId, @RequestParam String password) {
-        return authService.authenticate(userId, password);
+    public ResponseEntity<ProfileResponseDTO> authenticate(@RequestParam String userId, @RequestParam String password) {
+        JsonObject result = skyAuth.authenticate(userId, password);
+
+        ProfileResponseDTO response = new ProfileResponseDTO();
+        response.setAuth(result.get("is_auth").getAsBoolean());
+        JsonObject profile = result.getAsJsonObject("profile");
+        response.setStudentID(profile.get("studentID").getAsString());
+        response.setUserName(profile.get("userName").getAsString());
+        response.setMajor(profile.get("major").getAsString());
+        response.setPortalID(profile.get("portalID").getAsString());
+
+        return ResponseEntity.ok(response);
     }
 
     @PostMapping("/register")
@@ -37,11 +46,6 @@ public class RegisterController {
         model.addAttribute("userDetails", userDetails);
         return "register";
     }
-    @GetMapping("/success")
-    public String successPage() {
-        return "success";
-    }
-
     private final MemberRepository memberRepository;
 
     @PostMapping("/member")

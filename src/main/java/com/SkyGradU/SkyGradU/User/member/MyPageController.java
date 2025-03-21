@@ -1,34 +1,21 @@
-package com.SkyGradU.SkyGradU.User;
+package com.SkyGradU.SkyGradU.User.member;
 
-import com.SkyGradU.SkyGradU.User.Courses.CompletedCourse;
 import com.SkyGradU.SkyGradU.User.Courses.CompletedCourseDTO;
 import com.SkyGradU.SkyGradU.User.Courses.CompletedCourseRepository;
-import com.SkyGradU.SkyGradU.User.member.CustomUser;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.Comparator;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 @Controller
-public class UserController {
-    public UserController(CompletedCourseRepository completedCourseRepository) {
+public class MyPageController {
+    public MyPageController(CompletedCourseRepository completedCourseRepository) {
         this.completedCourseRepository = completedCourseRepository;
     }
-
-    @GetMapping("/login")
-    public String login() {
-
-        return "login.html";
-    }
-
     private final CompletedCourseRepository completedCourseRepository;
 
     @GetMapping("/mypage")

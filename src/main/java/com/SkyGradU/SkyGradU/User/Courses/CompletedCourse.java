@@ -14,7 +14,7 @@ public class CompletedCourse {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long courseId;
 
-    private String memberId;  // 학번 - 아직 username이랑 연동되도록 안함
+    private String memberId;  // 학번 supabase에서 직접 연동했음// 설정함 배포할때 다시 설정하던가 해야할듯
     private String courseName;  // 강좌명
     private String courseType;  // 이수구분
     private int credits;  // 학점

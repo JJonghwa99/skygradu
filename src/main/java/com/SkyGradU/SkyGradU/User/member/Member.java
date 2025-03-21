@@ -25,6 +25,7 @@ public class Member {
     private String minor;
     private String enrollYear;
 
+
     public void updatePassword(String newPassword){
         this.password1 = newPassword;
     }
