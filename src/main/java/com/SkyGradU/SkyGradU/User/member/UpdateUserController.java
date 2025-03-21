@@ -1,5 +1,7 @@
 package com.SkyGradU.SkyGradU.User.member;
 
+import com.SkyGradU.SkyGradU.SkyAuth;
+import com.google.gson.JsonObject;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
@@ -8,7 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.parameters.P;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.web.bind.annotation.*;
@@ -20,14 +21,15 @@ import java.util.Map;
 public class UpdateUserController {
 
     private final UserService userService;
-    private final AuthService authService;
+    @Autowired
+    private SkyAuth skyAuth;
+    @Autowired
+    private MemberRepository memberRepository;
 
     @Autowired
-    public UpdateUserController(UserService userService,forgetPWService forgetPWService,AuthService authService) {
+    public UpdateUserController(UserService userService,forgetPWService forgetPWService) {
         this.userService = userService;
         this.forgetPWService = forgetPWService;
-        this.authService = authService;
-
     }
 
     @PostMapping("/checkPW")
@@ -106,8 +108,49 @@ public class UpdateUserController {
     //마이페이지 정보 업데이트(전과하는 경우만 있으므로 학과만 가져오기)
     @PostMapping("/updateMajor")
     public ResponseEntity<Map<String, Object>> updateMajor(@RequestParam String userId, @RequestParam String password) {
+        Map<String, Object> response = new HashMap<>();
+        try {
+            // 로그인 및 프로필 데이터 가져오기
+            JsonObject result = skyAuth.authenticate(userId, password);
 
-        Map<String, Object> response = authService.getMajor(userId, password);
+            // 로그인 여부 확인
+            boolean isAuth = result.get("is_auth").getAsBoolean();
+            if (!isAuth) {
+                response.put("status", "no_login");
+                response.put("message", "로그인 실패");
+                return ResponseEntity.ok(response);
+            }
+
+            // 프로필 데이터 추출
+            JsonObject profile = result.getAsJsonObject("profile");
+            String newMajor = profile.get("major").getAsString();
+
+            // 사용자 정보 가져오기
+            Member member = memberRepository.findByPortalID(userId).orElseThrow(() ->
+                    new IllegalArgumentException("사용자를 찾을 수 없습니다.")
+            );
+
+            // 기존 학과 정보와 비교하여 업데이트 수행
+            if (!newMajor.equals(member.getMajor())) {
+                member.setMajor(newMajor);
+                memberRepository.save(member); // 변경 사항 저장
+
+                response.put("status", "success");
+                response.put("message", "학과 정보가 성공적으로 업데이트되었습니다.");
+                response.put("newMajor", newMajor);
+            } else {
+                response.put("status", "no_change");
+                response.put("message", "학과 정보에 변경 사항이 없습니다.");
+            }
+        } catch (IllegalArgumentException e) {
+            response.put("status", "error");
+            response.put("message", e.getMessage());
+        } catch (Exception e) {
+            e.printStackTrace();
+            response.put("status", "error");
+            response.put("message", "오류 발생: " + e.getMessage());
+        }
+
         return ResponseEntity.ok(response);
     }
 }

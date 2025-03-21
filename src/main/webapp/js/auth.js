@@ -21,7 +21,7 @@ function submitAuthForm() {
         $.post('/api/auth', {userId: userId, password: password}, function(response) {
             $('#m1').hide();
 
-            if (response.is_auth) {
+            if (response.auth) {
                 var form = $('<form>', {
                     'action': '/register',
                     'method': 'post'
