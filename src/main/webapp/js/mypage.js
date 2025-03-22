@@ -35,7 +35,9 @@
     const file = event.target.files[0];
     if (!file) return;
 
-    if (confirm("엑셀파일을 업로드 할까요?")) {
+    if (confirm("📂엑셀파일을 업로드 할까요?\n\n"+
+        "✅커스텀 된 수업만 남기고 업데이트 할게요😁\n\n"+
+        "✅커스텀 된 수업의 수강내역이 발견되면 그 수업도 업데이트 합니다!")) {
     const formData = new FormData();
     formData.append("file", file);
 

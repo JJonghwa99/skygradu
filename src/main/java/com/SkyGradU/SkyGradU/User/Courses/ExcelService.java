@@ -6,19 +6,23 @@ import org.apache.poi.ss.usermodel.*;
 import org.apache.tomcat.util.http.fileupload.FileUploadException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.util.Pair;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class ExcelService {
+
 
     private final CompletedCourseRepository completedCourseRepository;
     private static final Logger log = LoggerFactory.getLogger(ExcelService.class);
@@ -46,10 +50,18 @@ public class ExcelService {
 
             log.info("엑셀 파일 검증 완료. 데이터 처리 시작...");
 
-            List<CompletedCourse> existingCourses = completedCourseRepository.findByMemberId((loggedInStudentID));
-            List<String> existingCourseNames = existingCourses.stream()
-                    .map(CompletedCourse::getCourseName)
+            List<CompletedCourse> deleteList = completedCourseRepository.findByMemberId(loggedInStudentID);
+
+            List<CompletedCourse> filteredList = deleteList.stream()
+                    .filter(course -> !course.isCustom())
                     .collect(Collectors.toList());
+
+            completedCourseRepository.deleteAll(filteredList);
+
+            List<CompletedCourse> existingCourses = completedCourseRepository.findByMemberId((loggedInStudentID));
+            Map<String, CompletedCourse> existingCourseMap = existingCourses.stream()
+                    .collect(Collectors.toMap(CompletedCourse::getCourseName, course -> course, (existing, duplicate) -> existing));
+
 
             List<CompletedCourse> courseList = new ArrayList<>();
             int duplicateCount = 0; // 중복된 데이터 개수
@@ -91,12 +103,20 @@ public class ExcelService {
 
                 String semesterCompleted = getCellValueAsString(row.getCell(25)); // 학기 열
 
-                if (existingCourseNames.contains(courseName)) {
+                if (existingCourseMap.containsKey(courseName)) {
+                    CompletedCourse existingCourse = existingCourseMap.get(courseName);
+
+                    if (existingCourse.isCustom()) { //커스텀강좌가 중복되면 커스텀을 false로 하고 업데이트
+                        existingCourse.setCustom(false);
+                        completedCourseRepository.save(existingCourse);
+                        log.info("커스텀 강좌'{}'의 수강내역이 발견되어 데이터를 업데이트 했어요.", courseName);
+                        continue;
+                    }
+
                     duplicateCount++;
                     log.info("중복된 강좌 '{}'을(를) 제외합니다.", courseName);
                     continue; // 중복된 데이터는 추가하지 않음
                 }
-
 
                 CompletedCourse course = new CompletedCourse();
                 course.setMemberId(loggedInStudentID);
@@ -109,7 +129,6 @@ public class ExcelService {
 
                 courseList.add(course);
             }
-
             completedCourseRepository.saveAll(courseList);
 
 
@@ -125,6 +144,7 @@ public class ExcelService {
             throw new RuntimeException("엑셀 파일 처리 중 오류 발생", e);
         }
     }
+
 
     public String processExcelFile2(MultipartFile file) {
 
@@ -143,10 +163,17 @@ public class ExcelService {
 
             Row secondRow = sheet.getRow(1);
 
-            List<CompletedCourse> existingCourses = completedCourseRepository.findByMemberId((loggedInStudentID));
-            List<String> existingCourseNames = existingCourses.stream()
-                    .map(CompletedCourse::getCourseName)
+            List<CompletedCourse> deleteList = completedCourseRepository.findByMemberId(loggedInStudentID);
+
+            List<CompletedCourse> filteredList = deleteList.stream()
+                    .filter(course -> !course.isCustom())
                     .collect(Collectors.toList());
+
+            completedCourseRepository.deleteAll(filteredList);
+
+            List<CompletedCourse> existingCourses = completedCourseRepository.findByMemberId((loggedInStudentID));
+            Map<String, CompletedCourse> existingCourseMap = existingCourses.stream()
+                    .collect(Collectors.toMap(CompletedCourse::getCourseName, course -> course, (existing, duplicate) -> existing));
 
             List<CompletedCourse> courseList = new ArrayList<>();
             int duplicateCount = 0; // 중복된 데이터 개수
@@ -188,7 +215,16 @@ public class ExcelService {
 
                 String semesterCompleted = getCellValueAsString(row.getCell(25)); // 학기 열
 
-                if (existingCourseNames.contains(courseName)) {
+                if (existingCourseMap.containsKey(courseName)) {
+                    CompletedCourse existingCourse = existingCourseMap.get(courseName);
+
+                    if (existingCourse.isCustom()) { //커스텀강좌가 중복되면 커스텀을 false로 하고 업데이트
+                        existingCourse.setCustom(false);
+                        completedCourseRepository.save(existingCourse);
+                        log.info("커스텀 강좌'{}'의 수강내역이 발견되어 데이터를 업데이트 했어요.", courseName);
+                        continue;
+                    }
+
                     duplicateCount++;
                     log.info("중복된 강좌 '{}'을(를) 제외합니다.", courseName);
                     continue; // 중복된 데이터는 추가하지 않음
@@ -251,6 +287,7 @@ public class ExcelService {
             return defaultValue; // 변환 실패 시 기본값 반환
         }
     }
+
 }
 
 
