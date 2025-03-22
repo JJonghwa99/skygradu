@@ -103,14 +103,25 @@ public class ExcelService {
 
                 String semesterCompleted = getCellValueAsString(row.getCell(25)); // 학기 열
 
+
+                CompletedCourse course = new CompletedCourse();
+
                 if (existingCourseMap.containsKey(courseName)) {
                     CompletedCourse existingCourse = existingCourseMap.get(courseName);
 
-                    if (existingCourse.isCustom()) { //커스텀강좌가 중복되면 커스텀을 false로 하고 업데이트
-                        existingCourse.setCustom(false);
-                        completedCourseRepository.save(existingCourse);
-                        log.info("커스텀 강좌'{}'의 수강내역이 발견되어 데이터를 업데이트 했어요.", courseName);
-                        continue;
+                    if (existingCourse.isCustom()) { //커스텀강좌가 중복
+                        completedCourseRepository.delete(existingCourse);
+                        log.info("커스텀 강좌'{}'의 수강내역이 발견되어 데이터를 업데이트 합니다.", courseName);
+                        course.setMemberId(loggedInStudentID);
+                        course.setCourseType(currentCourseType);
+                        course.setCourseName(courseName);
+                        course.setCredits(credits);
+                        course.setYear(year);
+                        course.setSemesterCompleted(semesterCompleted.isEmpty() ? "알 수 없음" : semesterCompleted); // 학기가 비어있으면 기본값 설정
+                        course.setCustom(false);
+
+                        courseList.add(course);
+
                     }
 
                     duplicateCount++;
@@ -118,7 +129,7 @@ public class ExcelService {
                     continue; // 중복된 데이터는 추가하지 않음
                 }
 
-                CompletedCourse course = new CompletedCourse();
+
                 course.setMemberId(loggedInStudentID);
                 course.setCourseType(currentCourseType);
                 course.setCourseName(courseName);
@@ -137,7 +148,7 @@ public class ExcelService {
             if (duplicateCount == 0) {
                 return "";
             } else {
-                return duplicateCount + "개의 강좌가 중복되어 제외되었습니다.";
+                return duplicateCount + "개의 강좌의 커스텀 여부를 업데이트 했어요😁";
             }
 
         } catch (IOException e) {
@@ -215,14 +226,24 @@ public class ExcelService {
 
                 String semesterCompleted = getCellValueAsString(row.getCell(25)); // 학기 열
 
+                CompletedCourse course = new CompletedCourse();
+
                 if (existingCourseMap.containsKey(courseName)) {
                     CompletedCourse existingCourse = existingCourseMap.get(courseName);
 
-                    if (existingCourse.isCustom()) { //커스텀강좌가 중복되면 커스텀을 false로 하고 업데이트
-                        existingCourse.setCustom(false);
-                        completedCourseRepository.save(existingCourse);
-                        log.info("커스텀 강좌'{}'의 수강내역이 발견되어 데이터를 업데이트 했어요.", courseName);
-                        continue;
+                    if (existingCourse.isCustom()) { //커스텀강좌가 중복
+                        completedCourseRepository.delete(existingCourse);
+                        log.info("커스텀 강좌'{}'의 수강내역이 발견되어 데이터를 업데이트 합니다.", courseName);
+                        course.setMemberId(loggedInStudentID);
+                        course.setCourseType(currentCourseType);
+                        course.setCourseName(courseName);
+                        course.setCredits(credits);
+                        course.setYear(year);
+                        course.setSemesterCompleted(semesterCompleted.isEmpty() ? "알 수 없음" : semesterCompleted); // 학기가 비어있으면 기본값 설정
+                        course.setCustom(false);
+
+                        courseList.add(course);
+
                     }
 
                     duplicateCount++;
@@ -231,7 +252,6 @@ public class ExcelService {
                 }
 
 
-                CompletedCourse course = new CompletedCourse();
                 course.setMemberId(loggedInStudentID);
                 course.setCourseType(currentCourseType);
                 course.setCourseName(courseName);
@@ -251,7 +271,7 @@ public class ExcelService {
             if (duplicateCount == 0) {
                 return "";
             } else {
-                return duplicateCount + "개의 강좌가 중복되어 제외되었습니다.";
+                return duplicateCount + "개의 강좌의 커스텀 여부를 업데이트 했어요😁";
             }
 
         } catch (IOException e) {
