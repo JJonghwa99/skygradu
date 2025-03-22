@@ -7,6 +7,8 @@ import org.jsoup.Jsoup;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
@@ -17,6 +19,7 @@ import org.springframework.web.client.RestTemplate;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.*;
+import java.time.Duration;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
@@ -106,8 +109,12 @@ public class AutoExcelService {
                     개인별학기성적조회.click();
 
                     driver.switchTo().frame("tabControl_contents_90103030_body");
-                    WebElement 이수구분별성적조회 = driver.findElement(By.xpath("//td[@id='tgExt3_center' and contains(text(), '이수구분별성적조회')]"));
+                    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(2));
+                    WebElement 이수구분별성적조회 = wait.until(ExpectedConditions.elementToBeClickable(
+                            By.xpath("//td[@id='tgExt3_center' and contains(text(), '이수구분별성적조회')]")
+                    ));
                     이수구분별성적조회.click();
+
 
                     Thread.sleep(3000);
                     Set<String> allWindows = driver.getWindowHandles();
