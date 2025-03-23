@@ -25,7 +25,6 @@ import java.util.concurrent.TimeUnit;
 
 @Service
 public class AutoExcelService {
-    private static final String DOWNLOAD_DIR = System.getProperty("user.home") + "/Downloads";
     private static final String UPLOAD_URL = "http://localhost:8080/api/excel/upload2";
     private final MemberRepository memberRepository;
 
@@ -39,11 +38,6 @@ public class AutoExcelService {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--headless=new"); // 창을 띄우지 않음
         HashMap<String, Object> prefs = new HashMap<>();
-        prefs.put("download.default_directory", DOWNLOAD_DIR);
-        prefs.put("download.prompt_for_download", false);
-        prefs.put("download.directory_upgrade", true);
-        prefs.put("safebrowsing.enabled", true);
-        options.setExperimentalOption("prefs", prefs);
 
         WebDriver driver = new ChromeDriver(options);
 
@@ -139,9 +133,7 @@ public class AutoExcelService {
                     WebElement 엑셀저장버튼 = driver.findElement(By.xpath("//*[@title='엑셀저장']"));
                     엑셀저장버튼.click();
 
-                    Thread.sleep(500);
-
-
+                    Thread.sleep(1500);
 
                     Optional<Member> member = memberRepository.findByPortalID(userId);
                     String filename = member.get().getStudentID();
@@ -155,6 +147,8 @@ public class AutoExcelService {
                         boolean uploadSuccess = uploadFile(renamedFile);
                         response.put("upload_success", uploadSuccess);
 
+
+                        Thread.sleep(1500);
                         // 파일 삭제
                         if (renamedFile.exists()) {
                             renamedFile.delete();
@@ -174,6 +168,26 @@ public class AutoExcelService {
         }
         return response;
     }
+
+    //운영체제별 다운로드경로를 찾아서 파일에 대한 로직 작동
+    private static final String DOWNLOAD_DIR = getDefaultDownloadDirectory();
+
+    private static String getDefaultDownloadDirectory() {
+        String userHome = System.getProperty("user.home");
+        String osName = System.getProperty("os.name").toLowerCase();
+
+        if (osName.contains("win")) {
+            String oneDrivePath = Paths.get(userHome, "OneDrive", "다운로드").toString();
+            if (Paths.get(oneDrivePath).toFile().exists()) {
+                return oneDrivePath;
+            }
+            return Paths.get(userHome, "Downloads").toString();
+        } else {
+            return Paths.get(userHome, "Downloads").toString();
+        }
+    }
+
+
     private File renameFile(File oldFile, String filename) {
         File newFile = new File(DOWNLOAD_DIR, filename + ".xlsx");
         try {
@@ -190,8 +204,6 @@ public class AutoExcelService {
         RestTemplate restTemplate = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.MULTIPART_FORM_DATA);
-
-
 
         MultiValueMap<String, Object> body = new LinkedMultiValueMap<>();
         body.add("file", new FileSystemResource(file));
