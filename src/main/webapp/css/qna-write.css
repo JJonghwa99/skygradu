@@ -1,97 +1,97 @@
-/* ✅ 전체 폰트 및 기본 스타일 */
 body {
     font-family: 'Pretendard', sans-serif;
-    background-color: #f8f9fa;
-    color: #333;
     margin: 0;
     padding: 0;
+    background-color: #f9fafb;
+    color: #333;
 }
 
-/* ✅ 질문 작성 컨테이너 (qna와 동일한 너비 적용) */
-.qna-write-container {
-    width: 60%;
-    margin: 30px auto;
+.QWrite-header {
+    background-color: #007aff;
+    padding: 16px;
     text-align: center;
+    font-size: 20px;
+    color: #fff;
+    font-weight: 600;
 }
 
-/* ✅ 제목 스타일 */
-.qna-write-title {
-    font-size: 22px;
-    font-weight: bold;
-    padding: 15px;
-    background: #007bff;
-    color: white;
-    border-radius: 8px;
-    margin-bottom: 15px;
+.QWrite-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 16px;
 }
 
-/* ✅ 폼 스타일 */
-.qna-write-form {
-    background: white;
+.QWrite-form-card {
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.QWrite-form-group {
+    margin-bottom: 20px;
+}
+
+.QWrite-form-group label {
+    display: block;
     text-align: left;
+    font-weight: 600;
+    margin-bottom: 8px;
+    margin-left: 27px
 }
 
-/* ✅ 폼 그룹 */
-.form-group {
-    margin-bottom: 15px;
-}
-
-/* ✅ 제목, 익명, 내용 라벨 글씨 굵게 */
-.form-group label {
-    font-weight: bold;
-    font-size: 16px;
-}
-
-/* ✅ 제목 및 내용 입력 필드 */
-.form-control {
-    width: 100%;
+.QWrite-form-group input,
+.QWrite-form-group textarea {
+    width: 90%; /* 너비 조정 */
     padding: 10px;
     border: 1px solid #ddd;
-    border-radius: 5px;
-    font-size: 16px;
+    border-radius: 8px;
+    font-size: 14px;
+    display: block;
+    margin: 0 auto;
 }
 
-/* ✅ 익명 체크박스 정렬 */
-.form-group.checkbox-group {
-    display: flex; /* 한 줄에 정렬 */
-    align-items: center; /* 수직 중앙 정렬 */
-    flex-direction: row; /* 기본적으로 왼쪽 체크박스, 오른쪽 라벨 정렬 */
-    gap: 6px; /* 체크박스와 글씨 간격 */
+.QWrite-form-group textarea {
+    resize: vertical;
+    min-height: 100px;
 }
 
-/* ✅ 체크박스 크기 및 정렬 */
-#anonymous {
-    width: 18px;
-    height: 18px;
-    margin: 0;
-    order: 1; /* 체크박스를 왼쪽에 위치 */
-}
-
-/* ✅ "익명" 글씨 위치 조정 */
-.checkbox-group label {
-    font-weight: bold; /* 글씨 굵게 */
-    font-size: 16px;
-    display: inline-block;
-    margin-left: 4px; /* 체크박스와 간격 추가 */
-    white-space: nowrap; /* 줄바꿈 방지 */
-    order: 2; /* "익명" 글씨를 체크박스 오른쪽에 위치 */
-}
-
-/* ✅ 버튼 스타일 */
-.btn-primary {
-    width: 100%;
-    padding: 12px;
-    font-size: 16px;
-    background: #007bff;
-    color: white;
+.QWrite-btn-submit {
+    background-color: #007aff;
+    color: #fff;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    display: block;
     border: none;
-    border-radius: 5px;
     cursor: pointer;
+    margin: 0 auto;
+    transition: background-color 0.3s ease;
+    width: 90%; /* 버튼도 카드 안으로 조정 */
 }
 
-.btn-primary:hover {
-    background: #0056b3;
+.QWrite-btn-submit:hover {
+    background-color: #005bbb;
+}
+
+.QWrite-form-check {
+    margin-bottom: 16px;
+    margin-left: 27px;
+    font-weight: 600;
+    text-align: left;
+    display: block;
+
+}
+
+.QWrite-form-check input {
+    margin-right: 8px;
+    text-align: left;
+
+}
+input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    margin-right: 8px;
 }
