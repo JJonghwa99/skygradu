@@ -14,33 +14,34 @@
     <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
     <script src="https://use.fontawesome.com/releases/v6.0.0/js/all.js"></script>
     <script defer src="/webapp/js/qna-write.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body class="d-flex flex-column h-100 text-center">
 
 <div th:replace="~{fragments/navbar :: navbar}"></div>
 
-<main class="qna-write-container">
-    <h2 class="qna-write-title">질문 작성</h2>
+<main>
+    <!--<div class="QWrite-header">질문 작성</div>-->
 
-    <div class="qna-write-form">
-        <form id="qna-form">
-            <div class="form-group">
-                <label for="title">제목</label>
-                <input type="text" id="title" class="form-control" placeholder="제목을 입력하세요">
-            </div>
+    <div class="QWrite-container">
+        <div class="QWrite-form-card">
+            <form action="/qna/request" method="POST">
+                <div class="QWrite-form-group">
+                    <label for="title">제목</label>
+                    <input type="text" id="title" name="title" placeholder="제목을 입력하세요" required>
+                </div>
+                <div class="QWrite-form-check QWrite-form-check-inline">
+                    <input  type="checkbox" name="secret" id="secret">
+                    <label for="secret">익명</label>
+                </div>
+                <div class="QWrite-form-group">
+                    <label for="content">내용</label>
+                    <textarea id="content" name="content" placeholder="내용을 입력하세요" required></textarea>
+                </div>
 
-            <div class="form-group checkbox-group">
-                <input type="checkbox" id="anonymous">
-                <label for="anonymous">익명</label>
-            </div>
-
-            <div class="form-group">
-                <label for="content">내용</label>
-                <textarea id="content" class="form-control" rows="5" placeholder="내용을 입력하세요"></textarea>
-            </div>
-
-            <button type="submit" class="btn btn-primary w-100">질문 등록</button>
-        </form>
+                <button type="submit" class="QWrite-btn-submit">질문 등록</button>
+            </form>
+        </div>
     </div>
 </main>
 
