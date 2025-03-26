@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://use.fontawesome.com/releases/v6.0.0/js/all.js"></script>
+    <link href="/webapp/css/basic.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+
+    <style>
+        /* 기본 스타일 */
+        @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+
+        body {
+            font-family: 'Pretendard', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: white;
+            color: #333;
+        }
+
+        /* 헤더 섹션 */
+        .gray_sec {
+            background: linear-gradient(135deg, #0064E4, #0056b3);
+            padding: 4rem 0;
+            color: white;
+            text-align: center;
+        }
+
+        .header-icon {
+            font-size: 4.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .big_title {
+            font-size: 2.8rem;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+
+        /* 메인 컨테이너 */
+        .white_sec {
+            max-width: 1200px;
+            margin: 3rem;
+            padding: 0 1.5rem;
+            position: relative;
+
+        }
+
+        .custom_box_wrap {
+            background: white;
+            border-radius: 18px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            padding: 2.5rem;
+            transition: box-shadow 0.3s ease;
+        }
+
+        .custom_box_wrap:hover {
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+        }
+
+        /* 사용법 섹션 */
+        .custom_title {
+            font-size: 1.7rem;
+            font-weight: bold;
+            color: #0064E4;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+        }
+
+        .custom_box {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .caution_info {
+            color: #dc3545;
+            font-weight: bold;
+        }
+
+        /* 검색 섹션 */
+        .custom_form {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .custom_form input {
+            flex: 1;
+            padding: 1rem;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            box-sizing: border-box;
+            transition: border-color 0.3s ease;
+        }
+
+        .custom_form input:focus {
+            border-color: #0064E4;
+        }
+
+        /* 버튼 스타일 */
+        .ajax_search_btn, .save_btn {
+        font-family: 'Pretendard', sans-serif;
+            background: #0064E4;
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s ease-in-out;
+        }
+
+        .ajax_search_btn:hover, .save_btn:hover {
+            background: #0056b3;
+            transform: scale(1.05);
+        }
+
+        /* 테이블 스타일 */
+        .grade_table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .grade_table th {
+            background: #0064E4;
+            color: white;
+            padding: 1.2rem;
+            text-align: center;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+        }
+
+        .grade_table td {
+            padding: 1rem;
+            text-align: center;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        /* 테이블의 커스텀 과목 스타일 */
+        .custom_subject {
+            background-color: #d4f5e3;
+            color: #1ac06d;
+        }
+
+        /* 모달 스타일 */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 1000;
+            overflow-y: auto;
+        }
+
+        .load-modal-content {
+            background: white;
+            border-radius: 12px;
+            padding: 3rem;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        /* 로딩 모달 */
+        .loading {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #0064E4;
+        }
+        /* 검색 영역의 스타일 */
+.search-section {
+    margin: 20px 0;
+}
+
+/* 테이블 외부 여백 */
+.result_table_wrapper {
+    margin-top: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px;
+    background-color: #f9f9f9;
+}
+
+/* 테이블 스타일 */
+.grade_table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: center;
+}
+
+.grade_table th,
+.grade_table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+.grade_table th {
+    background-color: #0064E4;
+        font-weight: bold;
+    }
+
+/* 삭제 버튼 스타일 */
+.del_btn {
+    background-color: #f44336;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+.add_btn{
+background-color: #1ac06d;
+padding: 5px 10px;
+color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.del_btn:hover {
+    background-color: #d32f2f;
+}
+        .myTable-box{
+        display: flex;
+        }
+        .header {
+            background-color: #007aff;
+            padding: 16px;
+            text-align: center;
+            font-size: 20px;
+            color: #fff;
+            font-weight: 600;
+        }
+
+
+
+    </style>
+</head>
+<body>
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+<!-- HTML -->
+
+<div class="white_sec">
+    <div class="custom_box_wrap">
+        <!-- 사용법 섹션 -->
+        <div class="custom_title">커스텀 기능 사용법</div>
+        <div class="custom_box">
+            <p>1. 추가하고 싶은 과목의 <span class="caution_info">학수번호 </span>또는<span class="caution_info"> 정확한 과목명</span> 을 검색합니다.</p>
+            <p class="sub-info">- 학수번호 찾는 법 : 업데이트 된 강의시간표를 참고하거나 키워드를 입력하여 검색할 수 있습니다.
+            <p>2. 검색 후 해당 과목이 맞는지 확인하고, 과목의 <span class="caution_info">이수구분(ex. 전선, 전필 등)을 반드시 설정해줍니다.</span></p>
+            <p>3. 이수구분을 설정했다면 추가하기 버튼을 눌러 임시 기이수과목 표에 해당 과목을 추가합니다.</p>
+            <p>4. 추가된 과목표를 확인하고 저장 버튼을 눌러 자신의 정보를 업데이트합니다.</p>
+
+        </div>
+
+        <!-- 검색 섹션 -->
+
+
+        <div class="custom_title">학수번호 검색</div>
+        <div class="search-section">
+            <div class="custom_form">
+                <input type="text" id="s_num" placeholder="학수번호">
+                <button class="ajax_search_btn" onclick="ajax_conn()">검색</button>
+            </div>
+
+            <div class="result_zone">
+                <div class="custom_subtitle" style="margin-bottom:0pt; text-align: center; font-size: 20pt; font-weight: bold;">
+                    ⌨️ 검색 결과
+                </div>
+                <div id="result_div">
+                    <!-- 검색 결과 테이블 -->
+                    <div class="result_table_wrapper">
+                        <table id="customTable" class="grade_table">
+                            <thead>
+                            <tr>
+                                <th class="grade_table_th" style="width:9%">년도</th>
+                                <th class="grade_table_th" style="width:9%">학기</th>
+                                <th class="grade_table_th" style="width:9%">학수번호</th>
+                                <th class="grade_table_th" style="width:36%">과목명</th>
+                                <th class="grade_table_th" style="width:9%">이수구분</th>
+                                <th class="grade_table_th" style="width:6%">학점</th>
+                                <th class="grade_table_th" style="width:6%"></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <!-- 커스텀 과목 (녹색으로 표시) -->
+                            <tr style="color: #1ac06d">
+                                <td class="grade_table_td">커스텀</td>
+                                <td class="grade_table_td">1</td>
+                                <td class="grade_table_td">12345</td>
+                                <td class="grade_table_td">전공종합설계(2)</td>
+                                <td class="grade_table_td">전필</td>
+                                <td class="grade_table_td">3</td>
+                                <td class="grade_table_td">
+                                    <button class="add_btn" onclick="del_row_old(this)">추가</button>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+            <!-- 기이수과목 테이블 -->
+
+
+        <div id="myTable-box" style="margin-top:100pt; display: inline-block;">
+            <div id="myTable_title" style="margin-bottom:0pt; font-size: 20pt; font-weight: bold; ">내 기이수과목</div>
+        </div>
+
+
+
+                <table id="myTable" class="grade_table">
+                    <tr>
+                        <th class="grade_table_th" style="width:9%">년도</th>
+                        <th class="grade_table_th" style="width:9%">학기</th>
+                        <th class="grade_table_th" style="width:9%">학수번호</th>
+                        <th class="grade_table_th" style="width:36%">과목명</th>
+                        <th class="grade_table_th" style="width:9%">이수구분</th>
+                        <th class="grade_table_th" style="width:6%">학점</th>
+                        <th class="grade_table_th" style="width:6%"></th>
+                    </tr>
+                    <tr th:each="course : ${courses}"
+                        th:style="${course.isCustom} ? 'color: #1ac06d;' : ''">
+                        <td class="grade_table_td" th:text="${course.year != null ? course.year : ''}"></td>
+                        <td class="grade_table_td" th:text="${course.semesterCompleted != null ? course.semesterCompleted : ''}"></td>
+                        <td class="grade_table_td"></td>
+                        <td class="grade_table_td" th:text="${course.courseName != null ? course.courseName : ''}"></td>
+                        <td class="grade_table_td" th:text="${course.courseType != null ? course.courseType : ''}"></td>
+                        <td class="grade_table_td" style="border-right: 0px" th:text="${course.credits != null ? course.credits : ''}"></td>
+                        <td class="grade_table_td" th:if="${course.isCustom == true}"><button class="del_btn" onclick="del_row_old(this)">삭제</button></td>
+                        <td class="grade_table_td" th:unless="${course.isCustom == true}"></td>
+                    </tr>
+                </table>
+
+                <!-- Hidden Inputs -->
+                <input type="hidden" id="id_year" name="arr_year" value="">
+                <input type="hidden" id="id_semester" name="arr_semester" value="">
+                <input type="hidden" id="id_subject_num" name="arr_subject_num" value="">
+                <input type="hidden" id="id_subject_name" name="arr_subject_name" value="">
+                <input type="hidden" id="id_classification" name="arr_classification" value="">
+                <input type="hidden" id="id_selection" name="arr_selection" value="">
+                <input type="hidden" id="id_grade" name="arr_grade" value="">
+                <input type="hidden" id="id_delete" name="arr_delete" value="">
+            </form>
+        </div>
+    </div>
+</div>
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+
+<!-- 로딩 모달 -->
+<div id="load_madal" class="modal">
+    <div class="load-modal-content">
+        <div class="modal_loadcontainer">
+            <div class="sk-chase">
+                <div class="sk-chase-dot"></div>
+                <div class="sk-chase-dot"></div>
+                <div class="sk-chase-dot"></div>
+                <div class="sk-chase-dot"></div>
+                <div class="sk-chase-dot"></div>
+                <div class="sk-chase-dot"></div>
+            </div>
+            <div class="loading">
+                <span>정</span><span>보</span><span>업</span><span>데</span><span>이</span>
+                <span>트</span><span>중</span><span>.</span><span>.</span><span>.</span>
+            </div>
+            <div class="load_info">창을 이동하지 마세요!</div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
