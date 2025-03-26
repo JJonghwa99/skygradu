@@ -49,4 +49,30 @@ public class MyPageController {
 
         return "mypage.html";
     }
+
+    @GetMapping("/custom")
+    public String customPage(Authentication auth, Model model) {
+        CustomUser userDetails = (CustomUser) auth.getPrincipal();
+        String studentID = userDetails.studentID;
+
+        // studentID와 일치하는 데이터 조회
+        List<CompletedCourseDTO> completedCourses = completedCourseRepository.findByMemberId(studentID)
+                .stream()
+                .map(course -> new CompletedCourseDTO(
+                        course.getYear(),
+                        course.getSemesterCompleted(),
+                        course.getCourseName(),
+                        course.getCourseType(),
+                        course.getCredits(),
+                        course.isCustom()
+                ))
+                .sorted(Comparator.comparing(CompletedCourseDTO::isCustom).reversed()) //  커스텀된 과목을 먼저 배치
+                .collect(Collectors.toList());
+
+
+        model.addAttribute("studentID", studentID);
+        model.addAttribute("courses", completedCourses);
+
+        return "custom.html";
+    }
 }

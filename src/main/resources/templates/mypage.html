@@ -103,7 +103,7 @@
                                     <th class="grade_table_th" style="width:6%; border-right :0px">학점</th>
                                 </tr>
                                 <tr th:each="course : ${courses}"
-                                    th:style="${course.isCustom} ? 'color: #20B2AA;' : ''">
+                                    th:style="${course.isCustom} ? 'color: #1ac06d;' : ''">
                                     <td class="grade_table_td" th:text="${course.year != null ? course.year : ''}"></td>
                                     <td class="grade_table_td" th:text="${course.semesterCompleted != null ? course.semesterCompleted : ''}"></td>
                                     <td class="grade_table_td" th:text="${course.courseName != null ? course.courseName : ''}"></td>
@@ -115,7 +115,7 @@
                         <hr style="margin-bottom:0.8rem; margin-top:1.6rem;">
                         <div class="my_box_title2">
                             <div><i class="fa-solid fa-screwdriver-wrench"></i><b>&nbsp;&nbsp;기이수과목 커스텀</b></div>
-                            <button id='b6' class="my_box_mod_btn3">커스텀하기</button>
+                            <button id='b6' class="my_box_mod_btn3" onclick="location.href='/custom'">커스텀하기</button>
                         </div>
                     </div>
                 </div>
