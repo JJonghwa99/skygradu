@@ -21,24 +21,16 @@ public class QnAController {
 
     // 질문 등록
     @PostMapping("/request")
-    public String createQuestion(
-            @RequestParam String title,
-            @RequestParam(required = false) Boolean secret,
-            @RequestParam String content,
-            @AuthenticationPrincipal User user) {
-
-        // 현재 로그인된 사용자 정보 가져오기
+    public String createQuestion(@RequestBody QnaRequestDto request, @AuthenticationPrincipal User user) {
         String username = user.getUsername();
 
-        // QnA 엔티티 생성 및 저장
         QnA qna = new QnA();
-        qna.setQTitle(title);
+        qna.setQTitle(request.getTitle());
         qna.setQWriter(username);
-        qna.setAnonymity(secret != null ? secret : false);
-        qna.setQContent(content);
+        qna.setAnonymity(request.getSecret() != null ? request.getSecret() : false);
+        qna.setQContent(request.getContent());
         qna.setQDate(LocalDateTime.now());
         qnaRepository.save(qna);
-
 
         return "redirect:/qna";
     }
