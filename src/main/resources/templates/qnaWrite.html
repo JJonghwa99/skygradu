@@ -20,27 +20,31 @@
 
 <div th:replace="~{fragments/navbar :: navbar}"></div>
 
-<main>
+<main class="qna-write-container">
 
-    <div class="QWrite-container">
-        <div class="QWrite-form-card">
-            <form action="/qna/request" method="POST">
-                <div class="QWrite-form-group">
-                    <label for="title">제목</label>
-                    <input type="text" id="title" name="title" placeholder="제목을 입력하세요" required>
-                </div>
-                <div class="QWrite-form-check QWrite-form-check-inline">
-                    <input  type="checkbox" name="secret" id="secret">
-                    <label for="secret">익명</label>
-                </div>
-                <div class="QWrite-form-group">
-                    <label for="content">내용</label>
-                    <textarea id="content" name="content" placeholder="내용을 입력하세요" required></textarea>
-                </div>
+    <div class="qna-write-form">
+        <form id="qna-form">
+            <div class="form-group">
+                <label for="title">제목</label>
+                <input type="text" id="title" class="form-control" placeholder="제목을 입력하세요">
+            </div>
 
-                <button type="submit" class="QWrite-btn-submit">질문 등록</button>
-            </form>
-        </div>
+            <div class="checkbox-container">
+                <div class="checkbox-wrapper">
+                    <input type="checkbox" id="anonymous" class="anonymous-checkbox">
+                </div>
+                <div class="label-wrapper">
+                    <label for="anonymous" class="anonymous-label">익명</label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="content">내용</label>
+                <textarea id="content" class="form-control" rows="5" placeholder="내용을 입력하세요"></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100">질문 등록</button>
+        </form>
     </div>
 </main>
 
