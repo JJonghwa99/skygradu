@@ -1,4 +1,5 @@
 /* ✅ 전체 폰트 및 기본 설정 */
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
 body {
     font-family: 'Pretendard', sans-serif;
     background-color: #f8f9fa;
