@@ -82,7 +82,6 @@
             text-decoration: none;
             font-size: 14px;
             font-weight: 500;
-            margin-top: 20px;
             text-align: center;
             transition: background-color 0.3s ease;
         }
@@ -97,8 +96,9 @@
         }
         .button-container {
             display: flex;
-            justify-content: space-between;
             align-items: center;
+            justify-content: flex-start;
+            gap: 10px;
             margin-top: 20px;
         }
     </style>
@@ -138,19 +138,19 @@
 
     <div class="button-container">
         <!-- 뒤로 가기 버튼 -->
-        <a href="/qna" class="btn-back">뒤로 가기</a>
+        <a href="/qna" class="btn-back" >뒤로 가기</a>
 
         <!-- 관리자 버튼 -->
-        <div th:if="${isAdmin}" class="admin-buttons" style="margin-bottom: 0px">
+        <div th:if="${isAdmin}" class="admin-buttons"  style="float: right;">
             <button onclick="toggleAnswerForm()" class="btn btn-primary">답변하기</button>
-            <form method="POST" th:action="@{/qna/delete/{id}(id=${qna.id})}" style="display: inline;">
+            <form method="POST" th:action="@{/qna/delete/{id}(id=${qna.id})}" >
                 <button type="submit" class="btn btn-danger">삭제</button>
             </form>
         </div>
 
         <!-- 작성자 버튼 -->
-        <div th:if="${isWriter and !qna.Answered}" class="writer-buttons" style="margin-bottom: 0px">
-            <form method="POST" th:action="@{/qna/delete/{id}(id=${qna.id})}" style="display: inline;">
+        <div th:if="${isWriter and !qna.Answered}" class="writer-buttons"  style="float: right;">
+            <form method="POST" th:action="@{/qna/delete/{id}(id=${qna.id})}">
                 <button type="submit" class="btn btn-danger">삭제</button>
             </form>
         </div>
