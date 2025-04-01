@@ -71,11 +71,10 @@ public class RegisterController {
             member.setMajor(major);
             member.setUserEmail(userEmail);
             member.setPortalID(portalID);
+            member.setEnrollYear(studentID.substring(0, 4));
             String encodedPassword = passwordEncoder.encode(password1);
             member.setPassword1(encodedPassword);
             memberRepository.save(member);
-
-            System.out.println(member);
 
             return "success";
 

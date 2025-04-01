@@ -6,5 +6,7 @@ import java.util.List;
 
 public interface CompletedCourseRepository extends JpaRepository<CompletedCourse, Long> {
     List<CompletedCourse> findByMemberId(String memberId);
+
+    void deleteByMemberIdAndCourseName(String memberId, String courseName);
 }
 

@@ -147,9 +147,7 @@ public class AutoExcelService {
                         boolean uploadSuccess = uploadFile(renamedFile);
                         response.put("upload_success", uploadSuccess);
 
-
-                        Thread.sleep(1500);
-                        // 파일 삭제
+                        Thread.sleep(3000);
                         if (renamedFile.exists()) {
                             renamedFile.delete();
                         }
