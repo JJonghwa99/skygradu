@@ -92,10 +92,11 @@ public class ExcelService {
                     continue;
                 }
 
-                int credits, year;
+                int credits;
+                String year;
                 try {
                     credits = parseIntegerOrDefault(getCellValueAsString(row.getCell(18)), 0); // 학점 열
-                    year = parseIntegerOrDefault(getCellValueAsString(row.getCell(23)), 0);   // 년도 열
+                    year = getCellValueAsString(row.getCell(23));   // 년도 열
                 } catch (NumberFormatException e) {
                     log.warn("숫자 변환 실패: 강좌명={}, 학점={}, 년도={}", courseName, row.getCell(18), row.getCell(23));
                     continue; // 숫자 변환 실패 시 건너뜁니다.
@@ -215,10 +216,11 @@ public class ExcelService {
                     continue;
                 }
 
-                int credits, year;
+                int credits;
+                String year;
                 try {
                     credits = parseIntegerOrDefault(getCellValueAsString(row.getCell(18)), 0); // 학점 열
-                    year = parseIntegerOrDefault(getCellValueAsString(row.getCell(23)), 0);   // 년도 열
+                    year = getCellValueAsString(row.getCell(23));   // 년도 열
                 } catch (NumberFormatException e) {
                     log.warn("숫자 변환 실패: 강좌명={}, 학점={}, 년도={}", courseName, row.getCell(18), row.getCell(23));
                     continue; // 숫자 변환 실패 시 건너뜁니다.

@@ -8,7 +8,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public class CompletedCourseDTO {
-    private int year;
+    private String year;
     private String semesterCompleted;
     private String courseName;
     private String courseType;

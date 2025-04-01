@@ -1,10 +1,16 @@
 package com.SkyGradU.SkyGradU.User.member;
 
+import com.SkyGradU.SkyGradU.Lectures.AllLecturesDTO;
+import com.SkyGradU.SkyGradU.Lectures.AllLectureRepository;
+import com.SkyGradU.SkyGradU.Lectures.AllLectures;
 import com.SkyGradU.SkyGradU.SkyAuth;
+import com.SkyGradU.SkyGradU.User.Courses.CompletedCourse;
+import com.SkyGradU.SkyGradU.User.Courses.CompletedCourseRepository;
 import com.google.gson.JsonObject;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -15,7 +21,9 @@ import org.springframework.security.web.authentication.logout.SecurityContextLog
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @RestController
 public class UpdateUserController {
@@ -25,6 +33,10 @@ public class UpdateUserController {
     private SkyAuth skyAuth;
     @Autowired
     private MemberRepository memberRepository;
+    @Autowired
+    private CompletedCourseRepository completedCourseRepository;
+    @Autowired
+    private AllLectureRepository allLectureRepository;
 
     @Autowired
     public UpdateUserController(UserService userService,forgetPWService forgetPWService) {
@@ -152,5 +164,46 @@ public class UpdateUserController {
         }
 
         return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/lectures/search")
+    public ResponseEntity<List<AllLecturesDTO>> searchLectures(
+            @RequestParam String keyword) {
+
+        List<AllLectures> results = allLectureRepository.searchByCodeOrName(keyword);
+
+        return ResponseEntity.ok(results.stream()
+                .map(AllLecturesDTO::new)
+                .collect(Collectors.toList()));
+    }
+
+    @Transactional
+    @PostMapping("/custom/save")
+    public ResponseEntity<?> saveCourses(@RequestBody Map<String, List<AllLectures>> request, Authentication auth) {
+        List<AllLectures> addedCourses = request.get("added");
+        List<AllLectures> deletedCourses = request.get("deleted");
+
+        // 추가할 과목 처리
+        List<CompletedCourse> coursesToAdd = addedCourses.stream()
+                .map(dto -> {
+                    CompletedCourse course = new CompletedCourse();
+                    course.setYear("커스텀");
+                    course.setCourseName(dto.getCourseName());
+                    course.setCourseType(dto.getCourseType());
+                    course.setMemberId(auth.getName());
+                    course.setCustom(true);
+                    course.setSemesterCompleted(dto.getSemesterCompleted());
+                    course.setCredits(dto.getCredits());
+                    return course;
+                }).collect(Collectors.toList());
+
+        completedCourseRepository.saveAll(coursesToAdd);
+
+        // 삭제할 과목 처리
+        for (AllLectures dto : deletedCourses) {
+            completedCourseRepository.deleteByMemberIdAndCourseName(auth.getName(), dto.getCourseName());
+        }
+
+        return ResponseEntity.ok().build();
     }
 }

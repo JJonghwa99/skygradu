@@ -20,5 +20,5 @@ public class CompletedCourse {
     private int credits;  // 학점
     private boolean isCustom = false;  // 커스텀 기능
     private String semesterCompleted;  // 학기
-    private int year;  // 학년보단 이수년도가 나을듯?
+    private String year;  // 학년보단 이수년도가 나을듯?
 }
