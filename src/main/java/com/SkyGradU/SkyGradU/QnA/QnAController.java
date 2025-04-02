@@ -37,13 +37,13 @@ public class QnAController {
 
     @GetMapping("/detail/{id}")
     public String getQnADetail(@PathVariable Long id, Model model, @AuthenticationPrincipal User user) {
-        // 질문 데이터 조회
+
         QnA qna = qnaRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid question ID: " + id));
 
-        // 현재 로그인된 사용자 정보
-        String username = user.getUsername();
-        boolean isAdmin = user.getAuthorities().stream().anyMatch(auth -> auth.getAuthority().equals("ROLE_ADMIN"));
-        boolean isWriter = username.equals(qna.getQWriter());
+
+        String username = user != null ? user.getUsername() : null;
+        boolean isAdmin = user != null && user.getAuthorities().stream().anyMatch(auth -> auth.getAuthority().equals("ROLE_ADMIN"));
+        boolean isWriter = username != null && username.equals(qna.getQWriter());
 
         // 모델에 데이터 추가
         model.addAttribute("qna", qna);
