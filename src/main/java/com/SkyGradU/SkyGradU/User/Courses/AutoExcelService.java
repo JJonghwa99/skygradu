@@ -133,7 +133,7 @@ public class AutoExcelService {
                     WebElement 엑셀저장버튼 = driver.findElement(By.xpath("//*[@title='엑셀저장']"));
                     엑셀저장버튼.click();
 
-                    Thread.sleep(1500);
+                    Thread.sleep(3000);
 
                     Optional<Member> member = memberRepository.findByPortalID(userId);
                     String filename = member.get().getStudentID();
@@ -147,7 +147,7 @@ public class AutoExcelService {
                         boolean uploadSuccess = uploadFile(renamedFile);
                         response.put("upload_success", uploadSuccess);
 
-                        Thread.sleep(3000);
+
                         if (renamedFile.exists()) {
                             renamedFile.delete();
                         }
