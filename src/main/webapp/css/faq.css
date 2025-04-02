@@ -80,9 +80,16 @@ body {
 
 .faq-list {
     margin-top: 10px;
-    width: 750px;
+    width: auto;
     animation: fadeIn 0.5s ease-in-out;
 }
+
+@media (min-width: 750px) {
+    .faq-list {
+        width: 750px;
+    }
+}
+
 
 .faq-item {
     background: white;
