@@ -127,46 +127,49 @@
             background: #0056b3;
         }
 
-        /* 테이블 스타일 */
         .grade_table {
             width: 100%;
             border-collapse: collapse;
-            margin: 2rem 0;
-            background: white;
+            margin-top: 2rem;
+            background-color: white;
             border-radius: 12px;
-            overflow: hidden;
-            max-height: 15px;
         }
 
-        .grade_table th {
-            background: #0064E4;
-            color: white;
-            padding: 1.2rem;
-            text-align: center;
-            font-size: 1.1rem;
-            text-transform: uppercase;
-        }
-
-        .grade_table td {
-            padding: 1rem;
-            text-align: center;
-            border-bottom: 1px solid #dee2e6;
+        .grade_table thead {
+            display: table;
+            width: 100%;
         }
 
         .grade_table tbody {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 2rem 0;
-            background: white;
-            border-radius: 12px;
+            display: block;
+            max-height: 250px;
             overflow-y: auto;
         }
 
+        .grade_table tbody tr {
+            display: table;
+            width: 100%;
+        }
 
-        .grade_table td {
+        .grade_table th, .grade_table td {
             padding: 1rem;
             text-align: center;
             border-bottom: 1px solid #dee2e6;
+        }
+
+        .grade_table th {
+            position: sticky;
+            top: 0;
+            background-color: #0064E4;
+            color: white;
+        }
+
+        .grade_table td {
+            border-right: 1px solid #ddd;
+        }
+
+        .grade_table td:last-child, .grade_table th:last-child {
+            border-right: none;
         }
 
 
@@ -184,7 +187,7 @@
         }
 
         /* 테이블 스타일 */
-        .grade_table {
+        .grade_table  {
             width: 100%;
             border-collapse: collapse;
             text-align: center;
@@ -291,30 +294,32 @@
             <button id="save-btn" class="save_btn" onclick="saveCourses()" style="float: right;">저장하기</button>
         </div>
         <table id="myTable" class="grade_table">
-                    <thead>
-                    <tr>
-                        <th class="grade_table_th" style="width:9%">년도</th>
-                        <th class="grade_table_th" style="width:9%">학기</th>
-                        <th class="grade_table_th" style="width:9%">과목코드</th>
-                        <th class="grade_table_th" style="width:36%">과목명</th>
-                        <th class="grade_table_th" style="width:9%">이수구분</th>
-                        <th class="grade_table_th" style="width:6%">학점</th>
-                        <th class="grade_table_th" style="width:6%"></th>
-                    </tr>
-                    </thead>
-                    <tbody style="overflow-y: auto">
-                    <tr th:each="course : ${courses}"
-                        th:style="${course.isCustom} ? 'color: #1ac06d;' : ''">
-                        <td class="grade_table_td" th:text="${course.year != null ? course.year : ''}"></td>
-                        <td class="grade_table_td" th:text="${course.semesterCompleted != null ? course.semesterCompleted : ''}"></td>
-                        <td class="grade_table_td"></td>
-                        <td class="grade_table_td" th:text="${course.courseName != null ? course.courseName : ''}"></td>
-                        <td class="grade_table_td" th:text="${course.courseType != null ? course.courseType : ''}"></td>
-                        <td class="grade_table_td" style="border-right: 0px" th:text="${course.credits != null ? course.credits : ''}"></td>
-                        <td class="grade_table_td" th:if="${course.isCustom == true}"><button class="del_btn" onclick="del_row_old(this)">삭제</button></td>
-                        <td class="grade_table_td" th:unless="${course.isCustom == true}"></td>
-                    </tr>
-                    </tbody>
+            <thead>
+            <tr>
+                <th class="grade_table_th" style="width:8.2%">년도</th>
+                <th class="grade_table_th" style="width:8.2%">학기</th>
+                <th class="grade_table_th" style="width:8.2%">과목코드</th>
+                <th class="grade_table_th" style="width:36.3%">과목명</th>
+                <th class="grade_table_th" style="width:8.2%">이수구분</th>
+                <th class="grade_table_th" style="width:6%">학점</th>
+                <th class="grade_table_th" style="width:6%"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="course : ${courses}"
+                th:style="${course.isCustom} ? 'color: #1ac06d;' : ''">
+                <td class="grade_table_td" style="width:9%" th:text="${course.year != null ? course.year : ''}"></td>
+                <td class="grade_table_td" style="width:9%" th:text="${course.semesterCompleted != null ? course.semesterCompleted : ''}"></td>
+                <td class="grade_table_td" style="width:9%"></td>
+                <td class="grade_table_td" style="width:40%" th:text="${course.courseName != null ? course.courseName : ''}"></td>
+                <td class="grade_table_td" style="width:9%" th:text="${course.courseType != null ? course.courseType : ''}"></td>
+                <td class="grade_table_td" style="border-right: 0px; width:6%" th:text="${course.credits != null ? course.credits : ''}"></td>
+                <td class="grade_table_td" style="width:6%" th:if="${course.isCustom == true}">
+                    <button class="del_btn" onclick="del_row_old(this)">삭제</button>
+                </td>
+                <td class="grade_table_td" style="width:6%" th:unless="${course.isCustom == true}"></td>
+            </tr>
+            </tbody>
         </table>
         </div>
     </div>

@@ -20,11 +20,11 @@ function ajax_conn() {
             if (data.length > 0) {
                 tbody.innerHTML = data.map(lecture => `
                 <tr>
-                    <td>커스텀</td>
-                    <td>${lecture.semesterCompleted}</td>
-                    <td>${lecture.lectureCode}</td>
-                    <td>${lecture.courseName}</td>
-                    <td>
+                    <td style="width:9%">커스텀</td>
+                    <td style="width:9%">${lecture.semesterCompleted}</td>
+                    <td style="width:9%">${lecture.lectureCode}</td>
+                    <td style="width:36%">${lecture.courseName}</td>
+                    <td style="width:9%">
                         <select class="course-type">
                             <option>전필</option>
                             <option>전선</option>
@@ -33,8 +33,8 @@ function ajax_conn() {
                             <option>일선</option>
                         </select>
                     </td>
-                    <td>${lecture.credits}</td>
-                    <td><button class="add_btn" onclick="addRow(this)">추가</button></td>
+                    <td style="width:6%">${lecture.credits}</td>
+                    <td style="width:6%"><button class="add_btn" onclick="addRow(this)">추가</button></td>
                 </tr>
                 `).join('');
                 resultDiv.style.display = 'block';
@@ -81,13 +81,13 @@ function addRow(button) {
     const newRow = document.createElement('tr'); // 새로운 <tr> 요소 생성
 
     newRow.innerHTML = `
-        <td>커스텀</td>
-        <td>커스텀 </td>
-        <td>${lectureCode}</td>
-        <td>${courseName}</td>
-        <td>${selectedCourseType}</td> <!-- 선택된 값만 텍스트로 표시 -->
-        <td>${credits}</td>
-        <td><button class="del_btn" onclick="deleteRow(this)">삭제</button></td>
+        <td style="width:9%">커스텀</td>
+        <td style="width:9%">커스텀 </td>
+        <td style="width:9%">${lectureCode}</td>
+        <td style="width:40%">${courseName}</td>
+        <td style="width:9%">${selectedCourseType}</td> <!-- 선택된 값만 텍스트로 표시 -->
+        <td style="width:6%">${credits}</td>
+        <td style="width:6%"><button class="del_btn" onclick="deleteRow(this)">삭제</button></td>
     `;
 
     // 새로 추가된 행의 텍스트 색상 변경
