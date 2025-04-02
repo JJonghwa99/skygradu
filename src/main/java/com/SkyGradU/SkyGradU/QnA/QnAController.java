@@ -1,14 +1,11 @@
 package com.SkyGradU.SkyGradU.QnA;
 
-import com.SkyGradU.SkyGradU.QnA.QnA;
-import com.SkyGradU.SkyGradU.QnA.QnARepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.reactive.result.view.RedirectView;
 
 import java.time.LocalDateTime;
 

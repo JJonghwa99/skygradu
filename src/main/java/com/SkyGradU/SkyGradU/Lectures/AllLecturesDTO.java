@@ -1,6 +1,5 @@
 package com.SkyGradU.SkyGradU.Lectures;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
