@@ -1,7 +1,6 @@
 package com.SkyGradU.SkyGradU.User.Courses;
 
 import com.SkyGradU.SkyGradU.Exception.FileUploadException;
-import com.SkyGradU.SkyGradU.User.member.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
