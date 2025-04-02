@@ -1,4 +1,5 @@
-@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+
+
 body {
     font-family: 'Pretendard', sans-serif;
     background-color: #f8f9fa;
@@ -6,21 +7,45 @@ body {
     margin: 0;
     padding: 0;
 }
+.list-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 16px;
+}
 
+.list-tab {
+    display: flex;
+    justify-content: space-between;
+    background-color: #f5f6f8;
+    border-radius: 12px;
+    overflow: hidden;
+    padding: 5px;
+}
+
+.list-tab button {
+    flex: 1;
+    text-align: center;
+    padding: 10px 0;
+    font-size: 14px;
+    color: #666;
+    cursor: pointer;
+    background: none;
+    border: none;
+    font-weight: 500;
+    transition: color 0.3s, font-weight 0.3s;
+}
+
+.list-tab button.active {
+    font-weight: 700;
+    color: #007aff;
+    border-radius: 5px;
+    border: 2px solid #007bff;
+}
 .faq-container {
     width: 60%;
     margin: 30px auto;
     text-align: center;
-}
-
-.faq-title {
-    font-size: 22px;
-    font-weight: bold;
-    padding: 15px;
-    background: #007bff;
-    color: white;
-    border-radius: 8px;
-    margin-bottom: 15px;
+    animation: fadeIn 0.5s ease-in-out;
 }
 
 .faq-tabs {
@@ -39,6 +64,7 @@ body {
     background: transparent;
     cursor: pointer;
     font-weight: bold;
+    transition: background-color 0.3s, color 0.3s;
 }
 
 .faq-tab.active {
@@ -48,12 +74,14 @@ body {
     color: #007bff;
 }
 
-.faq-tab:not(.active) {
-    background: #f0f0f0;
-    color: #333;
+.faq-tab:not(.active):hover {
+    background: #e0e0e0;
 }
+
 .faq-list {
     margin-top: 10px;
+    width: 750px;
+    animation: fadeIn 0.5s ease-in-out;
 }
 
 .faq-item {
@@ -62,6 +90,12 @@ body {
     padding: 12px;
     border-radius: 8px;
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+.faq-item:hover {
+    box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.15);
 }
 
 .faq-question {
@@ -75,6 +109,7 @@ body {
     justify-content: space-between;
     cursor: pointer;
     font-weight: bold;
+    transition: color 0.3s;
 }
 
 .faq-answer {
@@ -83,12 +118,18 @@ body {
     background: #f1f1f1;
     border-radius: 5px;
     margin-top: 8px;
+    animation: slideDown 0.3s ease forwards;
+}
+
+@keyframes slideDown {
+    0% { max-height: 0; opacity: 0; }
+    100% { max-height: 500px; opacity: 1; }
 }
 
 .toggle-icon {
     font-weight: bold;
     color: #007bff;
-    transition: transform 0.3s ease;
+    transition: transform 0.3s;
 }
 
 .faq-item.open .toggle-icon {
