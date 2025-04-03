@@ -298,7 +298,6 @@
             <tr>
                 <th class="grade_table_th" style="width:8.2%">년도</th>
                 <th class="grade_table_th" style="width:8.2%">학기</th>
-                <th class="grade_table_th" style="width:8.2%">과목코드</th>
                 <th class="grade_table_th" style="width:36.3%">과목명</th>
                 <th class="grade_table_th" style="width:8.2%">이수구분</th>
                 <th class="grade_table_th" style="width:6%">학점</th>
@@ -310,7 +309,6 @@
                 th:style="${course.isCustom} ? 'color: #1ac06d;' : ''">
                 <td class="grade_table_td" style="width:9%" th:text="${course.year != null ? course.year : ''}"></td>
                 <td class="grade_table_td" style="width:9%" th:text="${course.semesterCompleted != null ? course.semesterCompleted : ''}"></td>
-                <td class="grade_table_td" style="width:9%"></td>
                 <td class="grade_table_td" style="width:40%" th:text="${course.courseName != null ? course.courseName : ''}"></td>
                 <td class="grade_table_td" style="width:9%" th:text="${course.courseType != null ? course.courseType : ''}"></td>
                 <td class="grade_table_td" style="border-right: 0px; width:6%" th:text="${course.credits != null ? course.credits : ''}"></td>

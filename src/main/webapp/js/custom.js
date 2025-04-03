@@ -83,7 +83,6 @@ function addRow(button) {
     newRow.innerHTML = `
         <td style="width:9%">커스텀</td>
         <td style="width:9%">커스텀 </td>
-        <td style="width:9%">${lectureCode}</td>
         <td style="width:40%">${courseName}</td>
         <td style="width:9%">${selectedCourseType}</td> <!-- 선택된 값만 텍스트로 표시 -->
         <td style="width:6%">${credits}</td>
