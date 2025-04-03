@@ -57,11 +57,11 @@ function addRow(button) {
     const selectedCourseType = row.querySelector('.course-type').value; // 선택된 과목 유형
     const credits = row.cells[5].innerText; // 학점
 
-    // 중복 검사: 기존 테이블에서 과목코드 또는 과목명이 동일한지 확인
+    // 중복 검사: 기존 테이블에서 강의명과 이수구분이 동일하면 빠꾸
     const existingRows = Array.from(document.querySelectorAll('#myTable tbody tr'));
     const isDuplicate = existingRows.some(existingRow =>
-        existingRow.cells[2].innerText === lectureCode ||
-        existingRow.cells[3].innerText === courseName
+        existingRow.cells[3].innerText === selectedCourseType &&
+        existingRow.cells[2].innerText === courseName
     );
 
     if (isDuplicate) {
@@ -103,7 +103,7 @@ function addRow(button) {
 //추가한 데이터 행 지우기 폼에서도 지움
 function deleteRow(button) {
     const row = button.closest('tr'); // 삭제할 행 가져오기
-    const lectureName = row.cells[3].innerText; // 과목 이름
+    const lectureName = row.cells[2].innerText; // 과목 이름
 
     // 추가된 데이터 배열에서 제거
     addedCourses = addedCourses.filter(course => course.courseName !== lectureName);
@@ -119,7 +119,7 @@ function del_row_old(button) {
         row.style.display = "none";
     }
 
-    const courseName = row.cells[3].innerText; // 과목명
+    const courseName = row.cells[2].innerText; // 과목명
 
     // 삭제된 데이터 배열에 저장
     deletedCourses.push({ courseName });
