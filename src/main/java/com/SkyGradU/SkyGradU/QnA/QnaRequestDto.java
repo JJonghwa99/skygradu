@@ -8,5 +8,5 @@ import lombok.Setter;
 public class QnaRequestDto {
     private String title;
     private String content;
-    private Boolean secret;
+    private Boolean anonymous;
 }

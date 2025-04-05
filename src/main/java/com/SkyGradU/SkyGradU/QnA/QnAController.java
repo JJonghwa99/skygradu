@@ -24,7 +24,7 @@ public class QnAController {
         QnA qna = new QnA();
         qna.setQTitle(request.getTitle());
         qna.setQWriter(username);
-        qna.setAnonymity(request.getSecret() != null ? request.getSecret() : false);
+        qna.setAnonymity(request.getAnonymous() != null ? request.getAnonymous() : false);
         qna.setQContent(request.getContent());
         qna.setQDate(LocalDateTime.now());
         qnaRepository.save(qna);
