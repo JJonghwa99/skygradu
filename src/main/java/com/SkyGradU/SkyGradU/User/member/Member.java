@@ -24,7 +24,7 @@ public class Member {
     private String doubleMajor;
     private String minor;
     private String enrollYear;
-
+    private boolean update = false;
 
     public void updatePassword(String newPassword){
         this.password1 = newPassword;
