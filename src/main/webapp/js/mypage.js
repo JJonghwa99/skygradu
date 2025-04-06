@@ -143,3 +143,8 @@
                 alert('네트워크 오류가 발생했습니다: ' + error.message);
             });
     }
+    document.getElementById("test").addEventListener("click", function() {
+        // 로그인한 사용자의 학번은 서버에서 CustomUser로 가져오므로,
+        // 여기서는 단순히 페이지 이동을 시도합니다.
+        window.location.href = "/graduation-check";
+    });
