@@ -143,8 +143,34 @@
                 alert('네트워크 오류가 발생했습니다: ' + error.message);
             });
     }
+
+    //기이수과목 데이터존재 여부 확인 및 접속 방지
     document.getElementById("test").addEventListener("click", function() {
-        // 로그인한 사용자의 학번은 서버에서 CustomUser로 가져오므로,
-        // 여기서는 단순히 페이지 이동을 시도합니다.
-        window.location.href = "/graduation-check";
+        const table = document.getElementById("long_table");
+        const rows = table.getElementsByTagName("tr");
+
+        let hasValidData = false;
+
+        for (let i = 1; i < rows.length; i++) {
+            const cells = rows[i].getElementsByTagName("td");
+
+            let rowHasData = false;
+            for (let j = 0; j < cells.length; j++) {
+                if (cells[j].textContent.trim() !== "") {
+                    rowHasData = true;
+                    break;
+                }
+            }
+
+            if (rowHasData) {
+                hasValidData = true;
+                break;
+            }
+        }
+
+        if (hasValidData) {
+            window.location.href = "/graduation-check";
+        } else {
+            alert("❌기이수과목 데이터를 업데이트 해야만 검사가 가능해요!😥");
+        }
     });

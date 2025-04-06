@@ -13,7 +13,7 @@
     <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
     <link rel="mask-icon" href="/webapp/images/icon.png" color="#712cf9">
     <link rel="icon" href="/webapp/images/icon.ico">
-    <title>졸업 요건 현황</title>
+    <title>졸업요건 검사 결과</title>
     <link href="/webapp/css/basic.css" rel="stylesheet">
     <link href="/webapp/css/auth.css" rel="stylesheet">
     <link href="/webapp/css/mypage.css" rel="stylesheet">
@@ -70,7 +70,8 @@
                     <div class="result_content_info">기타(일선)</div>
                 </div>
                 <div class="result_content">
-                    <div class="result_content_number rednumber" th:text="${graduationResult.requiredTotalCredits - graduationResult.totalEarned}"></div>
+                    <div class="result_content_number rednumber" th:text="${(graduationResult.requiredTotalCredits - graduationResult.totalEarned) > 0 ?
+                    graduationResult.requiredTotalCredits - graduationResult.totalEarned : 0}"></div>
                     <div class="result_content_info">필요 학점</div>
                 </div>
                 <div class="result_content">
@@ -103,7 +104,9 @@
                     <div class="result_content_info">총 이수 학점</div>
                 </div>
                 <div class="result_content">
-                    <div class="result_content_number rednumber" th:text="${graduationResult.requiredMajorRequired - graduationResult.earnedMajorRequired}"></div>
+                    <div class="result_content_number rednumber"
+                         th:text="${(graduationResult.requiredMajorRequired - graduationResult.earnedMajorRequired) > 0 ?
+                         graduationResult.requiredMajorRequired - graduationResult.earnedMajorRequired : 0}"></div>
                     <div class="result_content_info">필요 학점</div>
                 </div>
                 <div class="pie-chart">
@@ -135,7 +138,9 @@
                     <div class="result_content_info">총 이수 학점</div>
                 </div>
                 <div class="result_content">
-                    <div class="result_content_number rednumber" th:text="${graduationResult.requiredMajorElective - graduationResult.earnedMajorElective}"></div>
+                    <div class="result_content_number rednumber"
+                         th:text="${(graduationResult.requiredMajorElective - graduationResult.earnedMajorElective) > 0 ?
+                         graduationResult.requiredMajorElective - graduationResult.earnedMajorElective : 0 }"></div>
                     <div class="result_content_info">필요 학점</div>
                 </div>
                 <div class="pie-chart">
@@ -167,7 +172,9 @@
                     <div class="result_content_info">총 이수 학점</div>
                 </div>
                 <div class="result_content">
-                    <div class="result_content_number rednumber" th:text="${graduationResult.requiredGeneralRequired - graduationResult.earnedGeneralRequired}"></div>
+                    <div class="result_content_number rednumber"
+                         th:text="${(graduationResult.requiredGeneralRequired - graduationResult.earnedGeneralRequired) > 0 ?
+                         graduationResult.requiredGeneralRequired - graduationResult.earnedGeneralRequired : 0}"></div>
                     <div class="result_content_info">필요 학점</div>
                 </div>
                 <div class="pie-chart">
@@ -199,7 +206,10 @@
                     <div class="result_content_info">총 이수 학점</div>
                 </div>
                 <div class="result_content">
-                    <div class="result_content_number rednumber" th:text="${graduationResult.requiredGeneralElective - graduationResult.earnedGeneralElective}"></div>
+                    <div class="result_content_number rednumber"
+                         th:text="${(graduationResult.requiredGeneralElective - graduationResult.earnedGeneralElective) > 0 ?
+                    graduationResult.requiredGeneralElective - graduationResult.earnedGeneralElective : 0}">
+                    </div>
                     <div class="result_content_info">필요 학점</div>
                 </div>
                 <div class="pie-chart">
@@ -231,7 +241,9 @@
                     <div class="result_content_info">총 이수 학점</div>
                 </div>
                 <div class="result_content">
-                    <div class="result_content_number rednumber" th:text="${graduationResult.requiredElectiveMajor - graduationResult.earnedElectiveMajor}"></div>
+                    <div class="result_content_number rednumber"
+                         th:text="${(graduationResult.requiredElectiveMajor - graduationResult.earnedElectiveMajor) > 0 ?
+                    graduationResult.requiredElectiveMajor - graduationResult.earnedElectiveMajor : 0}"></div>
                     <div class="result_content_info">필요 학점</div>
                 </div>
                 <div class="pie-chart">
@@ -263,7 +275,9 @@
                     <div class="result_content_info">총 이수 학점</div>
                 </div>
                 <div class="result_content">
-                    <div class="result_content_number rednumber" th:text="${graduationResult.requiredOther - graduationResult.earnedOther}"></div>
+                    <div class="result_content_number rednumber"
+                         th:text="${(graduationResult.requiredOther - graduationResult.earnedOther) > 0 ?
+                    graduationResult.requiredOther - graduationResult.earnedOther : 0}"></div>
                     <div class="result_content_info">필요 학점</div>
                 </div>
                 <div class="pie-chart">
@@ -294,7 +308,9 @@
                     <div class="result_content_info">총 이수 횟수</div>
                 </div>
                 <div class="result_content">
-                    <div class="result_content_number rednumber" th:text="${graduationResult.requiredChapel - graduationResult.chapelCompleted}"></div>
+                    <div class="result_content_number rednumber"
+                         th:text="${(graduationResult.requiredChapel - graduationResult.chapelCompleted) > 0 ?
+                         graduationResult.requiredChapel - graduationResult.chapelCompleted : 0}"></div>
                     <div class="result_content_info">필요 횟수</div>
                 </div>
                 <div class="pie-chart">
