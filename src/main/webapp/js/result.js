@@ -37,7 +37,7 @@ $(document).ready(function () {
         const targetPercent = Math.round(percent * 100);
         const pieColor = "#0066FF";
         const duration = 1500;
-        const fps = 60;
+        const fps = 120;
         const totalFrames = Math.round((duration / 1000) * fps);
         let currentFrame = 0;
 
