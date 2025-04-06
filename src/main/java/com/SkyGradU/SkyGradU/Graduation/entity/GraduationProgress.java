@@ -1,7 +1,11 @@
 package com.SkyGradU.SkyGradU.Graduation.entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 @Entity
 @Table(name = "graduation_progress")
 public class GraduationProgress {
@@ -37,85 +41,4 @@ public class GraduationProgress {
     @Column(name = "chapel_completed")
     private int chapelCompleted; // 채플 이수 횟수
 
-    // Getter/Setter
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getStudentId() {
-        return studentId;
-    }
-
-    public void setStudentId(String studentId) {
-        this.studentId = studentId;
-    }
-
-    public int getMajorCreditsEarned() {
-        return majorCreditsEarned;
-    }
-
-    public void setMajorCreditsEarned(int majorCreditsEarned) {
-        this.majorCreditsEarned = majorCreditsEarned;
-    }
-
-    public int getMajorElectiveEarned() {
-        return majorElectiveEarned;
-    }
-
-    public void setMajorElectiveEarned(int majorElectiveEarned) {
-        this.majorElectiveEarned = majorElectiveEarned;
-    }
-
-    public int getGeneralEducationEarned() {
-        return generalEducationEarned;
-    }
-
-    public void setGeneralEducationEarned(int generalEducationEarned) {
-        this.generalEducationEarned = generalEducationEarned;
-    }
-
-    public int getGeneralElectiveEarned() {
-        return generalElectiveEarned;
-    }
-
-    public void setGeneralElectiveEarned(int generalElectiveEarned) {
-        this.generalElectiveEarned = generalElectiveEarned;
-    }
-
-    public int getElectiveMajorEarned() {
-        return electiveMajorEarned;
-    }
-
-    public void setElectiveMajorEarned(int electiveMajorEarned) {
-        this.electiveMajorEarned = electiveMajorEarned;
-    }
-
-    public int getOtherEarned() {
-        return otherEarned;
-    }
-
-    public void setOtherEarned(int otherEarned) {
-        this.otherEarned = otherEarned;
-    }
-
-    public int getTotalCreditsEarned() {
-        return totalCreditsEarned;
-    }
-
-    public void setTotalCreditsEarned(int totalCreditsEarned) {
-        this.totalCreditsEarned = totalCreditsEarned;
-    }
-
-    public int getChapelCompleted() {
-        return chapelCompleted;
-    }
-
-    public void setChapelCompleted(int chapelCompleted) {
-        this.chapelCompleted = chapelCompleted;
-    }
 }

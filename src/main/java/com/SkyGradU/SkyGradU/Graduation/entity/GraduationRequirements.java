@@ -1,8 +1,12 @@
 package com.SkyGradU.SkyGradU.Graduation.entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
+@Getter
+@Setter
 public class GraduationRequirements {
 
     @Id
@@ -46,94 +50,4 @@ public class GraduationRequirements {
     // 채플 필수 이수 횟수
     @Column(name = "chapel_required")
     private int chapelRequired;
-
-    // Getters and Setters
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getDepartment() {
-        return department;
-    }
-
-    public void setDepartment(String department) {
-        this.department = department;
-    }
-
-    public int getEnrollmentYear() {
-        return enrollmentYear;
-    }
-
-    public void setEnrollmentYear(int enrollmentYear) {
-        this.enrollmentYear = enrollmentYear;
-    }
-
-    public int getTotalCreditsRequired() {
-        return totalCreditsRequired;
-    }
-
-    public void setTotalCreditsRequired(int totalCreditsRequired) {
-        this.totalCreditsRequired = totalCreditsRequired;
-    }
-
-    public int getMajorCreditsRequired() {
-        return majorCreditsRequired;
-    }
-
-    public void setMajorCreditsRequired(int majorCreditsRequired) {
-        this.majorCreditsRequired = majorCreditsRequired;
-    }
-
-    public int getMajorElectiveCredits() {
-        return majorElectiveCredits;
-    }
-
-    public void setMajorElectiveCredits(int majorElectiveCredits) {
-        this.majorElectiveCredits = majorElectiveCredits;
-    }
-
-    public int getGeneralEducationRequired() {
-        return generalEducationRequired;
-    }
-
-    public void setGeneralEducationRequired(int generalEducationRequired) {
-        this.generalEducationRequired = generalEducationRequired;
-    }
-
-    public int getGeneralElectiveCredits() {
-        return generalElectiveCredits;
-    }
-
-    public void setGeneralElectiveCredits(int generalElectiveCredits) {
-        this.generalElectiveCredits = generalElectiveCredits;
-    }
-
-    public int getElectiveMajor() {
-        return electiveMajor;
-    }
-
-    public void setElectiveMajor(int electiveMajor) {
-        this.electiveMajor = electiveMajor;
-    }
-
-    public int getOtherCredits() {
-        return otherCredits;
-    }
-
-    public void setOtherCredits(int otherCredits) {
-        this.otherCredits = otherCredits;
-    }
-
-    public int getChapelRequired() {
-        return chapelRequired;
-    }
-
-    public void setChapelRequired(int chapelRequired) {
-        this.chapelRequired = chapelRequired;
-    }
 }
