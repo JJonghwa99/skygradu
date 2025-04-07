@@ -2,6 +2,10 @@ package com.SkyGradU.SkyGradU;
 
 import com.SkyGradU.SkyGradU.QnA.QnA;
 import com.SkyGradU.SkyGradU.QnA.QnARepository;
+import com.SkyGradU.SkyGradU.User.member.MemberRepository;
+import com.SkyGradU.SkyGradU.VIsit.VisitService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -15,9 +19,30 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class NavBarController {
     @Autowired
     private QnARepository qnaRepository;
+    @Autowired
+    private final VisitService visitService;
+    @Autowired
+    private final MemberRepository memberRepository;
+
+    public NavBarController(VisitService visitService, MemberRepository memberRepository) {
+        this.visitService = visitService;
+        this.memberRepository = memberRepository;
+    }
 
     @GetMapping("")
-    String Start(Model model){
+    public String start(Model model, HttpServletRequest request, HttpSession session) {
+
+        // 세션 기준 방문 기록
+        visitService.recordVisitOncePerSession(request, session);
+
+        long todayVisits = visitService.getTodayVisitCount();
+        long totalVisits = visitService.getTotalVisitCount();
+        long userCount = memberRepository.count();
+
+        model.addAttribute("todayVisits", todayVisits);
+        model.addAttribute("totalVisits", totalVisits);
+        model.addAttribute("userCount", userCount - 1); //관리자계정 제외
+
         return "Start.html";
     }
 

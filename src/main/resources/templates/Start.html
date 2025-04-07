@@ -30,6 +30,15 @@
 
         <button class="button--moema" sec:authorize="isAuthenticated()" onclick="window.location.href='/mypage'">시작하기</button>
         <button class="button--moema" sec:authorize="isAnonymous()" onclick="window.location.href='/login'">시작하기</button>
+
+        <div class="visit">
+            <p><br>오늘 방문자 수 : <span th:text="${todayVisits}"></span></p>
+            <p>누적 방문자 수 : <span th:text="${totalVisits}"></span></p>
+            <p>총 이용자 수 : <span th:text="${userCount}"></span></p>
+        </div>
+
+
+
     </div>
 
     <!-- 푸터 포함 -->

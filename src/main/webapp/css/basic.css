@@ -80,6 +80,26 @@ font-family: 'Pretendard', sans-serif;
     top: 45%;
     transform: translateY(-50%);
 }
+.hero .visit{
+    font-family: 'Pretendard', sans-serif;
+    position: fixed;
+    bottom: 50px;
+    right: 30px;
+    width: 120px;
+    height: 120px;
+    background-color: rgba(240, 240, 240, 0.75);
+    color: #364352;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    font-size: 14px;
+    font-weight: bold;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    overflow: hidden;
+}
 
 @media (max-width: 768px) {
     .hero .button--moema {
