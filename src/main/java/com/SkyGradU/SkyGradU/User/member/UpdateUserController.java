@@ -199,10 +199,13 @@ public class UpdateUserController {
 
         completedCourseRepository.saveAll(coursesToAdd);
 
-        // 삭제할 과목 처리
+        // 삭제할 과목 처리 (year가 '커스텀'인 데이터만 한 개씩 삭제)
         for (AllLectures dto : deletedCourses) {
-            completedCourseRepository.deleteByMemberIdAndCourseName(auth.getName(), dto.getCourseName());
+            completedCourseRepository
+                    .findFirstByMemberIdAndCourseNameAndYear(auth.getName(), dto.getCourseName(), "커스텀")
+                    .ifPresent(completedCourseRepository::delete);
         }
+
 
         return ResponseEntity.ok().build();
     }
