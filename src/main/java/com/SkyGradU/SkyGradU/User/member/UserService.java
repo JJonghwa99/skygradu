@@ -1,5 +1,6 @@
 package com.SkyGradU.SkyGradU.User.member;
 
+import com.SkyGradU.SkyGradU.Graduation.repository.GraduationProgressRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,8 @@ public class UserService {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+    @Autowired
+    private GraduationProgressRepository graduationProgressRepository;
 
     public boolean verifyPassword(String studentID, String currentPassword) {
         Member member = memberRepository.findByStudentID(studentID)
@@ -36,6 +39,7 @@ public class UserService {
 
     @Transactional
     public void deleteMemberByStudentID(String studentID) {
+        graduationProgressRepository.deleteByStudentId(studentID);
         memberRepository.deleteByStudentID(studentID);
     }
 }

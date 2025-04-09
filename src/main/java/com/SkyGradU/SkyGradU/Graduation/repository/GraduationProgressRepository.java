@@ -8,4 +8,6 @@ import java.util.Optional;
 
 public interface GraduationProgressRepository extends JpaRepository<GraduationProgress, Long> {
     Optional<GraduationProgress> findByStudentId(String studentId);
+
+    void deleteByStudentId(String studentId);
 }
