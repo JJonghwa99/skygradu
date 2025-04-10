@@ -3,6 +3,8 @@ package com.SkyGradU.SkyGradU.Graduation.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 @Getter
 @Setter
@@ -14,8 +16,16 @@ public class GraduationProgress {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    // 기존 studentId 컬럼 (Member 엔티티의 primary key와 연결됨)
     @Column(name = "student_id")
-    private String studentId;  // 사용자 학번(또는 아이디)
+    private String studentId;
+
+    // Member 엔티티와 연관 관계 설정 (읽기 전용으로 지정)
+    // Member 엔티티의 'studentID' 필드와 매핑됩니다.
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "student_id", referencedColumnName = "studentID", insertable = false, updatable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private com.SkyGradU.SkyGradU.User.member.Member member;
 
     @Column(name = "major_credits_earned")
     private int majorCreditsEarned; // 전공필수 취득 학점
