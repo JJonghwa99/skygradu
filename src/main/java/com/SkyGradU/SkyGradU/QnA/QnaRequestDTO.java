@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class QnaRequestDto {
+public class QnaRequestDTO {
     private String title;
     private String content;
     private Boolean anonymous;

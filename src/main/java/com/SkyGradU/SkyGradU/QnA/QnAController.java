@@ -18,7 +18,7 @@ public class QnAController {
 
     // 질문 등록
     @PostMapping("/request")
-    public String createQuestion(@RequestBody QnaRequestDto request, @AuthenticationPrincipal User user) {
+    public String createQuestion(@RequestBody QnaRequestDTO request, @AuthenticationPrincipal User user) {
         String username = user.getUsername();
 
         QnA qna = new QnA();
