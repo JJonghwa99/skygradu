@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#ffffff" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="#ffffff" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/webapp/images/icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/webapp/images/icon.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/webapp/images/icon.png" />
+    <link rel="manifest" href="https://getbootstrap.com/docs/5.3/assets/img/favicons/manifest.json" />
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+    <link rel="mask-icon" href="/webapp/images/icon.png" color="#712cf9">
+    <link rel="icon" href="/webapp/images/icon.ico">
+    <title>강의 추천</title>
+    <link href="/webapp/css/basic.css" rel="stylesheet">
+    <link href="/webapp/css/auth.css" rel="stylesheet">
+    <link href="/webapp/css/mypage.css" rel="stylesheet">
+    <link href="/webapp/css/recommend.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+    <script src="https://use.fontawesome.com/releases/v6.0.0/js/all.js"></script>
+    <style>
+        body {
+            font-family: 'Pretendard', sans-serif;
+            background-color: white;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+
+<body class="d-flex flex-column h-100 text-center">
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+<main class="recommend-container">
+    <h1 class="recommend-title">강의 추천 목록</h1>
+
+    <div class="filter-buttons">
+        <button class="filter-btn active" data-credit="all">전체</button>
+        <button class="filter-btn" data-credit="1">1학점</button>
+        <button class="filter-btn" data-credit="2">2학점</button>
+        <button class="filter-btn" data-credit="3">3학점</button>
+    </div>
+
+    <section class="recommend-section wide">
+        <h2 class="recommend-category">🌟 교양선택</h2>
+        <p class="recommend-description">많이 수강한 교양 과목을 확인해보세요.</p>
+        <div class="recommend-card-grid" id="recommend-culture-elective">
+        </div>
+    </section>
+</main>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="/webapp/js/recommend.js"></script>
+</body>
+</html>
