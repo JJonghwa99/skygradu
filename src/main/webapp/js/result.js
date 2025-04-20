@@ -23,24 +23,47 @@ $(document).ready(function () {
     });
 
     $(".percent").each(function () {
-        let percent = parseFloat($(this).attr("percent"));
+        const $this = $(this);
+        let percent = parseFloat($this.attr("percent"));
 
         if (isNaN(percent) || !isFinite(percent)) {
             percent = 0;
         }
 
+        // 0 ~ 1 범위 제한
         percent = Math.max(0, Math.min(1, percent));
 
-        const degree = Math.round(percent * 360);
-        const percentText = Math.round(percent * 100) + "%";
-
-        $(this).text(percentText);
-
+        const targetDegree = Math.round(percent * 360);
+        const targetPercent = Math.round(percent * 100);
         const pieColor = "#0066FF";
-        $(this).closest(".pie-chart-color").css({
-            background: `conic-gradient(${pieColor} ${degree}deg, #e4e4e4 ${degree}deg)`
-        });
+        const duration = 1500;
+        const fps = 120;
+        const totalFrames = Math.round((duration / 1000) * fps);
+        let currentFrame = 0;
+
+        const $pieChart = $this.closest(".pie-chart-color");
+
+        const interval = setInterval(() => {
+            currentFrame++;
+            const progress = currentFrame / totalFrames;
+
+            const currentPercent = Math.round(progress * targetPercent);
+            const currentDegree = Math.round(progress * targetDegree);
+
+            $this.text(currentPercent + "%");
+
+            $pieChart.css({
+                background: `conic-gradient(${pieColor} ${currentDegree}deg, #e4e4e4 ${currentDegree}deg)`
+            });
+
+            if (currentFrame >= totalFrames) {
+                clearInterval(interval);
+            }
+        }, 1000 / fps);
+
+
     });
+
 
     $(".recommend").on("click", function () {
         const target = $(this).attr("data-target");
