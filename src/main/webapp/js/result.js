@@ -23,50 +23,36 @@ $(document).ready(function () {
     });
 
     $(".percent").each(function () {
-        const $this = $(this);
-        let percent = parseFloat($this.attr("percent"));
+        let percent = parseFloat($(this).attr("percent"));
 
         if (isNaN(percent) || !isFinite(percent)) {
             percent = 0;
         }
 
-        // 0 ~ 1 범위 제한
         percent = Math.max(0, Math.min(1, percent));
 
-        const targetDegree = Math.round(percent * 360);
-        const targetPercent = Math.round(percent * 100);
+        const degree = Math.round(percent * 360);
+        const percentText = Math.round(percent * 100) + "%";
+
+        $(this).text(percentText);
+
         const pieColor = "#0066FF";
-        const duration = 1500;
-        const fps = 120;
-        const totalFrames = Math.round((duration / 1000) * fps);
-        let currentFrame = 0;
-
-        const $pieChart = $this.closest(".pie-chart-color");
-
-        const interval = setInterval(() => {
-            currentFrame++;
-            const progress = currentFrame / totalFrames;
-
-            const currentPercent = Math.round(progress * targetPercent);
-            const currentDegree = Math.round(progress * targetDegree);
-
-
-            $this.text(currentPercent + "%");
-
-            $pieChart.css({
-                background: `conic-gradient(${pieColor} ${currentDegree}deg, #e4e4e4 ${currentDegree}deg)`
-            });
-
-            if (currentFrame >= totalFrames) {
-                clearInterval(interval);
-            }
-        }, 1000 / fps);
+        $(this).closest(".pie-chart-color").css({
+            background: `conic-gradient(${pieColor} ${degree}deg, #e4e4e4 ${degree}deg)`
+        });
     });
-
 
     $(".recommend").on("click", function () {
         const target = $(this).attr("data-target");
-        $(`#${target}`).fadeIn();
+
+        // 교양선택 버튼의 경우 recommend.html 로 이동하도록 처리
+        if (target === "modal-culture-e") {
+            // 필요한 파라미터나 상태가 있다면 URL 파라미터로 추가할 수 있음
+            window.location.href = "/recommend.html";
+        } else {
+            // 나머지 버튼은 기존 모달 열기 처리
+            $(`#${target}`).fadeIn();
+        }
     });
 
     $(".modal .close").on("click", function () {
