@@ -1,54 +1,50 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const cultureElectiveCourses = [
-        { name: "글쓰기와 표현", code: "111111", credit: 2, completed: false },
-        { name: "심리학 개론", code: "222222", credit: 3, completed: false },
-        { name: "디지털 문해력", code: "333333", credit: 1, completed: true },
-        { name: "환경과 미래", code: "444444", credit: 3, completed: false },
-        { name: "인간관계론", code: "555555", credit: 2, completed: true }
-    ];
-
     const container = document.getElementById("recommend-culture-elective");
     const filterButtons = document.querySelectorAll(".filter-btn");
 
+    // 최초 로드 시 서버에서 주입된 배열을 정렬·렌더링
     renderCards(sortByCompletion(cultureElectiveCourses));
 
     filterButtons.forEach(button => {
         button.addEventListener("click", () => {
-            const selectedCredit = parseInt(button.getAttribute("data-credit"));
+            const selectedCredit = button.getAttribute("data-credit");
 
+            // 활성 버튼 토글
             filterButtons.forEach(btn => btn.classList.remove("active"));
             button.classList.add("active");
 
-            const filtered = isNaN(selectedCredit)
+            // "all" 이면 전체, 숫자면 credits 프로퍼티로 필터
+            const filtered = selectedCredit === "all"
                 ? cultureElectiveCourses
-                : cultureElectiveCourses.filter(course => course.credit === selectedCredit);
+                : cultureElectiveCourses.filter(course =>
+                    String(course.credits) === selectedCredit
+                );
 
             renderCards(sortByCompletion(filtered));
         });
     });
 
-    // 렌더링 함수
+    // 카드 렌더링 함수
     function renderCards(courseList) {
         container.innerHTML = "";
-
         courseList.forEach(course => {
             const card = document.createElement("div");
             card.className = "recommend-card";
-
             card.innerHTML = `
-                <h5 class="recommend-subject">${course.name}</h5>
-                <p class="recommend-info">학수번호: ${course.code} | ${course.credit}학점</p>
-                <span class="badge ${course.completed ? "bg-success" : "bg-danger"}">
+                <h5 class="recommend-subject">${course.courseName}</h5>
+                <p class="recommend-info">
+                    학수번호: ${course.lectureCode} | ${course.credits}학점
+                </p>
+                <span class="badge bg-${course.completed ? "success" : "danger"}">
                     ${course.completed ? "이수" : "미이수"}
                 </span>
             `;
-
             container.appendChild(card);
         });
     }
 
-    // 미이수 우선 정렬
-    function sortByCompletion(courseList) {
-        return [...courseList].sort((a, b) => Number(a.completed) - Number(b.completed));
+    // completed 필드(false 우선)가 아직 모두 false 이면 원본 순서(count 내림차순)가 유지됩니다
+    function sortByCompletion(arr) {
+        return [...arr].sort((a, b) => Number(a.completed) - Number(b.completed));
     }
 });
