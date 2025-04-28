@@ -283,7 +283,7 @@ font-family: 'Pretendard', sans-serif;
 .header-text span {
     font-weight:800;
     animation: wave 1.5s ease-in-out;
-    animation-iteration-count: 15;
+    animation-iteration-count: 100;
 }
 
 @keyframes wave {
