@@ -62,8 +62,8 @@
             <div th:each="lec : ${lectures}" class="recommend-card">
                 <h5 class="recommend-subject" th:text="${lec.courseName}">강의명</h5>
                 <p class="recommend-info"
-                   th:text="${'학수번호: ' + lec.lectureCode + ' | ' + lec.credits + '학점'}">
-                    학수번호 | 학점
+                   th:text="${'과목코드: ' + lec.lectureCode + ' | ' + lec.credits + '학점'}">
+                    과목코드 | 학점
                 </p>
                 <span th:classappend="${lec.completed} ? ' bg-success' : ' bg-danger'"
                       th:text="${lec.completed} ? '이수' : '미이수'">

@@ -33,7 +33,7 @@ document.addEventListener("DOMContentLoaded", () => {
             card.innerHTML = `
                 <h5 class="recommend-subject">${course.courseName}</h5>
                 <p class="recommend-info">
-                    학수번호: ${course.lectureCode} | ${course.credits}학점
+                    과목코드: ${course.lectureCode} | ${course.credits}학점
                 </p>
                 <span class="badge bg-${course.completed ? "success" : "danger"}">
                     ${course.completed ? "이수" : "미이수"}

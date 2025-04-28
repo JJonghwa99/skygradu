@@ -17,7 +17,7 @@ public class RecommendController {
         this.lectureService = lectureService;
     }
 
-    @GetMapping({"/recommend", "/recommend.html"})
+    @GetMapping({"/recommend"})
     public String recommendPage(Authentication auth, Model model) {
         // Authentication에서 CustomUser 꺼내기
         CustomUser user = (CustomUser) auth.getPrincipal();
