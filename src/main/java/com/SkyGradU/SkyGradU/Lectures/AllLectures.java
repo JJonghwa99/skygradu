@@ -20,5 +20,6 @@ public class AllLectures {
     private String courseType;
     private int credits;
     private String semesterCompleted;
+    private int count;
 
 }

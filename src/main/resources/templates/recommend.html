@@ -10,34 +10,30 @@
     <link rel="icon" type="image/png" sizes="32x32" href="/webapp/images/icon.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="/webapp/images/icon.png" />
     <link rel="manifest" href="https://getbootstrap.com/docs/5.3/assets/img/favicons/manifest.json" />
-    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+    <link rel="stylesheet" as="style" crossorigin
+          href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
     <link rel="mask-icon" href="/webapp/images/icon.png" color="#712cf9">
     <link rel="icon" href="/webapp/images/icon.ico">
     <title>강의 추천</title>
+
+    <!-- 프로젝트 CSS -->
     <link href="/webapp/css/basic.css" rel="stylesheet">
     <link href="/webapp/css/auth.css" rel="stylesheet">
     <link href="/webapp/css/mypage.css" rel="stylesheet">
     <link href="/webapp/css/recommend.css" rel="stylesheet" />
+
+    <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
-    <script src="https://use.fontawesome.com/releases/v6.0.0/js/all.js"></script>
-    <style>
-        body {
-            font-family: 'Pretendard', sans-serif;
-            background-color: white;
-            color: #333;
-            margin: 0;
-            padding: 0;
-        }
-    </style>
 </head>
 
 <body class="d-flex flex-column h-100 text-center">
+<!-- 네비게이션 바 -->
 <div th:replace="~{fragments/navbar :: navbar}"></div>
 
 <main class="recommend-container">
     <h1 class="recommend-title">강의 추천 목록</h1>
 
+    <!-- 필터 버튼 -->
     <div class="filter-buttons">
         <button class="filter-btn active" data-credit="all">전체</button>
         <button class="filter-btn" data-credit="1">1학점</button>
@@ -48,13 +44,35 @@
     <section class="recommend-section wide">
         <h2 class="recommend-category">🌟 교양선택</h2>
         <p class="recommend-description">많이 수강한 교양 과목을 확인해보세요.</p>
+
+        <!-- 서버에서 받아온 lectures 리스트를 반복 렌더링 -->
         <div class="recommend-card-grid" id="recommend-culture-elective">
+            <div th:each="lec : ${lectures}" class="recommend-card">
+                <h5 class="recommend-subject" th:text="${lec.courseName}">강의명</h5>
+                <p class="recommend-info"
+                   th:text="${'학수번호: ' + lec.lectureCode + ' | ' + lec.credits + '학점'}">
+                    학수번호 | 학점
+                </p>
+                <span th:classappend="${lec.completed} ? ' bg-success' : ' bg-danger'"
+                      th:text="${lec.completed} ? '이수' : '미이수'">
+                        이수/미이수
+                    </span>
+            </div>
         </div>
     </section>
 </main>
 
+<!-- 푸터 -->
 <div th:replace="~{fragments/footer :: footer}"></div>
 
+<!-- 서버 모델을 JS 변수로 주입 (recommend.js보다 위에 위치) -->
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    const cultureElectiveCourses = /*[[${lectures}]]*/ [];
+    /*]]>*/
+</script>
+
+<!-- JavaScript -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="/webapp/js/recommend.js"></script>
 </body>
