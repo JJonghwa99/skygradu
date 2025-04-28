@@ -41,7 +41,8 @@
         <div class="resultbox-main">
             <div class="result_name" style="justify-content: flex-start;">
                 <i class="fa-solid fa-user-graduate"></i>&nbsp; 총 이수학점
-                <span class="small" style="margin-left: 20px;" th:text="${student.studentID + ' ' + student.userName + ' ' + student.major}"></span>
+                <span class="small" style="margin-left: 20px;" th:text="${student.studentID + ' ' + student.userName + ' ' + student.major}"></span>&nbsp;&nbsp;
+                <i class="fa-solid fa-circle-info" title="졸업작품 통과 필요!"></i>
             </div>
             <div class="result_container">
                 <div class="result_content">
@@ -78,8 +79,8 @@
                         <div class="pie-chart-color pie-all">
                             <div class="pie-chart-inner">
                                 <span class="center percent"
-                                    th:text="${((graduationResult.totalEarned * 1.0) / graduationResult.requiredTotalCredits) * 100} + '%'"
-                                    th:attr="percent=${(graduationResult.totalEarned * 1.0) / graduationResult.requiredTotalCredits}">
+                                      th:text="${((graduationResult.totalEarned * 1.0) / graduationResult.requiredTotalCredits) * 100} + '%'"
+                                      th:attr="percent=${(graduationResult.totalEarned * 1.0) / graduationResult.requiredTotalCredits}">
                                 </span>
                             </div>
                         </div>

@@ -205,7 +205,11 @@ public class UpdateUserController {
                     .findFirstByMemberIdAndCourseNameAndYear(auth.getName(), dto.getCourseName(), "커스텀")
                     .ifPresent(completedCourseRepository::delete);
         }
-
+        // update 플래그 true로 변경
+        memberRepository.findByStudentID(auth.getName()).ifPresent(member -> {
+            member.setUpdate(true);
+            memberRepository.save(member);
+        });
 
         return ResponseEntity.ok().build();
     }

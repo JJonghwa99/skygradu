@@ -1,6 +1,8 @@
 package com.SkyGradU.SkyGradU.User.Courses;
 
 import com.SkyGradU.SkyGradU.User.member.CustomUser;
+import com.SkyGradU.SkyGradU.User.member.Member;
+import com.SkyGradU.SkyGradU.User.member.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.tomcat.util.http.fileupload.FileUploadException;
@@ -15,6 +17,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -23,6 +26,7 @@ public class ExcelService {
 
 
     private final CompletedCourseRepository completedCourseRepository;
+    private final MemberRepository memberRepository;
     private static final Logger log = LoggerFactory.getLogger(ExcelService.class);
 
     public String processExcelFile(MultipartFile file, Authentication auth) {
@@ -33,6 +37,13 @@ public class ExcelService {
 
         CustomUser userDetails = (CustomUser) auth.getPrincipal();
         String loggedInStudentID = userDetails.studentID;
+
+        // 회원 정보 조회
+        Optional<Member> optionalMember = memberRepository.findByStudentID(loggedInStudentID);
+        if (!optionalMember.isPresent()) {
+            throw new RuntimeException("Member not found for studentId: " + loggedInStudentID);
+        }
+        Member member = optionalMember.get();
 
         try (InputStream inputStream = file.getInputStream()) {
             Workbook workbook = WorkbookFactory.create(inputStream);
@@ -141,6 +152,10 @@ public class ExcelService {
             }
             completedCourseRepository.saveAll(courseList);
 
+            // update 플래그 true로 변경
+            member.setUpdate(true);
+            memberRepository.save(member);
+
 
             log.info("{}개의 강좌를 성공적으로 저장했습니다. (중복 제거: {}개)", courseList.size(), duplicateCount);
 
@@ -166,6 +181,13 @@ public class ExcelService {
 
 
         String loggedInStudentID = originalFilename.replaceFirst("[.][^.]+$", "");
+
+        // 회원 정보 조회
+        Optional<Member> optionalMember = memberRepository.findByStudentID(loggedInStudentID);
+        if (!optionalMember.isPresent()) {
+            throw new RuntimeException("Member not found for studentId: " + loggedInStudentID);
+        }
+        Member member = optionalMember.get();
 
         try (InputStream inputStream = file.getInputStream()) {
             Workbook workbook = WorkbookFactory.create(inputStream);
@@ -264,6 +286,9 @@ public class ExcelService {
             }
 
             completedCourseRepository.saveAll(courseList);
+            // update 플래그 true로 변경
+            member.setUpdate(true);
+            memberRepository.save(member);
 
 
             log.info("{}개의 강좌를 성공적으로 저장했습니다. (중복 제거: {}개)", courseList.size(), duplicateCount);
