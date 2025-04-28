@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface AllLectureRepository extends JpaRepository<AllLectures, Long> {
 
@@ -21,4 +22,5 @@ public interface AllLectureRepository extends JpaRepository<AllLectures, Long> {
     // 또는 @Query로 직접
     // @Query("SELECT a FROM AllLectures a WHERE a.courseType = :type ORDER BY a.count DESC")
     // List<AllLectures> findTopByCourseType(@Param("type") String type, Pageable pageable);
+    Optional<AllLectures> findByCourseNameAndCourseType(String courseName, String courseType);
 }

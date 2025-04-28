@@ -1,5 +1,6 @@
 package com.SkyGradU.SkyGradU.User.Courses;
 
+import com.SkyGradU.SkyGradU.Lectures.AllLectureRepository;
 import com.SkyGradU.SkyGradU.User.member.CustomUser;
 import com.SkyGradU.SkyGradU.User.member.Member;
 import com.SkyGradU.SkyGradU.User.member.MemberRepository;
@@ -10,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -26,9 +28,11 @@ public class ExcelService {
 
 
     private final CompletedCourseRepository completedCourseRepository;
+    private final AllLectureRepository allLectureRepository;
     private final MemberRepository memberRepository;
     private static final Logger log = LoggerFactory.getLogger(ExcelService.class);
 
+    @Transactional
     public String processExcelFile(MultipartFile file, Authentication auth) {
         if (auth == null || auth.getPrincipal() == null) {
             log.warn("로그인 정보가 없습니다.");
@@ -92,6 +96,13 @@ public class ExcelService {
 
                 String currentCourseType = getCellValueAsString(row.getCell(6)); // 영역
                 String courseName = getCellValueAsString(row.getCell(8)); // 강좌명
+                //추천에 필요한 count 올리기
+                if ("교선".equals(currentCourseType)) {
+                    allLectureRepository.findByCourseNameAndCourseType(courseName, currentCourseType)
+                            .ifPresent(lecture -> lecture.setCount(lecture.getCount() + 1));
+                }
+
+
                 if ("".equalsIgnoreCase(currentCourseType) || "".equalsIgnoreCase(courseName)) {
                     log.info("비어있는 행을 건너뜁니다.");
                     continue;
@@ -171,6 +182,7 @@ public class ExcelService {
     }
 
 
+    @Transactional
     public String processExcelFile2(MultipartFile file) {
 
         String originalFilename = file.getOriginalFilename();
@@ -227,6 +239,13 @@ public class ExcelService {
 
                 String currentCourseType = getCellValueAsString(row.getCell(6)); // 영역
                 String courseName = getCellValueAsString(row.getCell(8)); // 강좌명
+
+                //추천에 필요한 count 올리기
+                if ("교선".equals(currentCourseType)) {
+                    allLectureRepository.findByCourseNameAndCourseType(courseName, currentCourseType)
+                            .ifPresent(lecture -> lecture.setCount(lecture.getCount() + 1));
+                }
+
                 if ("".equalsIgnoreCase(currentCourseType) || "".equalsIgnoreCase(courseName)) {
                     log.info("비어있는 행을 건너뜁니다.");
                     continue;
