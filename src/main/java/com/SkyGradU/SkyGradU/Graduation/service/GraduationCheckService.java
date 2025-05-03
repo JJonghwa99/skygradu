@@ -44,10 +44,10 @@ public class GraduationCheckService {
         }
         Member member = optionalMember.get();
         String department = member.getMajor();
-        String enrollmentYear = member.getEnrollYear();
+        int enrollmentYear = Integer.parseInt(member.getEnrollYear());
 
-        // 졸업요건 조회
-        GraduationRequirements requirements = graduationRequirementsRepository.findByDepartment(department)
+        // 졸업요건 조회 (입학년도까지 일치하는 데이터)
+        GraduationRequirements requirements = graduationRequirementsRepository .findByDepartmentAndEnrollmentYear(department, enrollmentYear)
                 .orElseThrow(() -> new RuntimeException("Graduation requirements not found for department: " + department));
 
         // member update 플래그가 false이면 저장된 GraduationProgress에서 데이터 반환
@@ -57,7 +57,7 @@ public class GraduationCheckService {
 
             return new GraduationCheckResult(
                     department,
-                    enrollmentYear,
+                    String.valueOf(enrollmentYear),
                     requirements.getMajorCreditsRequired(),
                     requirements.getMajorElectiveCredits(),
                     requirements.getGeneralEducationRequired(),
@@ -178,7 +178,7 @@ public class GraduationCheckService {
         // GraduationCheckResult 반환
         GraduationCheckResult result = new GraduationCheckResult(
                 department,
-                enrollmentYear,
+                String.valueOf(enrollmentYear),
                 requirements.getMajorCreditsRequired(),
                 requirements.getMajorElectiveCredits(),
                 requirements.getGeneralEducationRequired(),

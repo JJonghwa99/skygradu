@@ -7,5 +7,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;
 
 public interface GraduationRequirementsRepository extends JpaRepository<GraduationRequirements, Long> {
-    Optional<GraduationRequirements> findByDepartment(String department);
+    Optional<GraduationRequirements> findByDepartmentAndEnrollmentYear(String department, int enrollmentYear);
 }
