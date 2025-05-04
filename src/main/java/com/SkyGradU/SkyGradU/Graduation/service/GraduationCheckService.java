@@ -46,6 +46,11 @@ public class GraduationCheckService {
         String department = member.getMajor();
         int enrollmentYear = Integer.parseInt(member.getEnrollYear());
 
+        //2020년도 전 입학자는 2020기준 검사
+        if (enrollmentYear < 2020) {
+            enrollmentYear = 2020;
+        }
+
         // 졸업요건 조회 (입학년도까지 일치하는 데이터)
         GraduationRequirements requirements = graduationRequirementsRepository .findByDepartmentAndEnrollmentYear(department, enrollmentYear)
                 .orElseThrow(() -> new RuntimeException("Graduation requirements not found for department: " + department));

@@ -32,6 +32,8 @@
         padding: 0;
     }
 </style>
+
+
 <body class="d-flex flex-column h-100 text-center">
 <div th:replace="~{fragments/navbar :: navbar}"></div>
 
@@ -429,5 +431,16 @@
 <div th:replace="~{fragments/footer :: footer}"></div>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="/webapp/js/result.js"></script>
+<script th:inline="javascript" type="text/javascript">
+    window.onload = function() {
+        var studentID = /*[[${student.studentID}]]*/ '';
+
+        var firstFourDigits = studentID.substring(0, 4);
+
+        if (parseInt(firstFourDigits) < 2020) {
+            alert('⚠️2020년 이전 입학자는 2020년도 기준으로 검사해요!\n결과가 정확하지 않을 수 있어요😥');
+        }
+    }
+</script>
 </body>
 </html>
