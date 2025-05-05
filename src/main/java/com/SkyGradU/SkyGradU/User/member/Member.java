@@ -24,6 +24,7 @@ public class Member {
     private String elective;
     private String minor;
     private String enrollYear;
+    private String minorYear;
     private boolean update = true;
 
     public void updatePassword(String newPassword){
