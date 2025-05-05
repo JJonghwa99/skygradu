@@ -21,7 +21,7 @@ public class Member {
     private String userEmail;
     private String password1;
     private String portalID;
-    private String doubleMajor;
+    private String elective;
     private String minor;
     private String enrollYear;
     private boolean update = true;
