@@ -10,6 +10,9 @@ import lombok.Setter;
 public class GraduationCheckResult {
     private String department;               // 사용자의 학과명
     private String enrollmentYear;           // 입학연도
+    private String minorYear;                // 심화, 부전, 복전 시작연도
+    private String electiveType;             // 선택전공 유형 (심화/부전/복전)
+    private String minorDepartment;          // 부전/복전 대상 학과
     private int requiredMajorRequired;       // 졸업요건: 전공필수 필요 학점
     private int requiredMajorElective;       // 졸업요건: 전공선택 필요 학점
     private int requiredGeneralRequired;     // 졸업요건: 교양필수 필요 학점
