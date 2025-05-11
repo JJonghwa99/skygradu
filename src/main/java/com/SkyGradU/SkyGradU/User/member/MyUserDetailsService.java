@@ -38,6 +38,9 @@ public class MyUserDetailsService implements UserDetailsService {
         a.userName = user.getUserName();
         a.studentID = user.getStudentID();
         a.portalID = user.getPortalID();
+        a.elective  = user.getElective();
+        a.minor     = user.getMinor();
+        a.minorYear = user.getMinorYear();
         return a;
     }
 }

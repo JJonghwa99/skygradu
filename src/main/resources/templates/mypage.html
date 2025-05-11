@@ -67,7 +67,46 @@
                             <td class="my_box_table_1st_td"><b>학과</b></td>
                             <td><span th:text="${major}"></span></td>
                         </tr>
+                        <tr>
+                            <td class="my_box_table_1st_td"><b>선택 전공</b></td>
+                            <td class="value-cell">
+                                <span th:text="${minorDept + ' (' + elective + ')'}"></span>
+                                <button class="my_box_mod_btn2" onclick="openMinorModal()">변경하기</button>
+                            </td>
+                        </tr>
                     </table>
+
+                    <!-- 모달 마크업 (body 끝 직전에 삽입) -->
+                    <div id="minorModal" class="modal" style="display:none;">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <span class="modal-close" id="closeMinorModalBtn">&times;</span>
+                                <h2>선택전공 설정</h2>
+                            </div>
+                            <div class="modal-body">
+                                <label>종류</label>
+                                <select id="minorElective">
+                                    <option>심화</option><option>부전</option><option>복전</option>
+                                </select>
+                                <br/>
+                                <label>연도</label>
+                                <select id="minorYear">
+                                    <option>2020</option><option>2021</option><option>2022</option>
+                                    <option>2023</option><option>2024</option><option>2025</option>
+                                </select>
+                                <br/>
+                                <label>학과</label>
+                                <select id="minorDept">
+                                    <option>컴퓨터공학과</option>
+                                    <option>신학과</option>
+                                </select>
+                            </div>
+                            <div class="modal-footer">
+                                <button id="submitMinorModalBtn" class="my_box_mod_btn2">변경</button>
+                                <button id="closeMinorModalBtn" class="my_box_mod_btn3">닫기</button>
+                            </div>
+                        </div>
+                    </div>
                     <hr style="margin-bottom:0.8rem; margin-top:0.8rem;">
                     <div class="my_box_title">
                         <div><i class="fa-solid fa-lock"></i><b>&nbsp;&nbsp;비밀번호 변경</b></div>

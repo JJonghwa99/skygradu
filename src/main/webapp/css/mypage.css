@@ -675,8 +675,27 @@ font-family: 'Pretendard', sans-serif;
     background-color:red;
 }
 
+.info_section table tr td:last-child {
+    position: relative;
+}
 
+.info_section table tr td:last-child .my_box_mod_btn2 {
+    float: right;
+}
 
+.value-cell span {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 
-
-
+.change-minor-btn {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    flex-shrink: 0;
+}
