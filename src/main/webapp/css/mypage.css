@@ -628,6 +628,45 @@ font-family: 'Pretendard', sans-serif;
     text-align: center;
 }
 
+#minorModal .modal-content {
+    width: 80%;
+    max-width: 300px;
+    padding: 15px;
+}
+
+/* 모달 본문에서 폼 그룹을 세로 중앙에 배치 */
+#minorModal .modal-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;   /* 그룹 전체를 중앙 정렬 */
+    gap: 16px;
+    padding: 16px 0;
+}
+
+/* 각 레이블+셀렉트 그룹 */
+#minorModal .form-group {
+    width: 200px;          /* 원하는 고정 너비 */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* 내부는 좌측 정렬 */
+}
+
+/* 레이블 스타일 */
+#minorModal .form-group label {
+    margin-bottom: 4px;
+    font-weight: bold;
+    font-size: 0.95rem;
+    color: #333;
+}
+
+/* 셀렉트 박스: 그룹 너비 100% */
+#minorModal .form-group select {
+    width: 100%;
+    padding: 6px 8px;
+    font-size: 0.95rem;
+    text-align: center;    /* 선택 텍스트는 가운데 정렬 */
+}
+
 /* Input fields */
 .m3-input {
     font-family: 'Pretendard', sans-serif;

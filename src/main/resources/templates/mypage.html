@@ -80,30 +80,64 @@
                     <div id="minorModal" class="modal" style="display:none;">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <span class="modal-close" id="closeMinorModalBtn">&times;</span>
-                                <h2>선택전공 설정</h2>
+                                <span class="modal-close">&times;</span>
+                                <h2>선택 전공</h2>
                             </div>
                             <div class="modal-body">
-                                <label>종류</label>
-                                <select id="minorElective">
-                                    <option>심화</option><option>부전</option><option>복전</option>
-                                </select>
-                                <br/>
-                                <label>연도</label>
-                                <select id="minorYear">
-                                    <option>2020</option><option>2021</option><option>2022</option>
-                                    <option>2023</option><option>2024</option><option>2025</option>
-                                </select>
-                                <br/>
-                                <label>학과</label>
-                                <select id="minorDept">
-                                    <option>컴퓨터공학과</option>
-                                    <option>신학과</option>
-                                </select>
+                                <div class="form-group">
+                                    <label for="minorElective">종류</label>
+                                    <select id="minorElective">
+                                        <option>심화</option>
+                                        <option>부전</option>
+                                        <option>복전</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="minorYear">연도</label>
+                                    <select id="minorYear">
+                                        <option>2020</option><option>2021</option><option>2022</option>
+                                        <option>2023</option><option>2024</option><option>2025</option>
+
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="minorDept">학과</label>
+                                    <select id="minorDept">
+                                        <option>신학과</option>
+                                        <option>신학부</option>
+                                        <option>기독교교육상담과</option>
+                                        <option>문화선교학과</option>
+                                        <option>국어국문학과</option>
+                                        <option>영어영문학과</option>
+                                        <option>중어중문학과</option>
+                                        <option>국제개발협력학과</option>
+                                        <option>사회복지학과</option>
+                                        <option>행정학과</option>
+                                        <option>행정학부</option>
+                                        <option>광광학과</option>
+                                        <option>경영학과</option>
+                                        <option>동아시아물류학부</option>
+                                        <option>글로벌물류학부</option>
+                                        <option>산업경영공학과</option>
+                                        <option>유아교육과</option>
+                                        <option>체육교육과</option>
+                                        <option>컴퓨터공학과</option>
+                                        <option>정보통신공학과</option>
+                                        <option>미디어소프트웨어학과</option>
+                                        <option>도시디자인정보공학과</option>
+                                        <option>음악학부</option>
+                                        <option>연기예술학과</option>
+                                        <option>영화영상학과</option>
+                                        <option>연극영화학부</option>
+                                        <option>뷰티디자인학과</option>
+                                        <option>실용음악과</option>
+                                        <option>공연음악예술학부</option>
+                                        <option>융합학부</option>
+                                    </select>
+                                </div>
                             </div>
                             <div class="modal-footer">
-                                <button id="submitMinorModalBtn" class="my_box_mod_btn2">변경</button>
-                                <button id="closeMinorModalBtn" class="my_box_mod_btn3">닫기</button>
+                                <button class="my_box_mod_btn2" id="submitMinorModalBtn">변경</button>
                             </div>
                         </div>
                     </div>
