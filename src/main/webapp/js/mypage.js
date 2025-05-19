@@ -1,5 +1,5 @@
 // 비밀번호 토글
-function togglePassword(inputId, iconClass) {
+function togglePassword3(inputId, iconClass) {
     const passwordField = document.getElementById(inputId);
     const passwordFieldType = passwordField.getAttribute("type");
     const toggleIcon = document.querySelector(`.${iconClass}`);
