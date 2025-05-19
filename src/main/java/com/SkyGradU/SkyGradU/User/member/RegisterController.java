@@ -69,9 +69,12 @@ public class RegisterController {
             member.setStudentID(studentID);
             member.setUserName(userName);
             member.setMajor(major);
+            member.setMinor(major);
             member.setUserEmail(userEmail);
             member.setPortalID(portalID);
             member.setEnrollYear(studentID.substring(0, 4));
+            member.setMinorYear(studentID.substring(0, 4));
+            member.setElective("심화");
             String encodedPassword = passwordEncoder.encode(password1);
             member.setPassword1(encodedPassword);
             memberRepository.save(member);
