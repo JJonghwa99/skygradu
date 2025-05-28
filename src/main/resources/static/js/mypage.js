@@ -43,6 +43,7 @@ document.getElementById('excelUpload').addEventListener('change', event => {
         "✅ 커스텀 된 수업만 남기고 업데이트 할게요😁\n\n" +
         "✅ 커스텀 된 수업의 수강내역이 발견되면 그 수업도 업데이트 합니다!"
     )) {
+        toggleModal('m6', 'open');
         const formData = new FormData();
         formData.append("file", file);
 
