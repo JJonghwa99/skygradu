@@ -69,7 +69,7 @@ public class AutoExcelService {
 
                 // 로그인 버튼 클릭
                 WebElement loginButton = driver.findElement(By.id("btn-login"));
-                loginButton.click();
+                ((JavascriptExecutor) driver).executeScript("arguments[0].click();", loginButton);
 
                 // 로그인 후 쿠키 저장 (필요한가?)
                 Map<String, String> loginCookies = new HashMap<>();
