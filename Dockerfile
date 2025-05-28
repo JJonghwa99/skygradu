@@ -16,5 +16,8 @@ RUN apt-get update && \
     apt-get install -y google-chrome-stable && \
     rm -rf /var/lib/apt/lists/*
 
+# 다운로드 폴더 생성
+RUN mkdir -p /root/Downloads
+
 EXPOSE 8080
 ENTRYPOINT ["java", "-jar", "/app/app.jar"]
