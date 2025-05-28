@@ -47,7 +47,7 @@ public class QnAController {
         model.addAttribute("isAdmin", isAdmin);
         model.addAttribute("isWriter", isWriter);
 
-        return "qnadetail";
+        return "qnaDetail";
     }
 
     @PostMapping("/answer/{id}")
