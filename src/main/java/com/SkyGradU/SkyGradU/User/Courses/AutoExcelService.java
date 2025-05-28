@@ -36,7 +36,7 @@ public class AutoExcelService {
         Map<String, Object> response = new HashMap<>();
 
         ChromeOptions options = new ChromeOptions();
-        options.addArguments("--headless=new"); // 창을 띄우지 않음
+        options.addArguments("--headless", "--no-sandbox", "--disable-dev-shm-usage"); // 창을 띄우지 않음
         HashMap<String, Object> prefs = new HashMap<>();
 
         WebDriver driver = new ChromeDriver(options);
