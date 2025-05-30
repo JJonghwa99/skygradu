@@ -31,7 +31,7 @@ jobs:
           username: ubuntu
           key: ${{ secrets.ORACLE_CLOUD_SSH_KEY }}
           source: build/libs/SkyGradU-0.0.1-SNAPSHOT.jar
-          target: /home/ubuntu/app/app.jar
+          target: /home/ubuntu/app/
 
 
       - name: Run start.sh on server
