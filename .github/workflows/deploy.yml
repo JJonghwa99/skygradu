@@ -33,7 +33,7 @@ jobs:
           source: build/libs/*.jar
           target: /home/ubuntu/app/app.jar
 
-      - name: Restart Spring Boot app (detached)
+      - name: Restart Spring Boot app (screen)
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.ORACLE_CLOUD_IP }}
@@ -41,10 +41,10 @@ jobs:
           key: ${{ secrets.ORACLE_CLOUD_SSH_KEY }}
           script: |
             pkill -f 'java -jar' || true
-            nohup java -jar /home/ubuntu/app/app.jar \
+            screen -dmS springboot java -jar /home/ubuntu/app/app.jar \
               --spring.datasource.url=${{ secrets.DB_URL }} \
               --spring.datasource.username=${{ secrets.DB_USER }} \
               --spring.datasource.password=${{ secrets.DB_PASSWORD }} \
-              > /home/ubuntu/app/app.log 2>&1 < /dev/null &
-            disown
+              > /home/ubuntu/app/app.log 2>&1
             exit 0
+
