@@ -16,7 +16,7 @@ jobs:
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.ORACLE_CLOUD_IP }}
-          username: opc
+          username: ubuntu
           key: ${{ secrets.ORACLE_CLOUD_SSH_KEY }}
           script: |
             cd ~/myproject
