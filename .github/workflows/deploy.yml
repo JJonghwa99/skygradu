@@ -19,7 +19,7 @@ jobs:
           username: ubuntu
           key: ${{ secrets.ORACLE_CLOUD_SSH_KEY }}
           script: |
-            cd ~/myproject
+            cd ~/skygradu
             git pull origin master
             sudo docker stop spring-app || true
             sudo docker rm spring-app || true
