@@ -1,0 +1,31 @@
+name: Deploy to Oracle Cloud VM
+
+on:
+  push:
+    branches: [ "master" ]
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Deploy on Oracle Cloud VM (SSH)
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.ORACLE_CLOUD_IP }}
+          username: opc
+          key: ${{ secrets.ORACLE_CLOUD_SSH_KEY }}
+          script: |
+            cd ~/myproject
+            git pull origin master
+            sudo docker stop spring-app || true
+            sudo docker rm spring-app || true
+            sudo docker build -t spring-app:latest .
+            sudo docker run -d --restart always --name spring-app \
+              -e DB_URL=${{ secrets.DB_URL }} \
+              -e DB_USER=${{ secrets.DB_USER }} \
+              -e DB_PASSWORD=${{ secrets.DB_PASSWORD }} \
+              -p 8080:8080 spring-app:latest
