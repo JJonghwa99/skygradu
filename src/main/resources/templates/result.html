@@ -6,35 +6,46 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#ffffff">
     <meta name="apple-mobile-web-app-status-bar-style" content="#ffffff">
-    <link rel="apple-touch-icon" sizes="180x180" href="/images/icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/images/icon.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/images/icon.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/webapp/images/icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/webapp/images/icon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/webapp/images/icon.png">
     <link rel="manifest" href="https://getbootstrap.com/docs/5.3/assets/img/favicons/manifest.json">
     <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
-    <link rel="mask-icon" href="/images/icon.png" color="#712cf9">
-    <link rel="icon" href="/images/icon.ico">
+    <link rel="mask-icon" href="/webapp/images/icon.png" color="#712cf9">
+    <link rel="icon" href="/webapp/images/icon.ico">
     <title>졸업요건 검사 결과</title>
-    <link href="/css/basic.css" rel="stylesheet">
-    <link href="/css/auth.css" rel="stylesheet">
-    <link href="/css/mypage.css" rel="stylesheet">
-    <link href="/css/result.css" rel="stylesheet" />
+    <link href="/webapp/css/basic.css" rel="stylesheet">
+    <link href="/webapp/css/auth.css" rel="stylesheet">
+    <link href="/webapp/css/mypage.css" rel="stylesheet">
+    <link href="/webapp/css/result.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
     <script src="https://use.fontawesome.com/releases/v6.0.0/js/all.js"></script>
+
+    <style>
+        @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+        body {
+            font-family: 'Pretendard', sans-serif;
+            background-color: white;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
 </head>
-<style>
-    @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
-    body {
-        font-family: 'Pretendard', sans-serif;
-        background-color: white;
-        color: #333;
-        margin: 0;
-        padding: 0;
-    }
-</style>
 
+<body
+        class="d-flex flex-column h-100 text-center"
+        th:with="major=${student.major}, names=${completedNames}">
 
-<body class="d-flex flex-column h-100 text-center">
+<!-- 전역 JS 변수 초기화 -->
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    window.userMajor      = /*[[${major}]]*/ '';
+    window.completedNames = /*[[${names}]]*/ [];
+    /*]]>*/
+</script>
+
 <div th:replace="~{fragments/navbar :: navbar}"></div>
 
 <div class="lcontainer">
@@ -347,21 +358,7 @@
                             <th class="myth">이수여부</th>
                         </tr>
                         </thead>
-                        <tbody id="major-i-content">
-                        <tr class="mytr">
-                            <td class="mytd">17960</td>
-                            <td class="mytd">전공종합설계(1)</td>
-                            <td class="mytd">3</td>
-                            <td class="mytd green">이수</td>
-                        </tr>
-                        </tbody>
-                        <tbody id="major-i-content2">
-                        <tr class="mytr">
-                            <td class="mytd">17961</td>
-                            <td class="mytd">전공종합설계(2)</td>
-                            <td class="mytd">3</td>
-                            <td class="mytd red">미이수</td>
-                        </tr>
+                        <tbody>
                         </tbody>
                     </table>
                 </div>
@@ -385,12 +382,7 @@
                             <th class="myth">이수여부</th>
                         </tr>
                         </thead>
-                        <tbody id="major-s-content">
-                        <tr class="mytr">
-                            <td class="mytd">202205</td>
-                            <td class="mytd">알고리즘</td>
-                            <td class="mytd">3</td>
-                            <td class="mytd red">미이수</td>
+                        <tbody>
                         </tr>
                         </tbody>
                     </table>
@@ -415,69 +407,8 @@
                             <th class="myth">이수여부</th>
                         </tr>
                         </thead>
-                        <tbody id="culture-c-content1">
-                        <tr class="mytr">
-                            <td class="mytd">21651</td>
-                            <td class="mytd">기독교로의초대(현대인과기독교)</td>
-                            <td class="mytd">3</td>
-                            <td class="mytd green">이수</td>
-                        </tr>
+                        <tbody>
                         </tbody>
-                        <tbody id="culture-c-content2">
-                        <tr class="mytr">
-                            <td class="mytd">21652</td>
-                            <td class="mytd">신앙으로의초대(현대인과성경)</td>
-                            <td class="mytd">3</td>
-                            <td class="mytd green">이수</td>
-                        </tr>
-                        </tbody>
-                        <tbody id="culture-c-content3">
-                        <tr class="mytr">
-                            <td class="mytd">20164</td>
-                            <td class="mytd">영어커뮤니케이션(1)</td>
-                            <td class="mytd">2</td>
-                            <td class="mytd green">이수</td>
-                        </tr>
-                        </tbody>
-                        <tbody id="culture-c-content4">
-                        <tr class="mytr">
-                            <td class="mytd">20165</td>
-                            <td class="mytd">영어커뮤니케이션(2)</td>
-                            <td class="mytd">2</td>
-                            <td class="mytd green">이수</td>
-                        </tr>
-                        </tbody>
-                        <tbody id="culture-c-content5">
-                        <tr class="mytr">
-                            <td class="mytd">19737</td>
-                            <td class="mytd">기초글쓰기</td>
-                            <td class="mytd">2</td>
-                            <td class="mytd green">이수</td>
-                        </tr>
-                        </tbody>
-                        <tbody id="culture-c-content6">
-                        <tr class="mytr">
-                            <td class="mytd">00074</td>
-                            <td class="mytd">사회봉사</td>
-                            <td class="mytd">1</td>
-                            <td class="mytd green">이수</td>
-                        </tr>
-                        </tbody>
-                        <tbody id="culture-c-content7">
-                        <tr class="mytr">
-                            <td class="mytd">20956</td>
-                            <td class="mytd">컴퓨팅사고와코딩기초(파이데이아포럼)</td>
-                            <td class="mytd">2</td>
-                            <td class="mytd green">이수</td>
-                        </tr>
-                        </tbody>
-                        <tbody id="culture-c-content8">
-                        <tr class="mytr">
-                            <td class="mytd">20163</td>
-                            <td class="mytd">대학생활과진로</td>
-                            <td class="mytd">1</td>
-                            <td class="mytd green">이수</td>
-                        </tr>
                     </table>
                 </div>
                 <button class="modal-close-btn" onclick="modal_close(this)" close="modal-culture-c">닫기</button>
@@ -486,9 +417,12 @@
     </div>
 </div>
 
+
 <div th:replace="~{fragments/footer :: footer}"></div>
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="/js/result.js"></script>
+<script src="/webapp/js/result.js"></script>
+
 <script th:inline="javascript" type="text/javascript">
     window.onload = function() {
         var studentID = /*[[${student.studentID}]]*/ '';
