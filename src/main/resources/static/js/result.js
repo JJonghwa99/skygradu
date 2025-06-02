@@ -498,7 +498,7 @@ $(function () {
         },
         '컴퓨터공학과': {
             "modal-major-i": [
-                {"code": "17960", "name": "전공종합설계(1)", "credits": 3}
+                {"code": "17960", "name": "전공종합설계(1)", "credits": 3},
                 {"code": "17961", "name": "전공종합설계(2)", "credits": 3}
             ],
             "modal-major-s": [
