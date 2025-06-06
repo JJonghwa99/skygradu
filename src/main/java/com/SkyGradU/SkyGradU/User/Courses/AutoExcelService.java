@@ -109,8 +109,12 @@ public class AutoExcelService {
                     WebElement 성적정보 = elements.get(0);
                     성적정보.click();
 
+                    System.out.println("성적정보 클릭");
+
                     WebElement 개인별학기성적조회 = driver.findElement(By.xpath("//span[text()='개인별학기성적조회']"));
                     개인별학기성적조회.click();
+
+                    System.out.println("성적조회 클릭");
 
                     driver.switchTo().frame("tabControl_contents_90103030_body");
                     WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(2));
@@ -118,6 +122,8 @@ public class AutoExcelService {
                             By.xpath("//td[@id='tgExt3_center' and contains(text(), '이수구분별성적조회')]")
                     ));
                     이수구분별성적조회.click();
+
+                    System.out.println("이수구분 클릭");
 
 
                     Thread.sleep(3000);
