@@ -54,10 +54,14 @@ public class AutoExcelService {
             // 로그인 성공 여부 확인
             if (loginResponse.body().contains("\"result\":\"SUCCESS\"")) {
 
+                System.out.println("로그인 성공");
+
                 driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 
                 // 로그인 페이지로 이동
                 driver.get("https://www.sungkyul.ac.kr/portalLogin/skukr/portalLoginForm.do");
+
+                System.out.println("로그인 페이지 이동");
 
 
                 // 로그인 폼 채우기
@@ -71,16 +75,22 @@ public class AutoExcelService {
                 WebElement loginButton = driver.findElement(By.id("btn-login"));
                 ((JavascriptExecutor) driver).executeScript("arguments[0].click();", loginButton);
 
-                // 로그인 후 쿠키 저장 (필요한가?)
+                System.out.println("로그인 완료");
+
+                /*// 로그인 후 쿠키 저장 (필요한가?)
                 Map<String, String> loginCookies = new HashMap<>();
                 for (Cookie cookie : driver.manage().getCookies()) {
                     loginCookies.put(cookie.getName(), cookie.getValue());
-                }
+                }*/
+
+
                 String originalWindow = driver.getWindowHandle();
 
                 //sky시스템 접속
                 WebElement nextPageLink = driver.findElement(By.cssSelector("a[href='https://sky.sungkyul.ac.kr:444/sso/index.jsp']"));
                 nextPageLink.click();
+
+                System.out.println("sky시스템 접속");
 
                 //요소 뜰 때까지 대기
                 Thread.sleep(3300);
@@ -133,6 +143,8 @@ public class AutoExcelService {
                     WebElement 엑셀저장버튼 = driver.findElement(By.xpath("//*[@title='엑셀저장']"));
                     엑셀저장버튼.click();
 
+                    System.out.println("파일 다운 시작");
+
                     Thread.sleep(3000);
 
                     Optional<Member> member = memberRepository.findByPortalID(userId);
@@ -143,9 +155,16 @@ public class AutoExcelService {
                         // 파일명 변경
                         File renamedFile = renameFile(downloadedFile, filename);
 
+                        System.out.println("파일 다운로드 후 파일명 변경");
+
                         // 파일 업로드
                         boolean uploadSuccess = uploadFile(renamedFile);
+
+                        System.out.println("파일 업로드 시작");
+
                         response.put("upload_success", uploadSuccess);
+
+                        System.out.println("파일 업로드 완료");
 
 
                         if (renamedFile.exists()) {
