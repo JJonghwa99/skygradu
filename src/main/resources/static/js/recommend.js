@@ -47,4 +47,24 @@ document.addEventListener("DOMContentLoaded", () => {
     function sortByCompletion(arr) {
         return [...arr].sort((a, b) => Number(a.completed) - Number(b.completed));
     }
+
+    // 버튼 요소 가져오기
+    const scrollBtn = document.getElementById('scrollToTopBtn');
+
+// 스크롤 위치에 따라 버튼 보이기/숨기기
+    window.addEventListener('scroll', function() {
+        if (window.scrollY > 200) {
+            scrollBtn.style.opacity = '1';
+            scrollBtn.style.pointerEvents = 'auto';
+        } else {
+            scrollBtn.style.opacity = '0';
+            scrollBtn.style.pointerEvents = 'none';
+        }
+    });
+
+// 버튼 클릭 시 맨 위로 부드럽게 이동
+    scrollBtn.addEventListener('click', function() {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
 });
