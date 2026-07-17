@@ -4,6 +4,7 @@ import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -46,6 +47,7 @@ public class forgetPWService {
         }
         return result;
     }
+    @Transactional
     public Map<String, Object> changePassword(String userId, String newPassword) {
         Map<String, Object> result = new HashMap<>();
 

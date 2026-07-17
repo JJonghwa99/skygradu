@@ -7,6 +7,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +20,7 @@ public class MyUserDetailsService implements UserDetailsService {
     private static final String ADMIN_ID = "admin08";
 
     @Override
+    @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String studentID) throws UsernameNotFoundException{
         var result = memberRepository.findByStudentID(studentID);
         if(result.isEmpty()){

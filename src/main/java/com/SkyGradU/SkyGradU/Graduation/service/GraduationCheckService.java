@@ -13,6 +13,7 @@ import com.SkyGradU.SkyGradU.User.member.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -24,6 +25,7 @@ public class GraduationCheckService {
     @Autowired private GraduationProgressRepository graduationProgressRepository;
     @Autowired private MemberRepository memberRepository;
 
+    @Transactional
     public GraduationCheckResult checkGraduationRequirements(String studentId) {
         // 1) 로그인한 사용자 & Member 조회
         CustomUser user = (CustomUser) SecurityContextHolder.getContext()

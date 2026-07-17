@@ -19,6 +19,8 @@ public interface AllLectureRepository extends JpaRepository<AllLectures, Long> {
     // 교선(courseType='교선')을 count 내림차순, 페이징 처리
     List<AllLectures> findByCourseTypeOrderByCountDesc(String courseType, Pageable pageable);
 
+    List<AllLectures> findByCourseNameIn(List<String> courseNames);
+
     // 또는 @Query로 직접
     // @Query("SELECT a FROM AllLectures a WHERE a.courseType = :type ORDER BY a.count DESC")
     // List<AllLectures> findTopByCourseType(@Param("type") String type, Pageable pageable);

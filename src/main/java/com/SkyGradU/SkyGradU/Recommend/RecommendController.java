@@ -27,7 +27,7 @@ public class RecommendController {
 
         // 추천 목록 + 이수 여부 가져오기
         List<AllLecturesDTO> lectures =
-                lectureService.getTopCultureElectivesWithCompletion(memberId, 50);
+                lectureService.getPersonalizedRecommendations(memberId,500);
 
         // 뷰에 바인딩
         model.addAttribute("lectures", lectures);
